@@ -274,6 +274,97 @@
     color: #d97706;
   }
 
+  /* ===== PHONE SHOWCASE ===== */
+  .showcase {
+    padding: 100px 24px;
+    background: linear-gradient(180deg, #f0f4ff 0%, var(--white) 100%);
+    text-align: center;
+  }
+
+  .showcase h2 {
+    font-size: clamp(24px, 4vw, 36px);
+    font-weight: 900;
+    margin-bottom: 12px;
+  }
+
+  .showcase .subtitle {
+    color: var(--gray-500);
+    font-size: 16px;
+    margin-bottom: 64px;
+  }
+
+  .phone-row {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 32px;
+    max-width: 1000px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+  }
+
+  .phone-mockup {
+    position: relative;
+    transition: transform 0.4s ease;
+  }
+
+  .phone-mockup:hover {
+    transform: translateY(-8px);
+  }
+
+  .phone-mockup.center {
+    transform: scale(1.05);
+    z-index: 2;
+  }
+
+  .phone-mockup.center:hover {
+    transform: scale(1.05) translateY(-8px);
+  }
+
+  .phone-frame {
+    width: 260px;
+    background: #1a1a1a;
+    border-radius: 36px;
+    padding: 12px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15), 0 0 0 1px rgba(255,255,255,0.1) inset;
+  }
+
+  .phone-mockup.center .phone-frame {
+    width: 280px;
+  }
+
+  .phone-screen {
+    border-radius: 26px;
+    overflow: hidden;
+    background: white;
+  }
+
+  .phone-screen img {
+    width: 100%;
+    display: block;
+  }
+
+  .phone-label {
+    margin-top: 16px;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--gray-700);
+  }
+
+  .phone-label-sub {
+    font-size: 13px;
+    color: var(--gray-500);
+    margin-top: 4px;
+  }
+
+  @media (max-width: 768px) {
+    .phone-row { gap: 24px; }
+    .phone-frame { width: 200px !important; border-radius: 28px; padding: 8px; }
+    .phone-screen { border-radius: 22px; }
+    .phone-mockup.center { transform: scale(1); }
+    .phone-mockup.center:hover { transform: translateY(-8px); }
+  }
+
   /* ===== HOW IT WORKS ===== */
   .how-it-works {
     padding: 100px 24px;
@@ -626,6 +717,41 @@
       <h3>매출·정산 관리</h3>
       <p>매출, 인건비, 비용까지 자동 계산. 엑셀 추출해서 세무사에게 바로 전달하세요.</p>
       <span class="feature-badge badge-new">엑셀 추출</span>
+    </div>
+  </div>
+</section>
+
+<!-- PHONE SHOWCASE -->
+<section class="showcase">
+  <h2>실제 앱 화면을 확인하세요</h2>
+  <p class="subtitle">사장님 모드와 팀장 모드, 고객 리포트까지</p>
+  <div class="phone-row">
+    <div class="phone-mockup">
+      <div class="phone-frame">
+        <div class="phone-screen">
+          <img src="s1_home.png" alt="홈 대시보드" loading="lazy">
+        </div>
+      </div>
+      <div class="phone-label">홈 대시보드</div>
+      <div class="phone-label-sub">오늘 예약 · 매출 · 알림</div>
+    </div>
+    <div class="phone-mockup center">
+      <div class="phone-frame">
+        <div class="phone-screen">
+          <img src="s5_report.png" alt="고객 리포트" loading="lazy">
+        </div>
+      </div>
+      <div class="phone-label">고객 리포트</div>
+      <div class="phone-label-sub">실시간 사진 · LIVE 공유</div>
+    </div>
+    <div class="phone-mockup">
+      <div class="phone-frame">
+        <div class="phone-screen">
+          <img src="s3_team.png" alt="팀 관리" loading="lazy">
+        </div>
+      </div>
+      <div class="phone-label">팀 관리</div>
+      <div class="phone-label-sub">팀장 · 알바 · 초대코드</div>
     </div>
   </div>
 </section>
