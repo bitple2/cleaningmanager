@@ -663,149 +663,184 @@
 
   /* ── MOBILE (480px 이하) ─────────────── */
   @media (max-width: 480px) {
-    section { padding: 56px 16px; }
+    section { padding: 48px 20px; }
     
     /* Nav */
     nav { padding: 0 16px; height: 56px; }
     .nav-logo img { height: 28px; }
-    .nav-cta { padding: 8px 16px; font-size: 13px; }
+    .nav-cta { padding: 8px 14px; font-size: 13px; }
 
-    /* Hero */
-    .hero { padding-top: 100px; }
-    .hero h1 { font-size: 32px; margin-bottom: 16px; }
-    .hero p { font-size: 15px; margin-bottom: 32px; }
-    .hero-badge { font-size: 12px; padding: 5px 12px; }
-    .hero-actions { flex-direction: column; align-items: center; gap: 10px; }
-    .btn-primary, .btn-outline { 
-      padding: 14px 28px; font-size: 14px; width: 100%; 
-      text-align: center; box-sizing: border-box; max-width: 280px;
+    /* Hero - 텍스트 가운데 정렬 */
+    .hero { padding-top: 90px; text-align: center; }
+    .hero h1 { font-size: 28px; margin-bottom: 14px; line-height: 1.3; }
+    .hero p { font-size: 14px; margin-bottom: 28px; line-height: 1.7; margin-left: auto; margin-right: auto; }
+    .hero-badge { font-size: 11px; padding: 5px 12px; }
+    .hero-actions { 
+      flex-direction: column; align-items: center; gap: 10px; 
     }
-    .hero-visual { margin-top: 40px; }
-    .hero-mockup { gap: 12px; }
+    .btn-primary, .btn-secondary { 
+      padding: 13px 24px; font-size: 14px; 
+      width: 100%; max-width: 260px;
+      text-align: center; box-sizing: border-box;
+    }
+
+    /* Hero mockup - 가로 스크롤 대신 세로 1열 */
+    .hero-visual { margin-top: 36px; }
+    .hero-mockup { 
+      grid-template-columns: 1fr !important; 
+      gap: 10px; padding: 16px; border-radius: 16px;
+    }
+    .mockup-card { padding: 16px; }
+    .mockup-card-value { font-size: 22px; }
+    .mockup-card-label { font-size: 10px; }
+    .mockup-card-sub { font-size: 11px; }
+    .mockup-item { font-size: 11px; }
+    .mockup-item-time { font-size: 10px; }
 
     /* Stats */
     .stats { 
-      grid-template-columns: 1fr 1fr; gap: 8px; 
-      padding: 32px 16px; margin: 0;
+      grid-template-columns: 1fr 1fr; gap: 0; 
+      padding: 28px 16px; 
     }
-    .stat-item { padding: 16px 8px; }
-    .stat-number { font-size: 24px; }
+    .stat-item { padding: 14px 8px; border-right: 1px solid var(--gray-5); }
+    .stat-item:nth-child(2n) { border-right: none; }
+    .stat-number { font-size: 22px; }
     .stat-label { font-size: 11px; }
 
-    /* Section titles */
-    .section-title { font-size: 26px; margin-bottom: 14px; }
-    .section-desc { font-size: 15px; }
-    .section-tag { font-size: 12px; }
-    .section-inner { padding: 0; }
+    /* Section 공통 - 텍스트 가운데 정렬 */
+    .section-inner { text-align: center; }
+    .section-title { font-size: 24px; margin-bottom: 12px; }
+    .section-desc { font-size: 14px; margin-left: auto; margin-right: auto; }
+    .section-tag { font-size: 12px; margin-bottom: 12px; }
 
     /* Pain section */
     .pain-section { 
-      margin: 0 8px; padding: 36px 16px; 
+      margin: 0; padding: 36px 16px; 
       border-radius: 16px;
     }
-    .pain-section .section-title { font-size: 24px; }
-    .pain-card { padding: 20px 16px; }
-    .pain-title { font-size: 14px; }
-    .pain-desc { font-size: 13px; }
+    .pain-section .section-title { font-size: 22px; }
+    .pain-card { padding: 18px 14px; }
+    .pain-title { font-size: 13px; }
+    .pain-desc { font-size: 12px; }
 
-    /* Value sections */
+    /* Value sections - 텍스트 가운데 정렬 */
     .value-section, .value-section.reverse { 
-      gap: 28px; 
+      gap: 24px; 
     }
-    .value-text .section-title { font-size: 24px; }
-    .value-text .section-desc { font-size: 14px; }
+    .value-text { text-align: center; }
+    .value-text .section-title { font-size: 22px; text-align: center; }
+    .value-text .section-desc { font-size: 13px; text-align: center; margin-left: auto; margin-right: auto; }
+    .value-text .section-tag { text-align: center; }
+    .value-text > div[style*="flex-direction: column"] { align-items: center; }
+    .value-text div[style*="display: flex"][style*="align-items: center"][style*="gap: 12px"] {
+      justify-content: center;
+    }
     .value-visual { padding: 10px 0; }
 
-    /* iPhone frames - single */
-    .value-visual > div[style*="width:270px"] { width: 220px !important; }
+    /* iPhone frames - 싱글 폰 축소 */
+    .value-visual > div[style*="width:270px"] { width: 200px !important; }
     .value-visual > div[style*="border-radius:48px"] { 
-      border-radius: 40px !important; padding: 4px !important; 
+      border-radius: 36px !important; padding: 4px !important; 
+    }
+    .value-visual > div[style*="border-radius:44px"] > div {
+      border-radius: 32px !important;
     }
 
-    /* iPhone frames - dual */
-    .value-visual[style*="gap:20px"] { gap: 10px !important; }
-    .value-visual > div[style*="width:210px"] { width: 155px !important; }
+    /* iPhone frames - 듀얼 폰 축소 */
+    .value-visual[style*="gap:20px"] { gap: 8px !important; }
+    .value-visual > div[style*="width:210px"] { width: 150px !important; }
     .value-visual > div[style*="border-radius:44px"] {
-      border-radius: 36px !important; padding: 4px !important;
+      border-radius: 32px !important; padding: 3px !important;
     }
 
     /* Compare section */
-    .compare-grid { gap: 16px; margin-top: 32px; }
-    .compare-card { padding: 28px 20px; border-radius: 16px; }
-    .compare-card-label { font-size: 12px; margin-bottom: 20px; }
-    .compare-item { font-size: 13.5px; padding: 8px 0; gap: 10px; }
+    .compare-grid { gap: 16px; margin-top: 28px; }
+    .compare-card { padding: 24px 18px; border-radius: 16px; }
+    .compare-card-label { font-size: 12px; margin-bottom: 18px; padding-bottom: 12px; }
+    .compare-item { font-size: 13px; padding: 8px 0; gap: 10px; line-height: 1.5; }
     .compare-item-icon { width: 20px; height: 20px; font-size: 10px; }
     .compare-card.after::before { font-size: 10px; padding: 3px 10px; top: -10px; right: 16px; }
 
     /* Metrics */
-    .metrics-grid { grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 32px; }
+    .metrics-section { padding: 48px 20px; }
+    .metrics-grid { grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 28px; }
     .metric-item { padding: 20px 8px; }
-    .metric-number { font-size: 32px; }
-    .metric-label { font-size: 12px; }
+    .metric-number { font-size: 30px; }
+    .metric-label { font-size: 12px; line-height: 1.4; }
     .metric-label small { font-size: 10px; }
 
     /* Case study */
-    .case-card { padding: 24px 18px; margin-top: 32px; }
-    .case-header { gap: 14px; margin-bottom: 20px; }
+    .case-card { padding: 24px 18px; margin-top: 28px; border-radius: 14px; }
+    .case-header { gap: 12px; margin-bottom: 20px; }
     .case-avatar { width: 44px; height: 44px; font-size: 16px; }
-    .case-name { font-size: 16px; }
+    .case-name { font-size: 15px; }
     .case-role { font-size: 12px; }
-    .case-quote { font-size: 14.5px; padding-left: 18px; line-height: 1.8; }
-    .case-metrics { gap: 16px; padding-top: 20px; }
-    .case-metric-value { font-size: 22px; }
-    .case-metric-label { font-size: 12px; }
+    .case-quote { font-size: 14px; padding-left: 16px; line-height: 1.8; text-align: left; }
+    .case-metrics { gap: 16px; padding-top: 18px; text-align: center; }
+    .case-metric-value { font-size: 20px; }
+    .case-metric-label { font-size: 11px; }
 
     /* Onboarding */
-    .onboard-grid { gap: 20px; margin-top: 32px; }
-    .onboard-card { padding: 16px; }
+    .onboard-grid { gap: 16px; margin-top: 28px; }
+    .onboard-card { padding: 20px 16px; }
     .onboard-step { width: 40px; height: 40px; font-size: 17px; }
     .onboard-title { font-size: 15px; }
     .onboard-desc { font-size: 13px; }
 
     /* Trust */
-    .trust-grid { gap: 12px; margin-top: 32px; }
-    .trust-card { padding: 24px 18px; }
-    .trust-icon { width: 52px; height: 52px; font-size: 28px; border-radius: 14px; }
+    .trust-grid { gap: 12px; margin-top: 28px; }
+    .trust-card { padding: 24px 16px; }
+    .trust-icon { width: 48px !important; height: 48px !important; font-size: 24px !important; border-radius: 12px !important; }
     .trust-title { font-size: 15px; }
     .trust-desc { font-size: 13px; }
 
     /* FAQ */
-    .faq-list { margin-top: 32px; }
-    .faq-question { padding: 16px 18px; font-size: 14px; }
-    .faq-answer p { font-size: 13.5px; }
-    .faq-item.open .faq-answer { padding: 0 18px 16px; }
+    .faq-list { margin-top: 28px; }
+    .faq-item { margin-bottom: 8px; }
+    .faq-question { padding: 16px; font-size: 14px; }
+    .faq-answer p { font-size: 13px; line-height: 1.7; }
+    .faq-item.open .faq-answer { padding: 0 16px 16px; }
 
     /* Pricing */
-    .pricing-card { padding: 28px 20px; }
-    .pricing-name { font-size: 18px; }
-    .pricing-price { font-size: 32px; }
-    .pricing-price span { font-size: 14px; }
-    .pricing-desc { font-size: 13px; }
+    .pricing-section { padding: 48px 20px; }
+    .pricing-grid { gap: 16px; }
+    .pricing-card { padding: 24px 18px; border-radius: 14px; }
+    .pricing-tag { font-size: 11px; }
+    .pricing-name { font-size: 17px; }
+    .pricing-price { font-size: 28px; }
+    .pricing-price span { font-size: 13px; }
+    .pricing-trial { font-size: 12px; }
+    .pricing-desc { font-size: 12px; margin-bottom: 20px; }
     .pricing-feature { font-size: 13px; padding: 10px 0; }
-    .pricing-cta { padding: 14px; font-size: 14px; }
+    .pricing-cta { padding: 13px; font-size: 14px; border-radius: 10px; }
 
     /* Testimonials */
-    .testimonial-card { padding: 24px 18px; }
-    .testimonial-text { font-size: 14px; }
-    .testimonial-name { font-size: 14px; }
+    .testimonial-grid { gap: 12px; }
+    .testimonial-card { padding: 20px 16px; }
+    .testimonial-stars { font-size: 14px; }
+    .testimonial-text { font-size: 13.5px; line-height: 1.7; }
+    .testimonial-author { gap: 10px; }
+    .testimonial-avatar { width: 36px; height: 36px; font-size: 14px; }
+    .testimonial-name { font-size: 13px; }
     .testimonial-role { font-size: 11px; }
 
     /* CTA */
-    .cta-section { padding: 64px 20px; }
-    .cta-section h2 { font-size: 26px; }
-    .cta-section p { font-size: 15px; margin-bottom: 28px; }
-    .cta-section .btn-white { padding: 14px 28px; font-size: 14px; }
+    .cta-section { padding: 56px 20px; text-align: center; }
+    .cta-section h2 { font-size: 24px; line-height: 1.3; }
+    .cta-section p { font-size: 14px; margin-bottom: 24px; }
+    .cta-section .btn-white { padding: 14px 28px; font-size: 14px; border-radius: 10px; }
     .cta-free-note { font-size: 12px; }
 
     /* Footer */
     footer { 
       grid-template-columns: 1fr !important; 
-      gap: 24px !important; padding: 36px 16px !important; 
+      gap: 20px !important; padding: 32px 20px !important; 
     }
     .footer-tagline { font-size: 12px; }
-    .footer-col-title { font-size: 12px; }
+    .footer-col-title { font-size: 12px; margin-bottom: 10px; }
+    .footer-links { gap: 8px; }
     .footer-links a { font-size: 12px; }
-    .footer-bottom { padding: 16px !important; }
+    .footer-bottom { padding: 16px 20px !important; }
     .footer-bottom div { font-size: 11px; }
   }
 </style>
