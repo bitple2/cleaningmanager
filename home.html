@@ -2222,7 +2222,8 @@
   // ── Form Modal ──
   function openForm(e) {
     if (e) e.preventDefault();
-    window.open('https://docs.google.com/forms/d/e/1FAIpQLScnUDHaMybI_DWFZthtlDPoZ3jfpI6HnXyZN0j68rYx00sO0Q/viewform', '_blank');
+    document.getElementById('formModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
   }
   function closeForm() {
     document.getElementById('formModal').classList.remove('active');
