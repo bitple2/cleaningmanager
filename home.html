@@ -2256,8 +2256,10 @@
     document.getElementById('formSuccess').style.display = 'block';
 
     // Send via EmailJS
-    emailjs.send('service_l68764b', 'template_0hrg7ah', formData, 'gua6W-SCH5lOeCUqy')
-      .catch(function() {});
+    emailjs.init('gua6W-SCH5lOeCUqy');
+    emailjs.send('service_l68764b', 'template_0hrg7ah', formData)
+      .then(function() { console.log('EmailJS 성공'); })
+      .catch(function(err) { console.log('EmailJS 에러:', err); });
 
     // Auto close after 3 seconds
     setTimeout(function() {
