@@ -2254,16 +2254,48 @@
     document.getElementById('formContent').style.display = 'none';
     document.getElementById('formSuccess').style.display = 'block';
 
-    // Send to Google Forms via image pixel (most reliable cross-origin method)
-    var gURL = 'https://docs.google.com/forms/d/e/1FAIpQLScnUDHaMybI_DWFZthtlDPoZ3jfpI6HnXyZN0j68rYx00sO0Q/formResponse?'
-      + 'entry.897565308=' + encodeURIComponent(formData.name)
-      + '&entry.1887666979=' + encodeURIComponent(formData.company)
-      + '&entry.1854844979=' + encodeURIComponent(formData.phone)
-      + '&entry.1025279633=' + encodeURIComponent(formData.teamSize)
-      + '&entry.1309133222=' + encodeURIComponent(formData.interest)
-      + '&submit=Submit';
-    var img = new Image();
-    img.src = gURL;
+    // Send to Google Forms via hidden iframe with fbzx token
+    var gFormURL = 'https://docs.google.com/forms/d/e/1FAIpQLScnUDHaMybI_DWFZthtlDPoZ3jfpI6HnXyZN0j68rYx00sO0Q/formResponse';
+
+    // First fetch the form to get fbzx token, then submit
+    var tokenIframe = document.createElement('iframe');
+    tokenIframe.style.display = 'none';
+    tokenIframe.name = 'gform_token';
+    tokenIframe.src = 'https://docs.google.com/forms/d/e/1FAIpQLScnUDHaMybI_DWFZthtlDPoZ3jfpI6HnXyZN0j68rYx00sO0Q/viewform';
+    document.body.appendChild(tokenIframe);
+
+    tokenIframe.onload = function() {
+      var submitIframe = document.createElement('iframe');
+      submitIframe.style.display = 'none';
+      submitIframe.name = 'gform_submit';
+      document.body.appendChild(submitIframe);
+
+      var gForm = document.createElement('form');
+      gForm.method = 'POST';
+      gForm.action = gFormURL;
+      gForm.target = 'gform_submit';
+
+      var fields = {
+        'entry.897565308': formData.name,
+        'entry.1887666979': formData.company,
+        'entry.1854844979': formData.phone,
+        'entry.1025279633': formData.teamSize,
+        'entry.1309133222': formData.interest,
+        'fvv': '1',
+        'pageHistory': '0',
+        'fbzx': '0'
+      };
+      for (var key in fields) {
+        var input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = key;
+        input.value = fields[key];
+        gForm.appendChild(input);
+      }
+      document.body.appendChild(gForm);
+      gForm.submit();
+      setTimeout(function() { gForm.remove(); submitIframe.remove(); tokenIframe.remove(); }, 5000);
+    };
 
     // Auto close after 3 seconds
     setTimeout(function() {
@@ -2315,10 +2347,10 @@
           <select name="interest" class="form-select">
             <option value="">선택해주세요</option>
             <option value="프리미엄 고객 리포트">프리미엄 고객 리포트</option>
-            <option value="팀장,팀원 일정 연동">팀장,팀원 일정 연동</option>
+            <option value="팀장,팀원  일정 연동">팀장,팀원 일정 연동</option>
             <option value="팀장 자동 정산">팀장 자동 정산</option>
             <option value="카드 결제">카드 결제</option>
-            <option value="전체기능">전체기능</option>
+            <option value="전체 기능">전체 기능</option>
           </select>
         </div>
         <button type="submit" class="form-submit">무료 상담 신청하기</button>
