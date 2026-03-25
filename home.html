@@ -1217,6 +1217,7 @@
     .modal-title { font-size: 20px; }
   }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
 
@@ -2221,8 +2222,7 @@
   // ── Form Modal ──
   function openForm(e) {
     if (e) e.preventDefault();
-    document.getElementById('formModal').classList.add('active');
-    document.body.style.overflow = 'hidden';
+    window.open('https://docs.google.com/forms/d/e/1FAIpQLScnUDHaMybI_DWFZthtlDPoZ3jfpI6HnXyZN0j68rYx00sO0Q/viewform', '_blank');
   }
   function closeForm() {
     document.getElementById('formModal').classList.remove('active');
@@ -2254,48 +2254,9 @@
     document.getElementById('formContent').style.display = 'none';
     document.getElementById('formSuccess').style.display = 'block';
 
-    // Send to Google Forms via hidden iframe with fbzx token
-    var gFormURL = 'https://docs.google.com/forms/d/e/1FAIpQLScnUDHaMybI_DWFZthtlDPoZ3jfpI6HnXyZN0j68rYx00sO0Q/formResponse';
-
-    // First fetch the form to get fbzx token, then submit
-    var tokenIframe = document.createElement('iframe');
-    tokenIframe.style.display = 'none';
-    tokenIframe.name = 'gform_token';
-    tokenIframe.src = 'https://docs.google.com/forms/d/e/1FAIpQLScnUDHaMybI_DWFZthtlDPoZ3jfpI6HnXyZN0j68rYx00sO0Q/viewform';
-    document.body.appendChild(tokenIframe);
-
-    tokenIframe.onload = function() {
-      var submitIframe = document.createElement('iframe');
-      submitIframe.style.display = 'none';
-      submitIframe.name = 'gform_submit';
-      document.body.appendChild(submitIframe);
-
-      var gForm = document.createElement('form');
-      gForm.method = 'POST';
-      gForm.action = gFormURL;
-      gForm.target = 'gform_submit';
-
-      var fields = {
-        'entry.897565308': formData.name,
-        'entry.1887666979': formData.company,
-        'entry.1854844979': formData.phone,
-        'entry.1025279633': formData.teamSize,
-        'entry.1309133222': formData.interest,
-        'fvv': '1',
-        'pageHistory': '0',
-        'fbzx': '0'
-      };
-      for (var key in fields) {
-        var input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = key;
-        input.value = fields[key];
-        gForm.appendChild(input);
-      }
-      document.body.appendChild(gForm);
-      gForm.submit();
-      setTimeout(function() { gForm.remove(); submitIframe.remove(); tokenIframe.remove(); }, 5000);
-    };
+    // Send via EmailJS
+    emailjs.send('service_l68764b', 'template_0hrg7ah', formData, 'gua6W-SCH5lOeCUqy')
+      .catch(function() {});
 
     // Auto close after 3 seconds
     setTimeout(function() {
