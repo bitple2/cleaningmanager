@@ -716,7 +716,10 @@
 
   /* Hero sub-tagline */
   .hero-tagline {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
     text-align: center;
     font-size: 15px; font-weight: 600;
     color: var(--gray-2);
@@ -727,6 +730,32 @@
     max-width: fit-content;
     animation: fadeUp 0.8s 0.6s ease both;
     letter-spacing: 0.02em;
+  }
+  .live-dot {
+    position: relative;
+    width: 10px; height: 10px;
+    flex-shrink: 0;
+  }
+  .live-dot::before {
+    content: '';
+    position: absolute;
+    width: 10px; height: 10px;
+    background: #22c55e;
+    border-radius: 50%;
+    top: 0; left: 0;
+  }
+  .live-dot::after {
+    content: '';
+    position: absolute;
+    width: 10px; height: 10px;
+    background: #22c55e;
+    border-radius: 50%;
+    top: 0; left: 0;
+    animation: livePulse 1.5s ease-out infinite;
+  }
+  @keyframes livePulse {
+    0% { transform: scale(1); opacity: 0.6; }
+    100% { transform: scale(2.4); opacity: 0; }
   }
 
   /* ── Mobile carousel adjustments ───── */
@@ -787,30 +816,26 @@
   .compare-card.after .compare-card-label {
     color: var(--navy); border-bottom: 2px solid var(--navy-tint);
   }
-  .compare-item {
-    display: flex; align-items: flex-start; gap: 14px;
-    padding: 11px 0; font-size: 15px; line-height: 1.65;
+  .compare-list {
+    max-width: 760px; margin: 48px auto 0;
+    display: flex; flex-direction: column; gap: 12px;
   }
-  .compare-item-icon {
-    flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%;
-    display: inline-flex; align-items: center; justify-content: center;
-    font-size: 12px; margin-top: 2px;
+  .compare-row {
+    display: grid; grid-template-columns: 1fr auto 1fr;
+    align-items: center; gap: 20px;
+    background: var(--gray-5); border-radius: 16px; padding: 20px 28px;
+    transition: transform 0.2s;
   }
-  .compare-card.before .compare-item {
-    color: var(--gray-3);
+  .compare-row:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+  .compare-before {
+    font-size: 14px; color: var(--gray-3); line-height: 1.6;
+    text-decoration: line-through; text-decoration-color: rgba(0,0,0,0.2);
   }
-  .compare-card.before .compare-item-icon {
-    background: var(--gray-4); color: white;
+  .compare-arrow { font-size: 18px; color: var(--accent); font-weight: 700; flex-shrink: 0; }
+  .compare-after {
+    font-size: 15px; color: var(--text); line-height: 1.6; font-weight: 600;
   }
-  .compare-card.after .compare-item {
-    color: var(--gray-1);
-  }
-  .compare-card.after .compare-item-icon {
-    background: var(--navy); color: white;
-  }
-  .compare-card.after .compare-item strong {
-    color: var(--navy); font-weight: 700;
-  }
+  .compare-after strong { color: var(--navy); }
 
   /* ── METRICS SECTION ─────────────────── */
   .metrics-section { background: var(--navy); color: white; }
@@ -928,7 +953,7 @@
     .pain-grid { grid-template-columns: 1fr; }
     .pricing-grid { grid-template-columns: 1fr; }
     .testimonial-grid { grid-template-columns: 1fr; }
-    .compare-grid { grid-template-columns: 1fr; }
+    .compare-row { padding: 18px 24px; }
     .metrics-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
     .metric-number { font-size: 36px; }
     .case-card { padding: 32px 24px; }
@@ -1034,12 +1059,10 @@
     }
 
     /* Compare section */
-    .compare-grid { gap: 16px; margin-top: 28px; }
-    .compare-card { padding: 24px 18px; border-radius: 16px; }
-    .compare-card-label { font-size: 12px; margin-bottom: 18px; padding-bottom: 12px; }
-    .compare-item { font-size: 13px; padding: 8px 0; gap: 10px; line-height: 1.5; }
-    .compare-item-icon { width: 20px; height: 20px; font-size: 10px; }
-    .compare-card.after::before { font-size: 10px; padding: 3px 10px; top: -10px; right: 16px; }
+    .compare-list { margin-top: 28px; gap: 10px; }
+    .compare-row { grid-template-columns: 1fr; gap: 8px; padding: 16px 20px; text-align: center; }
+    .compare-before { font-size: 13px; }
+    .compare-after { font-size: 14px; }
 
     /* Metrics */
     .metrics-section { padding: 48px 20px; }
@@ -1275,21 +1298,27 @@
         </div>
         <div class="hero-carousel-cell">
           <div class="phone-frame">
-            <div class="phone-inner"><img src="images/customer_report.jpg" alt="고객 리포트"></div>
+            <div class="phone-inner"><img src="images/boss_home2.png" alt="사장모드 홈화면2"></div>
           </div>
-          <div class="phone-label"><strong>고객</strong> 청소 리포트</div>
+          <div class="phone-label"><strong>사장님</strong> 홈화면2</div>
+        </div>
+        <div class="hero-carousel-cell">
+          <div class="phone-frame">
+            <div class="phone-inner"><img src="images/%EA%B3%A0%EA%B0%9D%20%ED%94%84%EB%A6%AC%EB%AF%B8%EC%97%84%20%EB%A6%AC%ED%8F%AC%ED%8A%B8.PNG" alt="고객 프리미엄 리포트"></div>
+          </div>
+          <div class="phone-label"><strong>고객</strong> 프리미엄 리포트</div>
+        </div>
+        <div class="hero-carousel-cell">
+          <div class="phone-frame">
+            <div class="phone-inner"><img src="images/%EC%8B%A4%EC%8B%9C%EA%B0%84%20%EC%B2%AD%EC%86%8C%20%EB%A6%AC%ED%8F%AC%ED%8A%B8.PNG" alt="실시간 청소 리포트"></div>
+          </div>
+          <div class="phone-label"><strong>실시간</strong> 청소 리포트</div>
         </div>
         <div class="hero-carousel-cell">
           <div class="phone-frame">
             <div class="phone-inner"><img src="images/existing_3.png" alt="팀장님 오늘 일정"></div>
           </div>
           <div class="phone-label"><strong>팀장님</strong> 오늘 일정</div>
-        </div>
-        <div class="hero-carousel-cell">
-          <div class="phone-frame">
-            <div class="phone-inner"><img src="images/boss_home2.png" alt="사장모드 홈화면2"></div>
-          </div>
-          <div class="phone-label"><strong>사장님</strong> 대시보드</div>
         </div>
         <div class="hero-carousel-cell">
           <div class="phone-frame">
@@ -1302,12 +1331,6 @@
             <div class="phone-inner"><img src="images/existing_1.png" alt="사장님 일정관리"></div>
           </div>
           <div class="phone-label"><strong>사장님</strong> 일정관리</div>
-        </div>
-        <div class="hero-carousel-cell">
-          <div class="phone-frame">
-            <div class="phone-inner"><img src="images/existing_2.jpg" alt="고객 프리미엄 리포트"></div>
-          </div>
-          <div class="phone-label"><strong>고객</strong> 프리미엄 리포트</div>
         </div>
       </div>
     </div>
@@ -1326,7 +1349,7 @@
     </div>
   </div>
 
-  <div class="hero-tagline">이미 많은 청소업체 사장님들이 전환을 시작했습니다</div>
+  <div class="hero-tagline"><span class="live-dot"></span>이미 100+건의 리포트가 생성되고, 100+명의 고객이 만족하고 있습니다</div>
 </div>
 
 <!-- STATS -->
@@ -1477,22 +1500,33 @@
         </div>
       </div>
   </div>
-</section>
 
-<!-- SOCIAL PROOF: 실제 고객 후기 -->
-<section style="background: white; padding: 80px 0;">
-  <div style="max-width: 720px; margin: 0 auto; padding: 0 24px; text-align: center;">
-    <div class="section-tag reveal">실제 고객 반응</div>
-    <h2 class="section-title reveal" style="margin-bottom: 40px;">리포트 하나로<br>고객 반응이 달라졌습니다</h2>
-    <div class="reveal" style="display: flex; gap: 32px; align-items: center; justify-content: center; flex-wrap: wrap;">
-      <div style="background:#1a1a1a; border-radius:44px; padding:6px; box-shadow:0 25px 60px rgba(0,0,0,0.12); width:280px;">
-        <div style="border-radius:40px; overflow:hidden; background:white;">
-          <img id="realReviewImg" src="images/real_review.png" style="width:100%; display:block;" alt="실제 고객 후기">
+  <!-- 실제 고객 반응 (고객 리포트 섹션 내부) -->
+  <div style="margin-top: 80px; padding-top: 64px; border-top: 1px solid rgba(0,0,0,0.06);">
+    <div style="max-width: 720px; margin: 0 auto; text-align: center;">
+      <div class="reveal" style="display: inline-block; background: var(--accent); color: white; font-size: 14px; font-weight: 700; padding: 6px 18px; border-radius: 20px; margin-bottom: 16px;">실제 고객 반응</div>
+      <h2 class="section-title reveal" style="font-size: 32px; margin-bottom: 48px;">리포트 하나로<br>고객 반응이 달라졌습니다</h2>
+      <div class="reveal" style="display: flex; gap: 32px; align-items: flex-start; justify-content: center; flex-wrap: wrap;">
+        <!-- 후기 1 -->
+        <div style="width:280px; text-align:center;">
+          <div style="background:#1a1a1a; border-radius:44px; padding:6px; box-shadow:0 25px 60px rgba(0,0,0,0.12);">
+            <div style="border-radius:40px; overflow:hidden; background:white;">
+              <img src="images/real_review.png" style="width:100%; display:block;" alt="실제 고객 후기">
+            </div>
+          </div>
+          <p style="font-size:15px; font-weight:600; color:var(--text); line-height:1.7; margin-top:20px;">"어플로 바로바로 사진 전후를 볼 수 있도록 실시간 체크가 가능한 점이 정말 맘에 들었습니다!"</p>
+          <p style="font-size:13px; color:var(--gray-3); margin-top:8px;">— 맘카페 실제 고객 후기</p>
         </div>
-      </div>
-      <div style="text-align: left; max-width: 340px;">
-        <p style="font-size: 18px; font-weight: 700; color: var(--text); line-height: 1.6; margin-bottom: 16px;">"어플로 바로바로 사진 전후를 볼 수 있도록 실시간 체크가 가능한 점이!! 정말 맘에 들었습니다!"</p>
-        <p style="font-size: 14px; color: var(--gray-3);">— 맘카페 실제 고객 후기</p>
+        <!-- 후기 2 -->
+        <div style="width:280px; text-align:center;">
+          <div style="background:#1a1a1a; border-radius:44px; padding:6px; box-shadow:0 25px 60px rgba(0,0,0,0.12);">
+            <div style="border-radius:40px; overflow:hidden; background:white;">
+              <img src="images/%EA%B3%A0%EA%B0%9D%EB%A7%8C%EC%A1%B12.PNG" style="width:100%; display:block;" alt="고객 만족 후기 2">
+            </div>
+          </div>
+          <p style="font-size:15px; font-weight:600; color:var(--text); line-height:1.7; margin-top:20px;">"실시간으로 청소되가는 모습 청소 리포트로 사진+영상으로 제공해주셔서 맘 편하게 믿고 맡길 수 있었습니다"</p>
+          <p style="font-size:13px; color:var(--gray-3); margin-top:8px;">— 실제 고객 후기</p>
+        </div>
       </div>
     </div>
   </div>
@@ -1521,20 +1555,36 @@
           </div>
         </div>
       </div>
-      <div class="value-visual reveal reveal-delay-1" style="display:flex; justify-content:center; align-items:center; gap:32px;">
+      <div class="value-visual reveal reveal-delay-1" style="display:flex; justify-content:center; align-items:center;">
         <div style="display:flex; flex-direction:column; align-items:center;">
-          <div style="font-size:15px; font-weight:800; color:var(--accent); margin-bottom:14px;">사장님 화면</div>
+          <div style="font-size:15px; font-weight:800; color:var(--accent); margin-bottom:14px;">사장님 매출 분석</div>
           <div style="background:#1a1a1a; border-radius:44px; padding:6px; box-shadow:0 25px 60px rgba(0,0,0,0.18); width:280px;">
             <div style="border-radius:40px; overflow:hidden; background:white;">
-              <img loading="lazy" src="assets/images/payroll-settlement.webp" style="width:100%; display:block;" alt="급여 정산">
+              <img loading="lazy" src="assets/images/profit-analysis.webp" style="width:100%; display:block;" alt="매출 손익 분석">
             </div>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- 사장님 vs 팀장님 정산 비교 -->
+    <div style="margin-top: 64px; text-align: center;">
+      <p class="reveal" style="font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 32px;">사장님은 팀장 급여를 관리하고, 팀장님은 내 수입을 확인합니다</p>
+      <div class="reveal" style="display: flex; justify-content: center; align-items: flex-start; gap: 32px; flex-wrap: wrap;">
+        <div style="display:flex; flex-direction:column; align-items:center;">
+          <div style="font-size:15px; font-weight:800; color:var(--accent); margin-bottom:14px;">사장님 화면</div>
+          <div style="background:#1a1a1a; border-radius:44px; padding:6px; box-shadow:0 25px 60px rgba(0,0,0,0.18); width:240px;">
+            <div style="border-radius:40px; overflow:hidden; background:white;">
+              <img loading="lazy" src="images/%EC%82%AC%EC%9E%A5%EB%8B%98%ED%99%94%EB%A9%B41%EB%8C%80%EC%B2%B4.PNG" style="width:100%; display:block;" alt="급여 정산">
+            </div>
+          </div>
+        </div>
+        <div style="font-size:28px; color:var(--accent); align-self:center; margin-top:24px;">↔</div>
         <div style="display:flex; flex-direction:column; align-items:center;">
           <div style="font-size:15px; font-weight:800; color:#36B0A8; margin-bottom:14px;">팀장님 화면</div>
-          <div style="background:#1a1a1a; border-radius:44px; padding:6px; box-shadow:0 25px 60px rgba(0,0,0,0.18); width:280px;">
+          <div style="background:#1a1a1a; border-radius:44px; padding:6px; box-shadow:0 25px 60px rgba(0,0,0,0.18); width:240px;">
             <div style="border-radius:40px; overflow:hidden; background:white;">
-              <img loading="lazy" src="assets/images/profit-analysis.webp" style="width:100%; display:block;" alt="팀장 수입 확인">
+              <img loading="lazy" src="images/%ED%8C%80%EC%9E%A5%EB%8B%98%ED%99%94%EB%A9%B4.PNG" style="width:100%; display:block;" alt="팀장 수입 확인">
             </div>
           </div>
         </div>
@@ -1593,24 +1643,36 @@
       <div class="section-tag reveal">도입 전 vs 도입 후</div>
       <h2 class="section-title reveal">카톡 + 엑셀, 이제 그만.<br>이렇게 달라집니다.</h2>
     </div>
-    <div class="compare-grid">
-      <div class="compare-card before reveal-left">
-        <div class="compare-card-label">Before — 기존 방식</div>
-        <div class="compare-item"><span class="compare-item-icon">✕</span> 카카오톡 단톡방에서 일정 조율하다 하루 끝</div>
-        <div class="compare-item"><span class="compare-item-icon">✕</span> 엑셀로 급여 계산 → 매달 숫자 오류</div>
-        <div class="compare-item"><span class="compare-item-icon">✕</span> 고객에게 보여줄 전문 리포트 없음</div>
-        <div class="compare-item"><span class="compare-item-icon">✕</span> 현금·계좌이체 → 미수금 관리 불가</div>
-        <div class="compare-item"><span class="compare-item-icon">✕</span> 팀장별 매출을 감으로 파악</div>
-        <div class="compare-item"><span class="compare-item-icon">✕</span> 고객 불만 시 원인 추적 불가</div>
+    <div class="compare-list">
+      <div class="compare-row reveal">
+        <div class="compare-before">카톡 단톡방에서 일정 조율</div>
+        <div class="compare-arrow">→</div>
+        <div class="compare-after">예약 등록하면 <strong>팀장 계정에 자동 연동</strong></div>
       </div>
-      <div class="compare-card after reveal-right">
-        <div class="compare-card-label">After — 클리닝매니저</div>
-        <div class="compare-item"><span class="compare-item-icon">✓</span> 예약 등록 → <strong>팀장 자동 알림</strong></div>
-        <div class="compare-item"><span class="compare-item-icon">✓</span> 출퇴근 기반 <strong>자동 정산 · 오류 제로</strong></div>
-        <div class="compare-item"><span class="compare-item-icon">✓</span> 사진 촬영 → <strong>브랜드 리포트 자동 생성</strong></div>
-        <div class="compare-item"><span class="compare-item-icon">✓</span> 토스페이먼츠 <strong>카드 결제 · 미수금 추적</strong></div>
-        <div class="compare-item"><span class="compare-item-icon">✓</span> <strong>실시간 매출·순수익</strong> 대시보드</div>
-        <div class="compare-item"><span class="compare-item-icon">✓</span> 예약별 <strong>사진 기록 → 원인 즉시 파악</strong></div>
+      <div class="compare-row reveal">
+        <div class="compare-before">엑셀로 급여 계산, 매달 오류</div>
+        <div class="compare-arrow">→</div>
+        <div class="compare-after">출퇴근 기반 <strong>자동 정산 · 오류 제로</strong></div>
+      </div>
+      <div class="compare-row reveal">
+        <div class="compare-before">카톡으로 사진 보내면 묻히고, 보관 불가</div>
+        <div class="compare-arrow">→</div>
+        <div class="compare-after">앱에서 사진 촬영하면 <strong>실시간 청소 리포트 자동 생성</strong></div>
+      </div>
+      <div class="compare-row reveal">
+        <div class="compare-before">현금·계좌이체, 미수금 관리 불가</div>
+        <div class="compare-arrow">→</div>
+        <div class="compare-after">토스페이먼츠 <strong>카드 결제 · 미수금 추적</strong></div>
+      </div>
+      <div class="compare-row reveal">
+        <div class="compare-before">팀장별 매출을 감으로 파악</div>
+        <div class="compare-arrow">→</div>
+        <div class="compare-after"><strong>실시간 매출·순수익</strong> 대시보드</div>
+      </div>
+      <div class="compare-row reveal">
+        <div class="compare-before">A/S 시 카톡 뒤져서 사진 찾고, 구역 구분도 안 됨</div>
+        <div class="compare-arrow">→</div>
+        <div class="compare-after">예약별 <strong>사진·리포트 자동 보관 → A/S 시 즉시 증빙</strong></div>
       </div>
     </div>
   </div>
@@ -1674,6 +1736,33 @@
         <div>
           <div class="case-metric-value">0건</div>
           <div class="case-metric-label">일정 누락 사고</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-card reveal" style="margin-top: 32px;">
+      <div class="case-header">
+        <div class="case-avatar" style="background: #00B96B;">위</div>
+        <div>
+          <div class="case-name">위○○ 사장님</div>
+          <div class="case-role">서울 · 경기 청소 전문 업체 · 팀장 1명 · 팀원 2명 · 하루 한 집</div>
+        </div>
+      </div>
+      <div class="case-quote">
+        "매번 같이 일하는 팀원과 예약이 자동으로 연동되니까 따로 연락할 필요가 없어졌어요. 무엇보다 청소 리포트를 고객님께 전달해드리니 '프리미엄 서비스를 받는 느낌'이라고 하시더라고요. 믿고 맡겨주시는 분들이 늘면서 소개 건도 확실히 늘었습니다. 리포트 하나로 이렇게 달라질 줄 몰랐어요. 만족스럽습니다."
+      </div>
+      <div class="case-metrics">
+        <div>
+          <div class="case-metric-value">자동 연동</div>
+          <div class="case-metric-label">팀원 예약 공유</div>
+        </div>
+        <div>
+          <div class="case-metric-value">소개 건 증가</div>
+          <div class="case-metric-label">리포트 도입 후</div>
+        </div>
+        <div>
+          <div class="case-metric-value">프리미엄 인식</div>
+          <div class="case-metric-label">고객 만족도</div>
         </div>
       </div>
     </div>
