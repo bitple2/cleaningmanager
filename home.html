@@ -65,8 +65,6 @@
     transition: background 0.2s, transform 0.1s;
   }
   .nav-cta:hover { background: var(--navy-light); transform: translateY(-1px); }
-  .nav-cta-full { display: inline; }
-  .nav-cta-short { display: none; }
 
   /* ── HERO ────────────────────────────── */
   .hero {
@@ -101,7 +99,7 @@
     margin-bottom: 24px;
     animation: fadeUp 0.6s 0.1s ease both;
   }
-  .hero h1 em { color: var(--accent); font-style: normal; }
+  .hero h1 em { color: #0D9488; font-style: normal; }
   .hero p {
     font-size: clamp(17px, 2.2vw, 22px);
     color: var(--gray-2); line-height: 1.7;
@@ -191,6 +189,9 @@
     font-weight: 900; line-height: 1.2;
     letter-spacing: -0.03em; color: var(--black);
     margin-bottom: 20px;
+  }
+  .title-sub {
+    display: block;
   }
   .section-desc {
     font-size: 18px; color: var(--gray-3); line-height: 1.7;
@@ -523,8 +524,9 @@
     display: block; position: absolute; left: 0; right: 0;
     opacity: 0; transform: translateY(100%);
     transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-    color: var(--accent);
-    font-size: clamp(28px, 4vw, 52px);
+    color: #0D9488;
+    font-size: clamp(30px, 5vw, 56px);
+    font-weight: 900;
     white-space: nowrap;
     text-align: center;
   }
@@ -629,7 +631,7 @@
 
   /* ── HERO 3D CAROUSEL ──────────── */
   .hero-carousel-wrapper {
-    margin-top: -60px;
+    margin-top: 40px;
     animation: fadeUp 1s 0.5s ease both;
     perspective: 1200px;
   }
@@ -672,7 +674,7 @@
     width: 100%; display: block;
   }
   .phone-label {
-    text-align: center; margin-top: 16px;
+    text-align: center; margin-top: 16px; margin-bottom: 20px;
     font-size: 14px; font-weight: 700;
     color: var(--gray-3);
   }
@@ -682,7 +684,8 @@
     align-items: center;
     justify-content: center;
     gap: 16px;
-    margin-top: 60px;
+    margin-top: 100px;
+    margin-bottom: 40px;
   }
   .hero-arrow {
     background: none;
@@ -772,7 +775,7 @@
     .phone-frame { width: 220px; }
   }
   @media (max-width: 480px) {
-    .hero-carousel-wrapper { margin-top: -50px !important; perspective: 800px; }
+    .hero-carousel-wrapper { margin-top: 56px !important; perspective: 800px; }
     .hero-carousel-scene { width: 220px; height: 440px; }
     .hero-carousel-cell { width: 220px; }
     .phone-frame { width: 220px; border-radius: 28px; padding: 5px; }
@@ -977,15 +980,14 @@
     .nav-logo img { height: 28px; }
     .nav-logo { font-size: 16px; }
     .nav-cta { padding: 7px 14px; font-size: 12px; white-space: nowrap; }
-    .nav-cta-full { display: none; }
-    .nav-cta-short { display: inline; }
 
     /* Hero - 텍스트 가운데 정렬 */
-    .hero { padding-top: 56px; text-align: center; }
+    .hero { padding-top: 86px; padding-bottom: 20px; text-align: center; justify-content: flex-start !important; min-height: auto !important; }
     .hero h1 { font-size: 26px; margin-bottom: 24px; line-height: 1.4; }
-    .hero-rotate-word { font-size: 18px; }
-    .hero p { font-size: 13px; margin-bottom: 24px; line-height: 1.7; margin-left: auto; margin-right: auto; }
-    .hero-badge { font-size: 11px; padding: 4px 10px; margin-bottom: 20px; }
+    .hero-rotate-word { font-size: 24px !important; white-space: normal !important; }
+    .hero-rotate-wrapper { height: 40px !important; margin-top: 16px !important; margin-bottom: 16px; }
+    .hero p { font-size: 13px; margin-bottom: 20px; line-height: 1.6; margin-left: auto; margin-right: auto; }
+    .hero-badge { font-size: 11px; padding: 4px 10px; margin-bottom: 20px; background: white !important; }
     .hero-actions {
       flex-direction: row !important; justify-content: center; gap: 10px;
       margin-bottom: 0;
@@ -1009,14 +1011,26 @@
     .mockup-item { font-size: 11px; }
     .mockup-item-time { font-size: 10px; }
 
-    /* Stats */
-    .stats { 
-      grid-template-columns: 1fr 1fr; gap: 0; 
-      padding: 28px 16px; 
+    /* Stats - 설명문으로 대체 */
+    .stats { display: none !important; }
+    .hero p { display: none !important; }
+    .mobile-hero-desc {
+      display: block !important;
+      text-align: center;
+      padding: 32px 24px;
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--gray-2);
+      background: white;
     }
-    .stat-item { padding: 14px 8px; border-right: 1px solid var(--gray-5); }
-    .stat-item:nth-child(2n) { border-right: none; }
-    .stat-number { font-size: 22px; }
+    .mobile-hero-desc strong {
+      font-size: 18px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #0D9488, #1E3A5F);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
     .stat-label { font-size: 11px; }
 
     /* Section 공통 - 텍스트 가운데 정렬 */
@@ -1025,29 +1039,98 @@
     .section-desc { font-size: 14px; margin-left: auto; margin-right: auto; }
     .section-tag { font-size: 12px; margin-bottom: 12px; }
 
-    /* Pain section */
-    .pain-section { 
-      margin: 0; padding: 36px 16px; 
+    /* Pain section - 가로 슬라이드 */
+    .pain-section {
+      margin: 0; padding: 36px 16px;
       border-radius: 16px;
     }
     .pain-section .section-title { font-size: 22px; }
-    .pain-card { padding: 18px 14px; }
-    .pain-title { font-size: 13px; }
+    .pain-grid {
+      display: flex !important;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      gap: 12px;
+      padding-bottom: 16px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .pain-grid::-webkit-scrollbar { display: none; }
+    .pain-card {
+      min-width: 75vw !important;
+      scroll-snap-align: center;
+      padding: 20px 16px;
+      flex-shrink: 0;
+    }
+    .pain-title { font-size: 14px; }
+    .pain-text { font-size: 12px; display: none; }
+    .pain-arrow { display: none; }
+    .pain-solution { font-size: 13px; margin-top: 12px; }
     .pain-desc { font-size: 12px; }
 
-    /* Value sections - 텍스트 가운데 정렬 */
+    /* Value sections - 카드 스타일 */
     .value-section, .value-section.reverse {
-      gap: 24px;
+      gap: 16px;
+      background: white;
+      border-radius: 20px;
+      padding: 24px 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      margin-bottom: 16px;
     }
-    .value-text { text-align: center; }
-    .value-text .section-title { font-size: 22px; text-align: center; }
-    .value-text .section-desc { font-size: 13px; text-align: center; margin-left: auto; margin-right: auto; }
-    .value-text .section-tag { text-align: center; }
-    .value-text > div[style*="flex-direction: column"] { align-items: center; }
+    .value-text { text-align: left; }
+    .value-text .section-tag {
+      text-align: left; font-size: 12px;
+      display: inline-block;
+      background: var(--accent-light);
+      color: var(--accent);
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 6px;
+    }
+    .value-text .section-title {
+      font-size: 20px; text-align: left; line-height: 1.4;
+    }
+    .value-text .section-title .title-sub {
+      display: none;
+    }
+    .value-text .tag-reservation { background: #E8F4FD; color: #1E3A5F; }
+    .value-text .tag-report { background: #E6F7F5; color: #0D9488; }
+    .value-text .tag-payroll { background: #F0EAFF; color: #6B4CE6; }
+    .value-text .tag-payment { background: #FFF3E6; color: #E07800; }
+    .enterprise-badge { display: none !important; }
+
+    /* 간편 결제 - 다크 카드 유지 */
+    section[style*="background: var(--black)"] .value-section {
+      background: var(--black) !important;
+      box-shadow: none !important;
+    }
+    section[style*="background: var(--black)"] .value-text .section-title {
+      color: white !important;
+    }
+    .value-text .section-desc {
+      font-size: 13px; text-align: center;
+      margin-left: auto; margin-right: auto;
+      display: none;
+    }
+    .value-text > div[style*="flex-direction: column"] {
+      align-items: center; display: none;
+    }
     .value-text div[style*="display: flex"][style*="align-items: center"][style*="gap: 12px"] {
       justify-content: center; font-size: 13px !important;
     }
     .value-visual { padding: 10px 0; }
+
+    /* 접힘/펼침 토글 */
+    .value-text .section-desc,
+    .value-text > div[style*="flex-direction: column"] {
+      display: none;
+    }
+    .value-text.expanded .section-desc,
+    .value-text.expanded > div[style*="flex-direction: column"] {
+      display: block !important;
+    }
+    .value-text.expanded > div[style*="flex-direction: column"] {
+      display: flex !important;
+    }
 
     /* 모든 폰 프레임 글로벌 축소 */
     div[style*="width:280px"][style*="border-radius:44px"],
@@ -1075,33 +1158,49 @@
     }
 
     /* 급여 정산 비교 (사장님 ↔ 팀장님) */
-    div[style*="width:240px"] {
-      width: 140px !important;
+    .payroll-compare-title {
+      font-size: 14px !important;
+      margin-bottom: 16px !important;
     }
-    div[style*="width:240px"] div[style*="box-shadow"] {
-      width: 100% !important;
-      border-radius: 28px !important;
-      padding: 3px !important;
+    div[style*="width:240px"] {
+      width: 130px !important;
+    }
+    .compare-phone-frame {
+      width: 130px !important;
+      background: #1a1a1a !important;
+      border-radius: 22px !important;
+      padding: 2px !important;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1) !important;
+    }
+    .compare-phone-inner {
+      border-radius: 20px !important;
     }
     div[style*="font-size:15px"][style*="font-weight:800"] {
-      font-size: 12px !important;
+      font-size: 11px !important;
+      margin-bottom: 8px !important;
     }
     div[style*="font-size:28px"][style*="align-self:center"] {
-      font-size: 18px !important;
+      font-size: 16px !important;
+      margin-top: 8px !important;
     }
-    div[style*="font-size:18px"][style*="font-weight:700"][style*="margin-bottom:32px"] {
-      font-size: 14px !important;
-      margin-bottom: 20px !important;
+    /* 사장님/팀장님 나란히 */
+    div[style*="gap: 32px"][style*="flex-wrap: wrap"] {
+      flex-wrap: nowrap !important;
+      gap: 10px !important;
     }
 
     /* 실제 고객 반응 - 폰 축소 + 텍스트 축소 */
     div[style*="width:280px; text-align:center"] {
       width: 160px !important;
     }
-    div[style*="width:280px; text-align:center"] div[style*="box-shadow"] {
+    div[style*="width:280px; text-align:center"] div[style*="box-shadow"],
+    div[style*="width:280px; text-align:center"] div[style*="background:#1a1a1a"] {
       width: 100% !important;
-      border-radius: 28px !important;
-      padding: 4px !important;
+      border-radius: 20px !important;
+      padding: 2px !important;
+    }
+    div[style*="width:280px; text-align:center"] div[style*="border-radius:40px"] {
+      border-radius: 18px !important;
     }
     div[style*="width:280px; text-align:center"] p[style*="font-size:15px"] {
       font-size: 12px !important;
@@ -1112,11 +1211,13 @@
 
     /* Hero tagline */
     .hero-tagline {
-      font-size: 11px;
-      padding: 6px 12px;
+      font-size: 8px;
+      padding: 6px 14px;
       gap: 6px;
-      max-width: 90vw;
-      margin: 6px auto 6px;
+      max-width: 80vw;
+      margin: 30px auto 30px;
+      text-align: center;
+      line-height: 1.5;
     }
     .live-dot { width: 8px; height: 8px; }
     .live-dot::before, .live-dot::after { width: 8px; height: 8px; }
@@ -1325,7 +1426,7 @@
     <a href="#reviews">후기</a>
       <a href="#faq">FAQ</a>
   </div>
-  <a href="#" class="nav-cta" onclick="openForm(event)"><span class="nav-cta-full">무료로 시작하기</span><span class="nav-cta-short">시작하기</span></a>
+  <a href="#" class="nav-cta" onclick="openForm(event)">무료로 시작하기</a>
 </nav>
 
 <!-- HERO -->
@@ -1348,7 +1449,6 @@
   <div class="hero-actions">
     <a href="#" class="btn-primary" onclick="openForm(event)">무료로 시작하기 →</a>
     <a href="https://open.kakao.com/o/scsRjRji" target="_blank" class="btn-secondary">문의하기</a>
-  </div>
   </div>
   <div class="hero-carousel-wrapper">
     <div class="hero-carousel-scene">
@@ -1435,6 +1535,13 @@
   </div>
 </div>
 
+<div class="mobile-hero-desc" style="display:none;">
+  사장님이 도입하면,<br>
+  <strong>팀장님은 일정이 편해지고</strong><br>
+  <strong>고객님은 리포트에 감동</strong>합니다.<br>
+  휴대폰 하나로 청소업체를 운영하세요.
+</div>
+
 <!-- PAIN POINTS -->
 <div style="padding: 80px 0;">
   <div class="pain-section">
@@ -1446,7 +1553,7 @@
         <div class="pain-title">"팀장한테 일정 전달하다가 하루가 끝나요"</div>
         <div class="pain-text">예약 들어올 때마다 팀장들한테 개별로 연락. 변경되면 또 연락. 카카오톡이 업무 전부가 됐어요.</div>
         <div class="pain-arrow">↓</div>
-        <div class="pain-solution">→ 예약하면 팀장에게 자동 알림, 일정표 공유</div>
+        <div class="pain-solution">→ 예약 생성시 팀장계정에 자동 연동</div>
       </div>
       <div class="pain-card reveal reveal-delay-1">
         <div class="pain-emoji">🧮</div>
@@ -1471,8 +1578,8 @@
   <div class="section-inner">
     <div class="value-section">
       <div class="value-text reveal-left">
-        <div class="section-tag">예약 연동</div>
-        <h2 class="section-title">예약 들어오면<br>팀장이 알아서<br>움직입니다</h2>
+        <div class="section-tag tag-reservation">예약 연동</div>
+        <h2 class="section-title"><span class="title-sub">예약 들어오면<br></span>팀장이 알아서<br>움직입니다</h2>
         <p class="section-desc">예약이 접수되는 순간, 담당 팀장 앱에 자동으로 연동됩니다. 날짜·주소·서비스 내용까지 한번에 전달. 더 이상 카카오톡 안 보내도 됩니다.</p>
         <div style="margin-top: 32px; display: flex; flex-direction: column; gap: 12px;">
           <div style="display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--gray-2);">
@@ -1518,8 +1625,8 @@
   <div class="section-inner">
     <div class="value-section reverse">
       <div class="value-text reveal">
-        <div class="section-tag">고객 리포트</div>
-        <h2 class="section-title">사진 찍으면<br>전문 리포트가<br>자동으로 완성</h2>
+        <div class="section-tag tag-report">고객 리포트</div>
+        <h2 class="section-title"><span class="title-sub">사진 찍으면<br></span>전문 리포트가<br>자동으로 완성</h2>
         <p class="section-desc">자동으로 생성되는 프리미엄 리포트 한 장이면 고객만족도가 높아집니다.<br>팀장이 사진만 찍으면 브랜드 리포트가 완성되고, 고객에게 바로 공유할 수 있어요.</p>
         <div style="margin-top: 32px; display: flex; flex-direction: column; gap: 12px;">
           <div style="display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--gray-2);">
@@ -1535,7 +1642,7 @@
             <span style="color: var(--green); font-size: 18px;">✓</span> A/S 발생 시 증빙 자료로 활용
           </div>
           <div style="display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--gray-2);">
-            <span style="color: var(--green); font-size: 18px;">✓</span> 브랜드에 맞게 리포트 디자인 커스터마이징 <span style="font-size:11px; background:var(--accent); color:white; padding:2px 8px; border-radius:10px; margin-left:4px;">Enterprise</span>
+            <span style="color: var(--green); font-size: 18px;">✓</span> 브랜드에 맞게 리포트 디자인 커스터마이징 <span class="enterprise-badge" style="font-size:9px; background:var(--accent); color:white; padding:1px 6px; border-radius:8px; margin-left:2px; vertical-align:middle;">Enterprise</span>
           </div>
         </div>
       </div>
@@ -1600,8 +1707,8 @@
   <div class="section-inner">
     <div class="value-section">
       <div class="value-text reveal">
-        <div class="section-tag">급여 정산</div>
-        <h2 class="section-title">월말 급여 계산,<br>이제 5분이면<br>끝납니다</h2>
+        <div class="section-tag tag-payroll">급여 정산</div>
+        <h2 class="section-title"><span class="title-sub">월말 급여 계산,<br></span>이제 5분이면<br>끝납니다</h2>
         <p class="section-desc">일급·주급·월급·수수료제까지, 매출·옵션·예약금이 전부 반영되어 자동 정산됩니다. 팀장도 앱에서 수입을 바로 확인해요.</p>
         <div style="margin-top: 32px; display: flex; flex-direction: column; gap: 12px;">
           <div style="display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--gray-2);">
@@ -1632,12 +1739,12 @@
 
     <!-- 사장님 vs 팀장님 정산 비교 -->
     <div style="margin-top: 64px; text-align: center;">
-      <p class="reveal" style="font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 32px;">사장님은 팀장 급여를 관리하고, 팀장님은 내 수입을 확인합니다</p>
+      <p class="reveal payroll-compare-title" style="font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 32px;">사장님은 팀장 급여를 관리하고,<br>팀장님은 내 수입을 확인합니다</p>
       <div class="reveal" style="display: flex; justify-content: center; align-items: flex-start; gap: 32px; flex-wrap: wrap;">
         <div style="display:flex; flex-direction:column; align-items:center;">
           <div style="font-size:15px; font-weight:800; color:var(--accent); margin-bottom:14px;">사장님 화면</div>
-          <div style="background:#1a1a1a; border-radius:44px; padding:6px; box-shadow:0 25px 60px rgba(0,0,0,0.18); width:240px;">
-            <div style="border-radius:40px; overflow:hidden; background:white;">
+          <div class="compare-phone-frame" style="background:#1a1a1a; border-radius:44px; padding:6px; box-shadow:0 25px 60px rgba(0,0,0,0.18); width:240px;">
+            <div class="compare-phone-inner" style="border-radius:40px; overflow:hidden; background:white;">
               <img loading="lazy" src="images/%EC%82%AC%EC%9E%A5%EB%8B%98%ED%99%94%EB%A9%B41%EB%8C%80%EC%B2%B4.PNG" style="width:100%; display:block;" alt="급여 정산">
             </div>
           </div>
@@ -1645,8 +1752,8 @@
         <div style="font-size:28px; color:var(--accent); align-self:center; margin-top:24px;">↔</div>
         <div style="display:flex; flex-direction:column; align-items:center;">
           <div style="font-size:15px; font-weight:800; color:#36B0A8; margin-bottom:14px;">팀장님 화면</div>
-          <div style="background:#1a1a1a; border-radius:44px; padding:6px; box-shadow:0 25px 60px rgba(0,0,0,0.18); width:240px;">
-            <div style="border-radius:40px; overflow:hidden; background:white;">
+          <div class="compare-phone-frame" style="background:#1a1a1a; border-radius:44px; padding:6px; box-shadow:0 25px 60px rgba(0,0,0,0.18); width:240px;">
+            <div class="compare-phone-inner" style="border-radius:40px; overflow:hidden; background:white;">
               <img loading="lazy" src="images/%ED%8C%80%EC%9E%A5%EB%8B%98%ED%99%94%EB%A9%B4.PNG" style="width:100%; display:block;" alt="팀장 수입 확인">
             </div>
           </div>
@@ -1661,8 +1768,8 @@
   <div class="section-inner">
     <div class="value-section reverse">
       <div class="value-text reveal">
-        <div class="section-tag" style="color: #1E3A5F;">간편 결제</div>
-        <h2 class="section-title" style="color: white;">현장에서<br>카드 결제까지<br>앱 하나로</h2>
+        <div class="section-tag tag-payment" style="color: #1E3A5F;">간편 결제</div>
+        <h2 class="section-title" style="color: white;"><span class="title-sub">현장에서<br></span>카드 결제까지<br>앱 하나로</h2>
         <p class="section-desc" style="color: rgba(255,255,255,0.5);">청소 완료 후 현장에서 바로 결제. Toss Payments 연동으로 카드·계좌이체 모두 지원해요. 미수금 걱정 없이, 정산도 깔끔하게.</p>
         <div style="margin-top: 32px; display: flex; flex-direction: column; gap: 12px;">
           <div style="display: flex; align-items: center; gap: 12px; font-size: 15px; color: rgba(255,255,255,0.6);">
@@ -2297,9 +2404,32 @@
       }
     }, {passive: true});
 
+    // 탭 비활성화 시 타이머 멈춤
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        clearInterval(timer);
+      } else {
+        startAuto();
+      }
+    });
+
     rotate();
     startAuto();
   })();
+
+  // ── Value section 모바일 접힘/펼침 ──
+  if (window.innerWidth <= 480) {
+    document.querySelectorAll('.value-text').forEach(vt => {
+      const btn = document.createElement('button');
+      btn.textContent = '자세히 보기 ▾';
+      btn.style.cssText = 'background:none; border:1px solid var(--gray-4); border-radius:20px; padding:8px 16px; font-size:12px; color:var(--gray-2); cursor:pointer; margin-top:12px; font-weight:600; display:block; width:fit-content; margin-left:auto; margin-right:auto;';
+      btn.addEventListener('click', () => {
+        vt.classList.toggle('expanded');
+        btn.textContent = vt.classList.contains('expanded') ? '접기 ▴' : '자세히 보기 ▾';
+      });
+      vt.appendChild(btn);
+    });
+  }
 
   // ── 5. Testimonial Carousel (auto-play, single slide of 3 cards) ──
   const track = document.getElementById('testimonialTrack');
