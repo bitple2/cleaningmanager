@@ -975,8 +975,8 @@
   @media (max-width: 480px) {
     section { padding: 48px 20px; }
     
-    /* Nav */
-    nav { padding: 0 16px; height: 56px; }
+    /* Nav - 투명 오버레이 */
+    nav { padding: 0 16px; height: 56px; background: transparent !important; backdrop-filter: none !important; border-bottom: none !important; }
     .nav-logo img { height: 28px; }
     .nav-logo { font-size: 16px; }
     .nav-cta { padding: 7px 14px; font-size: 12px; white-space: nowrap; }
@@ -1041,8 +1041,9 @@
 
     /* Pain section - 가로 슬라이드 */
     .pain-section {
-      margin: 0; padding: 36px 16px;
-      border-radius: 16px;
+      margin: 0 16px; padding: 36px 16px;
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.15);
     }
     .pain-section .section-title { font-size: 22px; }
     .pain-grid {
@@ -1056,10 +1057,13 @@
     }
     .pain-grid::-webkit-scrollbar { display: none; }
     .pain-card {
-      min-width: 75vw !important;
-      scroll-snap-align: center;
+      min-width: 70vw !important;
+      scroll-snap-align: start;
       padding: 20px 16px;
       flex-shrink: 0;
+    }
+    .pain-grid {
+      padding-left: 4px !important;
     }
     .pain-title { font-size: 14px; }
     .pain-text { font-size: 12px; display: none; }
@@ -1300,10 +1304,20 @@
     .cta-free-note { font-size: 12px; }
 
     /* Footer */
-    footer { 
-      grid-template-columns: 1fr !important; 
-      gap: 20px !important; padding: 32px 20px !important; 
+    footer {
+      grid-template-columns: 1fr !important;
+      gap: 20px !important; padding: 32px 20px !important;
     }
+    footer > div:not(.footer-brand):not(.footer-bottom) {
+      display: inline-block;
+      vertical-align: top;
+      width: 30%;
+    }
+    footer {
+      display: flex !important;
+      flex-wrap: wrap !important;
+    }
+    .footer-brand { width: 100% !important; }
     .footer-tagline { font-size: 12px; }
     .footer-col-title { font-size: 12px; margin-bottom: 10px; }
     .footer-links { gap: 8px; }
@@ -1445,7 +1459,7 @@
       <span class="hero-rotate-word">원클릭 정산 · 세무</span>
     </span>
   </h1>
-  <p>사장님이 도입하면,<br><strong style="color:var(--text)">팀장님은 일정이 편해지고</strong> <strong style="color:var(--text)">고객님은 리포트에 감동</strong>합니다.<br>휴대폰 하나로 청소업체를 운영하세요.</p>
+  <p>사장님이 도입하면,<br><strong style="color:var(--text)">팀장님은 일정이 편해지고</strong> <strong style="color:var(--text)">고객님은 리포트에 감동</strong>합니다.</p>
   <div class="hero-actions">
     <a href="#" class="btn-primary" onclick="openForm(event)">무료로 시작하기 →</a>
     <a href="https://open.kakao.com/o/scsRjRji" target="_blank" class="btn-secondary">문의하기</a>
@@ -1539,7 +1553,6 @@
   사장님이 도입하면,<br>
   <strong>팀장님은 일정이 편해지고</strong><br>
   <strong>고객님은 리포트에 감동</strong>합니다.<br>
-  휴대폰 하나로 청소업체를 운영하세요.
 </div>
 
 <!-- PAIN POINTS -->
@@ -2168,8 +2181,8 @@
 <!-- CTA -->
 <div class="cta-section">
   <div class="section-tag">지금 바로 시작</div>
-  <h2>프리미엄 청소업체로의<br>첫 걸음, 지금 시작하세요</h2>
-  <p>신용카드 없이 14일 무료. 5분이면 도입 완료. 언제든 해지 가능.</p>
+  <h2>프리미엄 청소업체로의<br>첫 걸음, 써보는게 가장 빠릅니다.</h2>
+  <p>신용카드 없이 14일 무료. 5분이면 도입 완료.<br>언제든 해지 가능.</p>
   <a href="#" class="btn-white" onclick="openForm(event)">무료로 시작하기 →</a>
   <div style="display:flex; gap:12px; justify-content:center; margin-top:24px;">
     <a href="https://apps.apple.com/kr/app/%ED%81%B4%EB%A6%AC%EB%8B%9D%EB%A7%A4%EB%8B%88%EC%A0%80/id6760005698" target="_blank" style="display:inline-block; transition: transform 0.2s; opacity:0.85;" onmouseover="this.style.transform='translateY(-2px)';this.style.opacity='1'" onmouseout="this.style.transform='none';this.style.opacity='0.85'">
@@ -2227,7 +2240,7 @@
   </div>
 </footer>
 <div class="footer-bottom">
-  <div>© 2024 클리닝매니저. All rights reserved.</div>
+  <div>© 2026 클리닝매니저. All rights reserved.</div>
   <div>개인정보처리방침 · 이용약관</div>
 </div>
 
@@ -2416,6 +2429,12 @@
     rotate();
     startAuto();
   })();
+
+  // ── 네비바 버튼 모바일 텍스트 변경 ──
+  if (window.innerWidth <= 480) {
+    const navCta = document.querySelector('.nav-cta');
+    if (navCta) navCta.textContent = '바로 시작하기';
+  }
 
   // ── Value section 모바일 접힘/펼침 ──
   if (window.innerWidth <= 480) {
