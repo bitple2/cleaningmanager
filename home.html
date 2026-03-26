@@ -1029,8 +1029,8 @@
     .pain-desc { font-size: 12px; }
 
     /* Value sections - 텍스트 가운데 정렬 */
-    .value-section, .value-section.reverse { 
-      gap: 24px; 
+    .value-section, .value-section.reverse {
+      gap: 24px;
     }
     .value-text { text-align: center; }
     .value-text .section-title { font-size: 22px; text-align: center; }
@@ -1038,31 +1038,87 @@
     .value-text .section-tag { text-align: center; }
     .value-text > div[style*="flex-direction: column"] { align-items: center; }
     .value-text div[style*="display: flex"][style*="align-items: center"][style*="gap: 12px"] {
-      justify-content: center;
+      justify-content: center; font-size: 13px !important;
     }
     .value-visual { padding: 10px 0; }
 
-    /* iPhone frames - 싱글 폰 축소 */
-    .value-visual > div[style*="width:270px"] { width: 200px !important; }
-    .value-visual > div[style*="border-radius:48px"] { 
-      border-radius: 36px !important; padding: 4px !important; 
-    }
-    .value-visual > div[style*="border-radius:44px"] > div {
+    /* 모든 폰 프레임 글로벌 축소 */
+    div[style*="width:280px"][style*="border-radius:44px"],
+    div[style*="width:280px"][style*="box-shadow"] {
+      width: 200px !important;
       border-radius: 32px !important;
+      padding: 4px !important;
+    }
+    div[style*="width:280px"][style*="border-radius:44px"] > div,
+    div[style*="width:280px"][style*="box-shadow"] > div {
+      border-radius: 28px !important;
     }
 
-    /* iPhone frames - 듀얼 폰 축소 */
-    .value-visual[style*="gap:20px"] { gap: 8px !important; }
-    .value-visual > div[style*="width:210px"] { width: 150px !important; }
-    .value-visual > div[style*="border-radius:44px"] {
-      border-radius: 32px !important; padding: 3px !important;
+    /* 듀얼 폰 레이아웃 (리포트 사장님/고객님) */
+    .value-visual[style*="gap:32px"] {
+      gap: 12px !important;
+      flex-direction: column !important;
+      align-items: center !important;
     }
+    .value-visual[style*="gap:32px"] div[style*="width:280px"] {
+      width: 200px !important;
+    }
+    .value-visual[style*="gap:32px"] div[style*="font-size:28px"] {
+      display: none !important;
+    }
+
+    /* 급여 정산 비교 (사장님 ↔ 팀장님) */
+    div[style*="width:240px"] {
+      width: 140px !important;
+    }
+    div[style*="width:240px"] div[style*="box-shadow"] {
+      width: 100% !important;
+      border-radius: 28px !important;
+      padding: 3px !important;
+    }
+    div[style*="font-size:15px"][style*="font-weight:800"] {
+      font-size: 12px !important;
+    }
+    div[style*="font-size:28px"][style*="align-self:center"] {
+      font-size: 18px !important;
+    }
+    div[style*="font-size:18px"][style*="font-weight:700"][style*="margin-bottom:32px"] {
+      font-size: 14px !important;
+      margin-bottom: 20px !important;
+    }
+
+    /* 실제 고객 반응 - 폰 축소 + 텍스트 축소 */
+    div[style*="width:280px; text-align:center"] {
+      width: 160px !important;
+    }
+    div[style*="width:280px; text-align:center"] div[style*="box-shadow"] {
+      width: 100% !important;
+      border-radius: 28px !important;
+      padding: 4px !important;
+    }
+    div[style*="width:280px; text-align:center"] p[style*="font-size:15px"] {
+      font-size: 12px !important;
+    }
+    div[style*="width:280px; text-align:center"] p[style*="font-size:13px"] {
+      font-size: 11px !important;
+    }
+
+    /* Hero tagline */
+    .hero-tagline {
+      font-size: 12px;
+      padding: 8px 14px;
+      gap: 8px;
+      max-width: 90vw;
+    }
+    .live-dot { width: 8px; height: 8px; }
+    .live-dot::before, .live-dot::after { width: 8px; height: 8px; }
 
     /* Compare section */
     .compare-list { margin-top: 28px; gap: 10px; }
-    .compare-row { grid-template-columns: 1fr; gap: 8px; padding: 16px 20px; text-align: center; }
-    .compare-before { font-size: 13px; }
-    .compare-after { font-size: 14px; }
+    .compare-row { grid-template-columns: 1fr auto 1fr; gap: 10px; padding: 14px 16px; }
+    .compare-before { font-size: 11px; }
+    .compare-arrow { font-size: 14px; }
+    .compare-after { font-size: 12px; }
 
     /* Metrics */
     .metrics-section { padding: 48px 20px; }
