@@ -1065,6 +1065,49 @@
       color: var(--gray-3);
     }
 
+    /* ── VIDEO PLAY BUTTON ────────────────── */
+    .video-wrap {
+      position: relative;
+      cursor: pointer;
+    }
+    .video-play-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      transition: opacity 0.3s, background 0.3s;
+      pointer-events: none;
+    }
+    .video-play-btn::after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 8px 0 8px 14px;
+      border-color: transparent transparent transparent white;
+      margin-left: 3px;
+    }
+    .video-play-btn.playing::after {
+      border-width: 0;
+      width: 14px;
+      height: 16px;
+      border-left: 4px solid white;
+      border-right: 4px solid white;
+      margin-left: 0;
+    }
+    .video-play-btn.fade {
+      opacity: 0;
+    }
+
     /* ── REVIEW SLIDER ────────────────────── */
     .review-slider {
       margin-top: 56px;
@@ -2601,6 +2644,15 @@
         scroll-snap-align: start;
         padding: 20px 16px;
         flex-shrink: 0;
+        transform: none !important;
+        transition: none !important;
+        animation: none !important;
+      }
+      .pain-card:hover {
+        transform: none !important;
+      }
+      .pain-card .pain-arrow {
+        animation: none !important;
       }
 
       .pain-grid {
@@ -2671,8 +2723,8 @@
       }
 
       .value-text .tag-report {
-        background: none !important;
-        color: #888 !important;
+        background: #F0F0F0 !important;
+        color: #8B6914 !important;
       }
 
       .value-text .tag-payroll {
@@ -2681,8 +2733,8 @@
       }
 
       .value-text .tag-payment {
-        background: none !important;
-        color: #E07800 !important;
+        background: #F0F0F0 !important;
+        color: #0064FF !important;
       }
 
       .enterprise-badge {
@@ -2701,10 +2753,11 @@
 
       .value-text .section-desc {
         font-size: 13px;
-        text-align: center;
-        margin-left: auto;
-        margin-right: auto;
+        text-align: left;
+        margin-left: 0;
+        margin-right: 0;
         display: none;
+        line-height: 1.7;
       }
 
       .value-text>div[style*="flex-direction: column"] {
@@ -2713,8 +2766,9 @@
       }
 
       .value-text div[style*="display: flex"][style*="align-items: center"][style*="gap: 12px"] {
-        justify-content: center;
+        justify-content: flex-start;
         font-size: 13px !important;
+        text-align: left;
       }
 
       .value-visual {
@@ -2901,6 +2955,12 @@
 
       .compare-after {
         font-size: 12px;
+        font-size: 0;
+        color: transparent;
+      }
+      .compare-after strong {
+        font-size: 12px;
+        color: var(--accent);
       }
 
       /* Metrics */
@@ -3595,7 +3655,7 @@
       </span>
     </h1>
     <p>클리닝매니저가 <strong style="color:var(--text)">고객 만족도</strong>를 높여드립니다.<br>사진만 올리세요. <strong style="color:var(--text)">프리미엄 청소 리포트는 저희가 만들어드립니다.</strong></p>
-    <p class="mobile-subtitle" style="display:none;">클리닝매니저가 사장님의 시간을 아껴드리고<br>고객 만족도를 높여드립니다.</p>
+    <p class="mobile-subtitle" style="display:none;">청소업체 편하게 관리하세요,<br>고객 감동은 저희가 만듭니다.</p>
     <div class="hero-actions">
       <a href="#" class="btn-primary" onclick="openForm(event)">무료로 시작하기 →</a>
       <a href="https://open.kakao.com/o/scsRjRji" target="_blank" class="btn-secondary">문의하기</a>
@@ -3671,7 +3731,8 @@
     <!-- REPORT SHOWCASE -->
     <div class="report-showcase reveal">
       <div class="report-slogan">
-        <span class="highlight">리포트 하나</span>로 입소문이 <span class="highlight">달라집니다.</span>
+        사진만 올리세요.<br>
+        <span class="highlight">프리미엄 청소 리포트</span>는 저희가 만들어드립니다.
         <span class="sub-hook">단 <span class="highlight">5분</span>, 고객 만족도는 <span class="highlight">50%</span> 올라갑니다.</span>
       </div>
 
@@ -3680,6 +3741,10 @@
           <img src="images/고객 프리미엄 리포트.PNG" alt="클리닝매니저 고객 프리미엄 청소 리포트 화면" loading="lazy">
         </div>
         <div class="report-phone-shadow"></div>
+      </div>
+
+      <div class="report-slogan" style="font-size: 28px; margin-top: 0;">
+        <span class="highlight">리포트 하나</span>로 입소문이 <span class="highlight">달라집니다.</span>
       </div>
 
       <div class="report-feedback">
@@ -3699,7 +3764,7 @@
           <div class="section-tag tag-report" style="
             font-size: 12px;
             font-weight: 600;
-            color: #888;
+            color: #8B6914;
             letter-spacing: 0.08em;
             margin-bottom: 24px;
             background: #F0F0F0;
@@ -3729,7 +3794,8 @@
             <div style="font-size:15px; font-weight:800; color:#36B0A8; margin-bottom:14px;">사장님/팀장님 화면</div>
             <div
               style="background:#1a1a1a; border-radius:44px; padding:6px; box-shadow:0 25px 60px rgba(0,0,0,0.18); width:280px;">
-              <div style="border-radius:40px; overflow:hidden; background:white;">
+              <div class="video-wrap" style="border-radius:40px; overflow:hidden; background:white;" onclick="toggleVideo('reportCreateVideo', this)">
+                <div class="video-play-btn" id="reportCreateBtn"></div>
                 <video id="reportCreateVideo" muted playsinline style="width:100%; display:block;">
                   <source src="images/report_create.mp4" type="video/mp4">
                 </video>
@@ -3741,7 +3807,8 @@
             <div style="font-size:15px; font-weight:800; color:var(--accent); margin-bottom:14px;">고객님 화면</div>
             <div
               style="background:#1a1a1a; border-radius:44px; padding:6px; box-shadow:0 25px 60px rgba(0,0,0,0.18); width:280px;">
-              <div style="border-radius:40px; overflow:hidden; background:white;">
+              <div class="video-wrap" style="border-radius:40px; overflow:hidden; background:white;" onclick="toggleVideo('reportCustomerVideo', this)">
+                <div class="video-play-btn" id="reportCustomerBtn"></div>
                 <video id="reportCustomerVideo" muted playsinline poster="images/report_customer_poster.jpg"
                   style="width:100%; display:block; filter: brightness(0.85) saturate(0.3); transition: filter 0.8s ease, opacity 0.8s ease; opacity: 0.6;">
                   <source src="images/report_customer.mp4" type="video/mp4">
@@ -3874,8 +3941,9 @@
             <div style="font-size:15px; font-weight:800; color:var(--accent); margin-bottom:14px;">사장님 화면</div>
             <div
               style="background:#1a1a1a; border-radius:44px; padding:6px; box-shadow:0 25px 60px rgba(0,0,0,0.18); width:280px;">
-              <div style="border-radius:40px; overflow:hidden; background:white;">
-                <video id="bossVideo" autoplay muted playsinline style="width:100%; display:block;">
+              <div class="video-wrap" style="border-radius:40px; overflow:hidden; background:white;" onclick="toggleVideo('bossVideo', this)">
+                <div class="video-play-btn" id="bossBtn"></div>
+                <video id="bossVideo" muted playsinline style="width:100%; display:block;">
                   <source src="images/boss_reservation.mp4" type="video/mp4">
                 </video>
               </div>
@@ -3886,7 +3954,8 @@
             <div style="font-size:15px; font-weight:800; color:#36B0A8; margin-bottom:14px;">팀장님 화면</div>
             <div
               style="background:#1a1a1a; border-radius:44px; padding:6px; box-shadow:0 25px 60px rgba(0,0,0,0.18); width:280px;">
-              <div style="border-radius:40px; overflow:hidden; background:white;">
+              <div class="video-wrap" style="border-radius:40px; overflow:hidden; background:white;" onclick="toggleVideo('leaderVideo', this)">
+                <div class="video-play-btn" id="leaderBtn"></div>
                 <video id="leaderVideo" muted playsinline poster="images/leader_poster.jpg"
                   style="width:100%; display:block;">
                   <source src="images/leader_sync.mp4" type="video/mp4">
@@ -3909,7 +3978,8 @@
           <p class="section-desc">일급·주급·월급·수수료제까지, 매출·옵션·예약금이 전부 반영되어 자동 정산됩니다. 팀장도 앱에서 수입을 바로 확인해요.</p>
           <div style="margin-top: 32px; display: flex; flex-direction: column; gap: 12px;">
             <div style="display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--gray-2);">
-              <span style="color: var(--green); font-size: 18px;">✓</span> 팀장별 정산 방식 개별 설정 (일급/주급/월급/수수료제)
+              <span style="color: var(--green); font-size: 18px;">✓</span>
+              <span>팀장별 / 업체별 정산 방식 개별 설정<br><span style="font-size: 13px; color: var(--gray-3);">일급 / 주급 / 월급 / 수수료제</span></span>
             </div>
             <div style="display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--gray-2);">
               <span style="color: var(--green); font-size: 18px;">✓</span> 오늘 순수익 확인 · 손익 분석
@@ -3975,26 +4045,28 @@
     <div class="section-inner">
       <div class="value-section reverse">
         <div class="value-text reveal">
-          <div class="section-tag tag-payment" style="font-size:12px; font-weight:600; color:#888; letter-spacing:0.08em; margin-bottom:24px; background:#F0F0F0; padding:6px 14px; border-radius:20px; border:1px solid #D0D0D0;">간편 결제</div>
-          <h2 class="section-title" style="color: white;"><span class="title-sub">현장에서<br></span>카드 결제까지<br>앱 하나로</h2>
-          <p class="section-desc" style="color: rgba(255,255,255,0.5);">청소 완료 후 현장에서 바로 결제. Toss Payments 연동으로 카드·계좌이체
-            모두 지원해요. 미수금 걱정 없이, 정산도 깔끔하게.</p>
+          <div class="section-tag tag-payment" style="font-size:12px; font-weight:600; color:#0064FF; letter-spacing:0.08em; margin-bottom:24px; background:#F0F0F0; padding:6px 14px; border-radius:20px; border:1px solid #D0D0D0;">간편 결제</div>
+          <h2 class="section-title" style="color: white;"><span class="title-sub">현장에 없어도<br></span>링크 하나로<br>카드 결제 끝</h2>
+          <p class="section-desc" style="color: rgba(255,255,255,0.5);">고객에게 결제 링크만 보내면, 현장에 없어도 카드결제가 완료됩니다.<br>Toss Payments 연동으로 미수금 걱정 없이 정산까지 깔끔하게.</p>
           <div style="margin-top: 32px; display: flex; flex-direction: column; gap: 12px;">
             <div style="display: flex; align-items: center; gap: 12px; font-size: 15px; color: rgba(255,255,255,0.6);">
-              <span style="color: #1E3A5F; font-size: 18px;">✓</span> Toss Payments 연동
+              <span style="color: #0064FF; font-size: 18px;">✓</span> Toss Payments 연동
             </div>
             <div style="display: flex; align-items: center; gap: 12px; font-size: 15px; color: rgba(255,255,255,0.6);">
-              <span style="color: #1E3A5F; font-size: 18px;">✓</span> 카드·계좌이체·간편결제
+              <span style="color: #0064FF; font-size: 18px;">✓</span> 링크 하나로 비대면 카드결제
             </div>
             <div style="display: flex; align-items: center; gap: 12px; font-size: 15px; color: rgba(255,255,255,0.6);">
-              <span style="color: #1E3A5F; font-size: 18px;">✓</span> 결제 내역 자동 정산 연동
+              <span style="color: #0064FF; font-size: 18px;">✓</span> 카드·계좌이체·간편결제
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px; font-size: 15px; color: rgba(255,255,255,0.6);">
+              <span style="color: #0064FF; font-size: 18px;">✓</span> 결제 내역 자동 정산 연동
             </div>
           </div>
         </div>
         <div class="value-visual reveal reveal-delay-1"
           style="display:flex; justify-content:center; align-items:center; gap:32px;">
           <div style="display:flex; flex-direction:column; align-items:center;">
-            <div style="font-size:15px; font-weight:800; color:var(--accent); margin-bottom:14px;">사장님 화면</div>
+            <div style="font-size:15px; font-weight:800; color:rgba(255,255,255,0.8); margin-bottom:14px;">사장님 화면</div>
             <div
               style="background:#1a1a1a; border-radius:44px; padding:6px; box-shadow:0 25px 60px rgba(0,0,0,0.18); width:280px;">
               <div style="border-radius:40px; overflow:hidden; background:white;">
@@ -4550,11 +4622,26 @@
       }, { threshold: 0.5 });
       counters.forEach(el => counterObs.observe(el));
 
-      // ── 5-0. Boss → Leader video chain ──
+      // ── 5-0. Boss → Leader video chain (scroll trigger) ──
       (() => {
         const boss = document.getElementById('bossVideo');
         const leader = document.getElementById('leaderVideo');
         if (!boss || !leader) return;
+
+        let bossStarted = false;
+        const bossSection = boss.closest('section');
+
+        const bossObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && !bossStarted) {
+              bossStarted = true;
+              boss.currentTime = 0;
+              boss.play();
+            }
+          });
+        }, { threshold: 0.3 });
+        if (bossSection) bossObserver.observe(bossSection);
+
         boss.addEventListener('ended', () => {
           leader.play();
         });
@@ -4700,7 +4787,10 @@
         document.querySelectorAll('.value-text').forEach(vt => {
           const btn = document.createElement('button');
           btn.textContent = '자세히 보기 ▾';
-          btn.style.cssText = 'background:none; border:1px solid var(--gray-4); border-radius:20px; padding:8px 16px; font-size:12px; color:var(--gray-2); cursor:pointer; margin-top:12px; font-weight:600; display:block; width:fit-content; margin-left:auto; margin-right:auto;';
+          const isDark = vt.closest('section')?.style.background?.includes('black') || vt.closest('section')?.getAttribute('style')?.includes('--black');
+          const btnColor = isDark ? 'rgba(255,255,255,0.7)' : 'var(--gray-2)';
+          const btnBorder = isDark ? 'rgba(255,255,255,0.3)' : 'var(--gray-4)';
+          btn.style.cssText = `background:none; border:1px solid ${btnBorder}; border-radius:20px; padding:8px 16px; font-size:12px; color:${btnColor}; cursor:pointer; margin-top:12px; font-weight:600; display:block; width:fit-content; margin-left:auto; margin-right:auto;`;
           btn.addEventListener('click', () => {
             vt.classList.toggle('expanded');
             btn.textContent = vt.classList.contains('expanded') ? '접기 ▴' : '자세히 보기 ▾';
@@ -4789,6 +4879,29 @@
       });
 
     })();
+
+    // ── Video Play Button ──
+    function toggleVideo(videoId, wrap) {
+      const video = document.getElementById(videoId);
+      if (!video) return;
+      const btn = wrap.querySelector('.video-play-btn');
+      if (video.paused) {
+        video.play();
+        if (btn) { btn.classList.add('playing'); setTimeout(() => btn.classList.add('fade'), 800); }
+      } else {
+        video.pause();
+        if (btn) { btn.classList.remove('playing', 'fade'); }
+      }
+    }
+
+    // 비디오 재생/정지 시 버튼 상태 동기화
+    document.querySelectorAll('.video-wrap video').forEach(video => {
+      const btn = video.parentElement.querySelector('.video-play-btn');
+      if (!btn) return;
+      video.addEventListener('play', () => { btn.classList.add('playing'); setTimeout(() => btn.classList.add('fade'), 800); });
+      video.addEventListener('pause', () => { btn.classList.remove('playing', 'fade'); });
+      video.addEventListener('ended', () => { btn.classList.remove('playing', 'fade'); });
+    });
 
     // ── Review Slider ──
     (() => {
