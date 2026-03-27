@@ -1166,6 +1166,62 @@
       border-radius: 4px;
     }
 
+    /* ── REACTION ROTATE ─────────────────── */
+    .reaction-rotate-wrapper {
+      display: inline-block;
+      position: relative;
+      height: 1.2em;
+      vertical-align: bottom;
+      overflow: hidden;
+    }
+    .reaction-rotate-word {
+      display: block;
+      position: absolute;
+      left: 0;
+      right: 0;
+      opacity: 0;
+      transform: translateY(100%);
+      transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+      background: linear-gradient(135deg, var(--navy), #0D9488);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+    .reaction-rotate-word.active {
+      position: relative;
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reaction-rotate-word.exit {
+      opacity: 0;
+      transform: translateY(-100%);
+    }
+
+    /* ── CUSTOMER REVIEW SLIDER ──────────── */
+    .customer-review-slider {
+      margin-top: 48px;
+      overflow: hidden;
+      position: relative;
+    }
+    .customer-review-track {
+      display: flex;
+      gap: 32px;
+      justify-content: center;
+    }
+    .customer-review-card {
+      width: 280px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .customer-review-dots {
+      display: none;
+    }
+    .customer-review-arrow {
+      display: none;
+    }
+
     /* ── CTA BOTTOM ──────────────────────── */
     .cta-section {
       background: var(--accent);
@@ -2818,14 +2874,26 @@
       }
 
       .value-text>div[style*="flex-direction: column"] {
-        align-items: center;
+        align-items: flex-start !important;
         display: none;
+        width: 100%;
       }
 
       .value-text div[style*="display: flex"][style*="align-items: center"][style*="gap: 12px"] {
-        justify-content: flex-start;
+        justify-content: flex-start !important;
+        align-items: flex-start !important;
         font-size: 13px !important;
         text-align: left;
+        width: 100%;
+        padding-left: 0 !important;
+      }
+      .value-text div[style*="display: flex"][style*="align-items: center"][style*="gap: 12px"] > span:first-child {
+        width: 20px !important;
+        min-width: 20px !important;
+        max-width: 20px !important;
+        text-align: left !important;
+        flex-shrink: 0;
+        display: inline-block !important;
       }
 
       .value-visual {
@@ -2913,28 +2981,46 @@
         gap: 10px !important;
       }
 
-      /* 실제 고객 반응 - 폰 축소 + 텍스트 축소 */
-      div[style*="width:280px; text-align:center"] {
-        width: 160px !important;
+      /* 실제 고객 반응 - 슬라이드 */
+      .customer-review-slider {
+        position: relative;
       }
-
-      div[style*="width:280px; text-align:center"] div[style*="box-shadow"],
-      div[style*="width:280px; text-align:center"] div[style*="background:#1a1a1a"] {
+      .customer-review-track {
+        transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+        gap: 0 !important;
+        justify-content: flex-start !important;
+      }
+      .customer-review-card {
+        min-width: 100% !important;
         width: 100% !important;
-        border-radius: 20px !important;
-        padding: 2px !important;
+        padding: 0 24px;
+        box-sizing: border-box !important;
       }
-
-      div[style*="width:280px; text-align:center"] div[style*="border-radius:40px"] {
-        border-radius: 18px !important;
+      .customer-review-dots {
+        display: flex !important;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 24px;
       }
-
-      div[style*="width:280px; text-align:center"] p[style*="font-size:15px"] {
-        font-size: 12px !important;
+      .customer-review-arrow {
+        display: block !important;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        font-size: 20px;
+        color: var(--gray-3);
+        cursor: pointer;
+        z-index: 10;
+        padding: 8px;
+        font-weight: 200;
       }
-
-      div[style*="width:280px; text-align:center"] p[style*="font-size:13px"] {
-        font-size: 11px !important;
+      .cr-arrow-left {
+        left: 0;
+      }
+      .cr-arrow-right {
+        right: 0;
       }
 
       /* Hero tagline */
@@ -3800,10 +3886,6 @@
         <div class="report-phone-shadow"></div>
       </div>
 
-      <div class="report-slogan" style="font-size: 28px; margin-top: 0;">
-        <span class="highlight">리포트 하나</span>로 입소문이 <span class="highlight">달라집니다.</span>
-      </div>
-
       <div class="report-feedback">
         <div class="report-feedback-title">💬 실제 고객님의 피드백</div>
         <q>이렇게까지 해주는 업체 처음 봤어요</q>
@@ -3820,25 +3902,19 @@
       <h2 class="section-title" style="max-width:600px">청소 잘하는데<br>왜 성장이 안 될까?</h2>
       <div class="pain-grid">
         <div class="pain-card reveal">
-          <div class="pain-emoji">🤔</div>
           <div class="pain-title">"청소 잘했는데<br>왜 소개가 안 올까?"</div>
           <div class="pain-text">청소 품질은 자신 있는데,<br>고객이 기억을 못 해요.<br>증빙이 없으니 입소문도 안 나고요.</div>
-          <div class="pain-arrow">↓</div>
-          <div class="pain-solution">→ 프리미엄 청소 리포트로<br>"이 업체 다르다" 인식 만들기</div>
+          <div class="pain-solution" style="margin-top: 20px;">→ 프리미엄 청소 리포트로<br>"이 업체 다르다" 인식 만들기</div>
         </div>
         <div class="pain-card reveal reveal-delay-1">
-          <div class="pain-emoji">💰</div>
           <div class="pain-title">"평단가 올리고 싶은데<br>근거가 없어요"</div>
           <div class="pain-text">프리미엄 업체로 보이고 싶은데,<br>다른 업체랑 차별점을 못 보여줘요.<br>고객 입장에서 다 비슷해 보이니까요.</div>
-          <div class="pain-arrow">↓</div>
-          <div class="pain-solution">→ 프리미엄 리포트가 곧 브랜딩,<br>단가를 올릴 근거가 됩니다</div>
+          <div class="pain-solution" style="margin-top: 20px;">→ 프리미엄 리포트가 곧 브랜딩,<br>단가를 올릴 근거가 됩니다</div>
         </div>
         <div class="pain-card reveal reveal-delay-2">
-          <div class="pain-emoji">⏰</div>
           <div class="pain-title">"관리할 시간에<br>영업을 더 하고 싶어요"</div>
           <div class="pain-text">카톡, 엑셀, 전화에 시간을 뺏기고 있어요.<br>팀장이 늘수록 관리 시간만 늘어나요.</div>
-          <div class="pain-arrow">↓</div>
-          <div class="pain-solution">→ 일정·정산·리포트 자동화로<br>관리 시간을 영업 시간으로</div>
+          <div class="pain-solution" style="margin-top: 20px;">→ 일정·정산·리포트 자동화로<br>관리 시간을 영업 시간으로</div>
         </div>
       </div>
     </div>
@@ -3864,13 +3940,13 @@
           <p class="section-desc">사진은 물론 영상까지 업로드할 수 있어요.<br>고객은 링크 하나로 원할 때마다 실시간 청소 현황을 확인합니다.</p>
           <div style="margin-top: 32px; display: flex; flex-direction: column; gap: 12px;">
             <div style="display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--gray-2);">
-              <span style="color: var(--green); font-size: 18px;">✓</span> 카카오톡으로 링크 한 번만 공유하면 끝
+              <span style="color: var(--green); font-size: 18px; min-width: 20px; display: inline-block; text-align: center;">✓</span> 카카오톡으로 링크 한 번만 공유하면 끝
             </div>
             <div style="display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--gray-2);">
-              <span style="color: var(--green); font-size: 18px;">✓</span> A/S 발생 시 증빙 자료로 활용
+              <span style="color: var(--green); font-size: 18px; min-width: 20px; display: inline-block; text-align: center;">✓</span> A/S 발생 시 증빙 자료로 활용
             </div>
             <div style="display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--gray-2);">
-              <span style="color: var(--green); font-size: 18px;">✓</span> 브랜드에 맞게 리포트 디자인 커스터마이징 <span
+              <span style="color: var(--green); font-size: 18px; min-width: 20px; display: inline-block; text-align: center;">✓</span> 브랜드에 맞게 리포트 디자인 커스터마이징 <span
                 class="enterprise-badge"
                 style="font-size:9px; background:var(--accent); color:white; padding:1px 6px; border-radius:8px; margin-left:2px; vertical-align:middle;">Enterprise</span>
             </div>
@@ -3913,31 +3989,47 @@
           <div class="reveal"
             style="display: inline-block; background: var(--accent); color: white; font-size: 14px; font-weight: 700; padding: 6px 18px; border-radius: 20px; margin-bottom: 16px;">
             실제 고객 반응</div>
-          <h2 class="section-title reveal" style="font-size: 32px; margin-bottom: 48px;">리포트 하나로<br>고객 반응이 달라졌습니다</h2>
-          <div class="reveal"
-            style="display: flex; gap: 32px; align-items: flex-start; justify-content: center; flex-wrap: wrap;">
-            <div style="width:280px; text-align:center;">
-              <div
-                style="background:#1a1a1a; border-radius:44px; padding:6px; box-shadow:0 25px 60px rgba(0,0,0,0.12);">
-                <div style="border-radius:40px; overflow:hidden; background:white;">
-                  <img src="images/real_review.png" style="width:100%; display:block;" alt="실제 고객 후기">
+          <h2 class="section-title reveal" style="font-size: 32px; margin-bottom: 48px;">리포트 하나로<br>
+            <span class="reaction-rotate-wrapper">
+              <span class="reaction-rotate-word active">고객 만족</span>
+              <span class="reaction-rotate-word">입소문</span>
+            </span>이 달라졌습니다</h2>
+          <div class="customer-review-slider reveal">
+            <button class="customer-review-arrow cr-arrow-left" onclick="slideCustomerReview(-1); if(typeof crResetAuto==='function') crResetAuto();">&#10094;</button>
+            <button class="customer-review-arrow cr-arrow-right" onclick="slideCustomerReview(1); if(typeof crResetAuto==='function') crResetAuto();">&#10095;</button>
+            <div class="customer-review-track" id="customerReviewTrack">
+              <div class="customer-review-card">
+                <div style="background:#1a1a1a; border-radius:28px; padding:4px; box-shadow:0 12px 32px rgba(0,0,0,0.12); width:280px; margin:0 auto;">
+                  <div style="border-radius:24px; overflow:hidden; background:white;">
+                    <img src="images/real_review.png" style="width:100%; display:block;" alt="실제 고객 후기">
+                  </div>
                 </div>
+                <p style="font-size:15px; font-weight:700; color:var(--text); line-height:1.7; margin-top:20px;">"어플로 바로바로 사진 전후를 볼 수 있도록 실시간 체크가 가능한 점이 정말 맘에 들었습니다!"</p>
+                <p style="font-size:12px; color:var(--gray-3); margin-top:8px;">— 맘카페 실제 고객 후기</p>
               </div>
-              <p style="font-size:15px; font-weight:600; color:var(--text); line-height:1.7; margin-top:20px;">"어플로 바로바로
-                사진 전후를 볼 수 있도록 실시간 체크가 가능한 점이 정말 맘에 들었습니다!"</p>
-              <p style="font-size:13px; color:var(--gray-3); margin-top:8px;">— 맘카페 실제 고객 후기</p>
+              <div class="customer-review-card">
+                <div style="background:#1a1a1a; border-radius:28px; padding:4px; box-shadow:0 12px 32px rgba(0,0,0,0.12); width:280px; margin:0 auto;">
+                  <div style="border-radius:24px; overflow:hidden; background:white;">
+                    <img src="images/%EA%B3%A0%EA%B0%9D%EB%A7%8C%EC%A1%B12.PNG" style="width:100%; display:block;" alt="고객 만족 후기 2">
+                  </div>
+                </div>
+                <p style="font-size:15px; font-weight:700; color:var(--text); line-height:1.7; margin-top:20px;">"실시간으로 청소되가는 모습 청소 리포트로 사진+영상으로 제공해주셔서 맘 편하게 믿고 맡길 수 있었습니다"</p>
+                <p style="font-size:12px; color:var(--gray-3); margin-top:8px;">— 실제 고객 후기</p>
+              </div>
+              <div class="customer-review-card" style="display:flex; flex-direction:column;">
+                <div style="background:#1a1a1a; border-radius:28px; padding:4px; box-shadow:0 12px 32px rgba(0,0,0,0.12); width:280px; margin:0 auto; flex:1; display:flex; align-items:center;">
+                  <div style="border-radius:24px; overflow:hidden; background:white; width:100%;">
+                    <img src="images/%EA%B3%A0%EA%B0%9D%EB%A7%8C%EC%A1%B13.PNG" style="width:100%; display:block;" alt="고객 만족 후기 3">
+                  </div>
+                </div>
+                <p style="font-size:15px; font-weight:700; color:var(--text); line-height:1.7; margin-top:20px;">"청소 전 후 리포트 감탄하면서 봄 만족도 10000%"</p>
+                <p style="font-size:12px; color:var(--gray-3); margin-top:8px;">— 실제 고객 후기</p>
+              </div>
             </div>
-            <div style="width:280px; text-align:center;">
-              <div
-                style="background:#1a1a1a; border-radius:44px; padding:6px; box-shadow:0 25px 60px rgba(0,0,0,0.12);">
-                <div style="border-radius:40px; overflow:hidden; background:white;">
-                  <img src="images/%EA%B3%A0%EA%B0%9D%EB%A7%8C%EC%A1%B12.PNG" style="width:100%; display:block;"
-                    alt="고객 만족 후기 2">
-                </div>
-              </div>
-              <p style="font-size:15px; font-weight:600; color:var(--text); line-height:1.7; margin-top:20px;">"실시간으로
-                청소되가는 모습 청소 리포트로 사진+영상으로 제공해주셔서 맘 편하게 믿고 맡길 수 있었습니다"</p>
-              <p style="font-size:13px; color:var(--gray-3); margin-top:8px;">— 실제 고객 후기</p>
+            <div class="customer-review-dots" id="customerReviewDots">
+              <button class="review-dot active" data-cindex="0"></button>
+              <button class="review-dot" data-cindex="1"></button>
+              <button class="review-dot" data-cindex="2"></button>
             </div>
           </div>
         </div>
@@ -3982,13 +4074,13 @@
           <p class="section-desc">예약이 접수되는 순간, 담당 팀장 앱에 자동으로 연동됩니다. 날짜·주소·서비스 내용까지 한번에 전달. 더 이상 카카오톡 안 보내도 됩니다.</p>
           <div style="margin-top: 32px; display: flex; flex-direction: column; gap: 12px;">
             <div style="display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--gray-2);">
-              <span style="color: var(--green); font-size: 18px;">✓</span> 예약 시 담당 팀장 자동 연동
+              <span style="color: var(--green); font-size: 18px; min-width: 20px; display: inline-block; text-align: center;">✓</span> 예약 시 담당 팀장 자동 연동
             </div>
             <div style="display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--gray-2);">
-              <span style="color: var(--green); font-size: 18px;">✓</span> 자동 팀원 배정 지원
+              <span style="color: var(--green); font-size: 18px; min-width: 20px; display: inline-block; text-align: center;">✓</span> 자동 팀원 배정 지원
             </div>
             <div style="display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--gray-2);">
-              <span style="color: var(--green); font-size: 18px;">✓</span> 팀장별 매출 공개/비공개 설정
+              <span style="color: var(--green); font-size: 18px; min-width: 20px; display: inline-block; text-align: center;">✓</span> 팀장별 매출 공개/비공개 설정
             </div>
           </div>
         </div>
@@ -4035,17 +4127,17 @@
           <p class="section-desc">일급·주급·월급·수수료제까지, 매출·옵션·예약금이 전부 반영되어 자동 정산됩니다. 팀장도 앱에서 수입을 바로 확인해요.</p>
           <div style="margin-top: 32px; display: flex; flex-direction: column; gap: 12px;">
             <div style="display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--gray-2);">
-              <span style="color: var(--green); font-size: 18px;">✓</span>
+              <span style="color: var(--green); font-size: 18px; min-width: 20px; display: inline-block; text-align: center;">✓</span>
               <span>팀장별 / 업체별 정산 방식 개별 설정<br><span style="font-size: 13px; color: var(--gray-3);">일급 / 주급 / 월급 / 수수료제</span></span>
             </div>
             <div style="display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--gray-2);">
-              <span style="color: var(--green); font-size: 18px;">✓</span> 오늘 순수익 확인 · 손익 분석
+              <span style="color: var(--green); font-size: 18px; min-width: 20px; display: inline-block; text-align: center;">✓</span> 오늘 순수익 확인 · 손익 분석
             </div>
             <div style="display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--gray-2);">
-              <span style="color: var(--green); font-size: 18px;">✓</span> 기간별 엑셀 추출 → 세무사 전달로 세무 처리 간편
+              <span style="color: var(--green); font-size: 18px; min-width: 20px; display: inline-block; text-align: center;">✓</span> 기간별 엑셀 추출 → 세무사 전달로 세무 처리 간편
             </div>
             <div style="display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--gray-2);">
-              <span style="color: var(--green); font-size: 18px;">✓</span> 팀장별 급여 한눈에 파악 · 팀장이 앱에서 수입 확인
+              <span style="color: var(--green); font-size: 18px; min-width: 20px; display: inline-block; text-align: center;">✓</span> 팀장별 급여 한눈에 파악 · 팀장이 앱에서 수입 확인
             </div>
           </div>
         </div>
@@ -4107,16 +4199,16 @@
           <p class="section-desc" style="color: rgba(255,255,255,0.5);">고객에게 결제 링크만 보내면, 현장에 없어도 카드결제가 완료됩니다.<br>Toss Payments 연동으로 미수금 걱정 없이 정산까지 깔끔하게.</p>
           <div style="margin-top: 32px; display: flex; flex-direction: column; gap: 12px;">
             <div style="display: flex; align-items: center; gap: 12px; font-size: 15px; color: rgba(255,255,255,0.6);">
-              <span style="color: #0064FF; font-size: 18px;">✓</span> Toss Payments 연동
+              <span style="color: #0064FF; font-size: 18px; min-width: 20px; display: inline-block; text-align: center;">✓</span> Toss Payments 연동
             </div>
             <div style="display: flex; align-items: center; gap: 12px; font-size: 15px; color: rgba(255,255,255,0.6);">
-              <span style="color: #0064FF; font-size: 18px;">✓</span> 링크 하나로 비대면 카드결제
+              <span style="color: #0064FF; font-size: 18px; min-width: 20px; display: inline-block; text-align: center;">✓</span> 링크 하나로 비대면 카드결제
             </div>
             <div style="display: flex; align-items: center; gap: 12px; font-size: 15px; color: rgba(255,255,255,0.6);">
-              <span style="color: #0064FF; font-size: 18px;">✓</span> 카드·계좌이체·간편결제
+              <span style="color: #0064FF; font-size: 18px; min-width: 20px; display: inline-block; text-align: center;">✓</span> 카드·계좌이체·간편결제
             </div>
             <div style="display: flex; align-items: center; gap: 12px; font-size: 15px; color: rgba(255,255,255,0.6);">
-              <span style="color: #0064FF; font-size: 18px;">✓</span> 결제 내역 자동 정산 연동
+              <span style="color: #0064FF; font-size: 18px; min-width: 20px; display: inline-block; text-align: center;">✓</span> 결제 내역 자동 정산 연동
             </div>
           </div>
         </div>
@@ -4257,7 +4349,7 @@
         <div class="case-header">
           <div class="case-avatar" style="background: #00B96B;">위</div>
           <div>
-            <div class="case-name">위○○ 사장님</div>
+            <div class="case-name">박○○ 사장님</div>
             <div class="case-role">서울 · 경기 청소 전문 업체 · 팀장 1명 · 팀원 2명 · 하루 한 집</div>
           </div>
         </div>
@@ -5010,6 +5102,65 @@
       }, 4000);
 
       track.addEventListener('touchstart', () => clearInterval(autoSlide));
+    })();
+
+    // ── Reaction Rotate ──
+    (() => {
+      const words = document.querySelectorAll('.reaction-rotate-word');
+      if (words.length < 2) return;
+      let current = 0;
+      setInterval(() => {
+        words[current].classList.remove('active');
+        words[current].classList.add('exit');
+        const prev = current;
+        current = (current + 1) % words.length;
+        words[current].classList.add('active');
+        setTimeout(() => words[prev].classList.remove('exit'), 400);
+      }, 2500);
+    })();
+
+    // ── Customer Review Slider ──
+    let crCurrent = 0;
+    let crTotal = 0;
+    function slideCustomerReview(dir) {
+      const track = document.getElementById('customerReviewTrack');
+      const dots = document.querySelectorAll('[data-cindex]');
+      if (!track) return;
+      crCurrent = (crCurrent + dir + crTotal) % crTotal;
+      track.style.transform = `translateX(-${crCurrent * 100}%)`;
+      dots.forEach((d, i) => d.classList.toggle('active', i === crCurrent));
+    }
+    (() => {
+      const track = document.getElementById('customerReviewTrack');
+      const dots = document.querySelectorAll('[data-cindex]');
+      if (!track || !dots.length || window.innerWidth > 480) return;
+
+      crTotal = track.querySelectorAll('.customer-review-card').length;
+
+      let crAutoTimer = setInterval(() => { slideCustomerReview(1); }, 4000);
+
+      function crResetAuto() {
+        clearInterval(crAutoTimer);
+        crAutoTimer = setTimeout(() => {
+          crAutoTimer = setInterval(() => { slideCustomerReview(1); }, 4000);
+        }, 5000);
+      }
+
+      dots.forEach(dot => {
+        dot.addEventListener('click', () => {
+          crCurrent = parseInt(dot.dataset.cindex);
+          track.style.transform = `translateX(-${crCurrent * 100}%)`;
+          dots.forEach((d, i) => d.classList.toggle('active', i === crCurrent));
+          crResetAuto();
+        });
+      });
+
+      let startX = 0;
+      track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; });
+      track.addEventListener('touchend', e => {
+        const diff = startX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 50) { slideCustomerReview(diff > 0 ? 1 : -1); crResetAuto(); }
+      });
     })();
 
     // ── Mobile Menu ──
