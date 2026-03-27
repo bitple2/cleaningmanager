@@ -1207,19 +1207,51 @@
     }
     .customer-review-track {
       display: flex;
-      gap: 32px;
-      justify-content: center;
+      gap: 0;
+      transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
     }
     .customer-review-card {
-      width: 280px;
+      min-width: 100%;
       text-align: center;
       flex-shrink: 0;
+      padding: 0 16px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
     .customer-review-dots {
-      display: none;
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 32px;
     }
     .customer-review-arrow {
-      display: none;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.9);
+      border: 1px solid var(--gray-4);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 18px;
+      color: var(--gray-2);
+      cursor: pointer;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: box-shadow 0.2s;
+    }
+    .customer-review-arrow:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .cr-arrow-left {
+      left: 12px;
+    }
+    .cr-arrow-right {
+      right: 12px;
     }
 
     /* ── CTA BOTTOM ──────────────────────── */
@@ -3797,7 +3829,7 @@
         <span class="hero-rotate-word">원클릭 정산 · 세무</span>
       </span>
     </h1>
-    <p>클리닝매니저가 <strong style="color:var(--text)">고객 만족도</strong>를 높여드립니다.<br>사진만 올리세요. <strong style="color:var(--text)">프리미엄 청소 리포트는 저희가 만들어드립니다.</strong></p>
+    <p>청소업체 편하게 관리하세요, <strong style="color:var(--text)">고객 감동은 저희가 만듭니다.</strong></p>
     <p class="mobile-subtitle" style="display:none;">청소업체 편하게 관리하세요,<br>고객 감동은 저희가 만듭니다.</p>
     <div class="hero-actions">
       <a href="#" class="btn-primary" onclick="openForm(event)">무료로 시작하기 →</a>
@@ -3875,7 +3907,7 @@
     <div class="report-showcase reveal">
       <div class="report-slogan">
         사진만 올리세요.<br>
-        <span class="highlight">프리미엄 청소 리포트</span>는 저희가 만들어드립니다.
+        <span class="highlight">프리미엄 청소 리포트</span>는<br>저희가 만들어드립니다.
         <span class="sub-hook">단 <span class="highlight">5분</span>, 고객 만족도는 <span class="highlight">50%</span> 올라갑니다.</span>
       </div>
 
@@ -4069,7 +4101,7 @@
     <div class="section-inner">
       <div class="value-section">
         <div class="value-text reveal-left">
-          <div class="section-tag tag-reservation" style="font-size:12px; font-weight:600; color:#888; letter-spacing:0.08em; margin-bottom:24px; background:#F0F0F0; padding:6px 14px; border-radius:20px; border:1px solid #D0D0D0;">예약 연동</div>
+          <div class="section-tag tag-reservation" style="font-size:12px; font-weight:600; color:#1E3A5F; letter-spacing:0.08em; margin-bottom:24px; background:#F0F0F0; padding:6px 14px; border-radius:20px; border:1px solid #D0D0D0;">예약 연동</div>
           <h2 class="section-title"><span class="title-sub">예약 들어오면<br></span>팀장이 알아서<br>움직입니다</h2>
           <p class="section-desc">예약이 접수되는 순간, 담당 팀장 앱에 자동으로 연동됩니다. 날짜·주소·서비스 내용까지 한번에 전달. 더 이상 카카오톡 안 보내도 됩니다.</p>
           <div style="margin-top: 32px; display: flex; flex-direction: column; gap: 12px;">
@@ -4122,7 +4154,7 @@
     <div class="section-inner">
       <div class="value-section">
         <div class="value-text reveal">
-          <div class="section-tag tag-payroll" style="font-size:12px; font-weight:600; color:#888; letter-spacing:0.08em; margin-bottom:24px; background:#F0F0F0; padding:6px 14px; border-radius:20px; border:1px solid #D0D0D0;">급여 정산</div>
+          <div class="section-tag tag-payroll" style="font-size:12px; font-weight:600; color:#6B4CE6; letter-spacing:0.08em; margin-bottom:24px; background:#F0F0F0; padding:6px 14px; border-radius:20px; border:1px solid #D0D0D0;">급여 정산</div>
           <h2 class="section-title"><span class="title-sub">월말 급여 계산,<br></span>이제 5분이면<br>끝납니다</h2>
           <p class="section-desc">일급·주급·월급·수수료제까지, 매출·옵션·예약금이 전부 반영되어 자동 정산됩니다. 팀장도 앱에서 수입을 바로 확인해요.</p>
           <div style="margin-top: 32px; display: flex; flex-direction: column; gap: 12px;">
@@ -5122,6 +5154,13 @@
     // ── Customer Review Slider ──
     let crCurrent = 0;
     let crTotal = 0;
+    let crAutoTimer = null;
+    function crResetAuto() {
+      clearInterval(crAutoTimer);
+      crAutoTimer = setTimeout(() => {
+        crAutoTimer = setInterval(() => { slideCustomerReview(1); }, 4000);
+      }, 5000);
+    }
     function slideCustomerReview(dir) {
       const track = document.getElementById('customerReviewTrack');
       const dots = document.querySelectorAll('[data-cindex]');
@@ -5133,18 +5172,9 @@
     (() => {
       const track = document.getElementById('customerReviewTrack');
       const dots = document.querySelectorAll('[data-cindex]');
-      if (!track || !dots.length || window.innerWidth > 480) return;
+      if (!track || !dots.length) return;
 
       crTotal = track.querySelectorAll('.customer-review-card').length;
-
-      let crAutoTimer = setInterval(() => { slideCustomerReview(1); }, 4000);
-
-      function crResetAuto() {
-        clearInterval(crAutoTimer);
-        crAutoTimer = setTimeout(() => {
-          crAutoTimer = setInterval(() => { slideCustomerReview(1); }, 4000);
-        }, 5000);
-      }
 
       dots.forEach(dot => {
         dot.addEventListener('click', () => {
@@ -5161,6 +5191,8 @@
         const diff = startX - e.changedTouches[0].clientX;
         if (Math.abs(diff) > 50) { slideCustomerReview(diff > 0 ? 1 : -1); crResetAuto(); }
       });
+
+      crAutoTimer = setInterval(() => { slideCustomerReview(1); }, 4000);
     })();
 
     // ── Mobile Menu ──
