@@ -1295,7 +1295,10 @@
     }
 
     .hero-rotate-word {
-      display: block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
       position: absolute;
       left: 0;
       right: 0;
@@ -1307,6 +1310,15 @@
       font-weight: 900;
       white-space: nowrap;
       text-align: center;
+    }
+    .hero-rotate-word::before {
+      content: '';
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #0D9488;
+      flex-shrink: 0;
     }
 
     .hero-rotate-word.active {
@@ -3349,17 +3361,17 @@
       flex-wrap: wrap;
     }
     .report-feedback-title {
-      font-size: 13px;
+      font-size: 18px;
       font-weight: 700;
-      color: var(--gray-3);
+      color: var(--gray-2);
       letter-spacing: 0.5px;
-      margin-bottom: 4px;
+      margin-bottom: 8px;
       width: 100%;
       text-align: center;
     }
     .report-feedback q {
       display: block;
-      font-size: 15px;
+      font-size: 18px;
       line-height: 1.6;
       color: var(--gray-2);
       font-style: italic;
@@ -3389,6 +3401,7 @@
       클리닝매니저
     </a>
     <div class="nav-links">
+      <a href="#report">고객 리포트</a>
       <a href="#features">기능</a>
       <a href="#pricing">요금제</a>
       <a href="#reviews">후기</a>
@@ -3404,8 +3417,8 @@
       <div class="hero-shape"></div>
       <div class="hero-shape"></div>
     </div>
-    <div class="hero-badge"><span></span> 오직 바쁜 사장님을 위한 청소업체 올인원 관리앱</div>
-    <h1>프리미엄 청소업체는<br><em>여기서</em> 시작됩니다<br>
+    <div class="hero-badge"><span></span> 바쁜 사장님을 위한 청소업체 올인원 관리앱</div>
+    <h1>고객이 <em>프리미엄</em>이라 느끼면<br>프리미엄 청소업체가 됩니다<br>
       <span class="hero-rotate-wrapper">
         <span class="hero-rotate-word active">고객 리포트 자동 생성</span>
         <span class="hero-rotate-word">예약 · 일정 자동 연동</span>
@@ -3413,8 +3426,7 @@
         <span class="hero-rotate-word">원클릭 정산 · 세무</span>
       </span>
     </h1>
-    <p>사장님이 도입하면,<br><strong style="color:var(--text)">팀장님은 일정이 편해지고</strong> <strong style="color:var(--text)">고객님은
-        리포트에 감동</strong>합니다.</p>
+    <p>클리닝매니저가 <strong style="color:var(--text)">고객 만족도</strong>를 높여드립니다.<br>사진만 올리세요. <strong style="color:var(--text)">프리미엄 청소 리포트는 저희가 만들어드립니다.</strong></p>
     <div class="hero-actions">
       <a href="#" class="btn-primary" onclick="openForm(event)">무료로 시작하기 →</a>
       <a href="https://open.kakao.com/o/scsRjRji" target="_blank" class="btn-secondary">문의하기</a>
@@ -3422,6 +3434,22 @@
     <div class="hero-carousel-wrapper">
       <div class="hero-carousel-scene">
         <div class="hero-carousel-ring">
+          <div class="hero-carousel-cell">
+            <div class="phone-frame">
+              <div class="phone-inner"><img
+                  src="images/%EA%B3%A0%EA%B0%9D%20%ED%94%84%EB%A6%AC%EB%AF%B8%EC%97%84%20%EB%A6%AC%ED%8F%AC%ED%8A%B8.PNG"
+                  alt="고객 프리미엄 청소 리포트"></div>
+            </div>
+            <div class="phone-label"><strong>고객</strong> 프리미엄 청소 리포트</div>
+          </div>
+          <div class="hero-carousel-cell">
+            <div class="phone-frame">
+              <div class="phone-inner"><img
+                  src="images/%EC%8B%A4%EC%8B%9C%EA%B0%84%20%EC%B2%AD%EC%86%8C%20%EB%A6%AC%ED%8F%AC%ED%8A%B8.PNG"
+                  alt="실시간 청소 리포트"></div>
+            </div>
+            <div class="phone-label"><strong>실시간</strong> 청소 리포트</div>
+          </div>
           <div class="hero-carousel-cell">
             <div class="phone-frame">
               <div class="phone-inner"><img src="images/boss_home.png" alt="사장모드 홈화면"></div>
@@ -3433,22 +3461,6 @@
               <div class="phone-inner"><img src="images/boss_home2.png" alt="사장모드 홈화면2"></div>
             </div>
             <div class="phone-label"><strong>사장님</strong> 홈화면2</div>
-          </div>
-          <div class="hero-carousel-cell">
-            <div class="phone-frame">
-              <div class="phone-inner"><img
-                  src="images/%EA%B3%A0%EA%B0%9D%20%ED%94%84%EB%A6%AC%EB%AF%B8%EC%97%84%20%EB%A6%AC%ED%8F%AC%ED%8A%B8.PNG"
-                  alt="고객 프리미엄 리포트"></div>
-            </div>
-            <div class="phone-label"><strong>고객</strong> 프리미엄 리포트</div>
-          </div>
-          <div class="hero-carousel-cell">
-            <div class="phone-frame">
-              <div class="phone-inner"><img
-                  src="images/%EC%8B%A4%EC%8B%9C%EA%B0%84%20%EC%B2%AD%EC%86%8C%20%EB%A6%AC%ED%8F%AC%ED%8A%B8.PNG"
-                  alt="실시간 청소 리포트"></div>
-            </div>
-            <div class="phone-label"><strong>실시간</strong> 청소 리포트</div>
           </div>
           <div class="hero-carousel-cell">
             <div class="phone-frame">
@@ -3490,15 +3502,13 @@
     <!-- REPORT SHOWCASE -->
     <div class="report-showcase reveal">
       <div class="report-slogan">
-        <span class="highlight">클리닝매니저</span>가 고객 만족도를 <span class="highlight">높여드립니다.</span><br>
-        <span class="highlight">사진만 올리세요.</span><br>
-        프리미엄 리포트는 <span class="highlight">저희가 만듭니다.</span>
+        <span class="highlight">리포트 하나</span>로 입소문이 <span class="highlight">달라집니다.</span>
         <span class="sub-hook">단 <span class="highlight">5분</span>, 고객 만족도는 <span class="highlight">50%</span> 올라갑니다.</span>
       </div>
 
       <div class="report-phone-wrapper">
         <div class="report-phone-frame">
-          <img src="images/고객 프리미엄 리포트.PNG" alt="클리닝매니저 고객 프리미엄 리포트 화면" loading="lazy">
+          <img src="images/고객 프리미엄 리포트.PNG" alt="클리닝매니저 고객 프리미엄 청소 리포트 화면" loading="lazy">
         </div>
         <div class="report-phone-shadow"></div>
       </div>
@@ -3510,6 +3520,102 @@
         <q>실시간으로 청소 리포트를 보니까 믿음이 가더라구요. 지인에게도 소개해줬어요</q>
       </div>
     </div>
+  </div>
+
+  <!-- VALUE: 고객 리포트 -->
+  <section id="report" style="background: var(--gray-5);">
+    <div class="section-inner">
+      <div class="value-section reverse">
+        <div class="value-text reveal">
+          <div class="section-tag tag-report">고객 리포트</div>
+          <h2 class="section-title" style="font-size: clamp(26px, 3.5vw, 42px);">평균 5분,<br>고객이 감동하는<br>리포트가 완성됩니다.</h2>
+          <p class="section-desc">사진은 물론 영상까지 업로드할 수 있어요.<br>고객은 링크 하나로 원할 때마다 실시간 청소 현황을 확인합니다.</p>
+          <div style="margin-top: 32px; display: flex; flex-direction: column; gap: 12px;">
+            <div style="display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--gray-2);">
+              <span style="color: var(--green); font-size: 18px;">✓</span> 카카오톡으로 링크 한 번만 공유하면 끝
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--gray-2);">
+              <span style="color: var(--green); font-size: 18px;">✓</span> A/S 발생 시 증빙 자료로 활용
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--gray-2);">
+              <span style="color: var(--green); font-size: 18px;">✓</span> 브랜드에 맞게 리포트 디자인 커스터마이징 <span
+                class="enterprise-badge"
+                style="font-size:9px; background:var(--accent); color:white; padding:1px 6px; border-radius:8px; margin-left:2px; vertical-align:middle;">Enterprise</span>
+            </div>
+          </div>
+        </div>
+        <div class="value-visual reveal reveal-delay-1"
+          style="display:flex; justify-content:center; align-items:center; gap:32px;">
+          <div style="display:flex; flex-direction:column; align-items:center;">
+            <div style="font-size:15px; font-weight:800; color:#36B0A8; margin-bottom:14px;">사장님/팀장님 화면</div>
+            <div
+              style="background:#1a1a1a; border-radius:44px; padding:6px; box-shadow:0 25px 60px rgba(0,0,0,0.18); width:280px;">
+              <div style="border-radius:40px; overflow:hidden; background:white;">
+                <video id="reportCreateVideo" muted playsinline style="width:100%; display:block;">
+                  <source src="images/report_create.mp4" type="video/mp4">
+                </video>
+              </div>
+            </div>
+          </div>
+          <div id="reportArrow" style="font-size:28px; color:var(--accent); align-self:center; margin-top:24px; opacity:0; transition: opacity 0.6s ease;">→</div>
+          <div style="display:flex; flex-direction:column; align-items:center;">
+            <div style="font-size:15px; font-weight:800; color:var(--accent); margin-bottom:14px;">고객님 화면</div>
+            <div
+              style="background:#1a1a1a; border-radius:44px; padding:6px; box-shadow:0 25px 60px rgba(0,0,0,0.18); width:280px;">
+              <div style="border-radius:40px; overflow:hidden; background:white;">
+                <video id="reportCustomerVideo" muted playsinline poster="images/report_customer_poster.jpg"
+                  style="width:100%; display:block; filter: brightness(0.85) saturate(0.3); transition: filter 0.8s ease, opacity 0.8s ease; opacity: 0.6;">
+                  <source src="images/report_customer.mp4" type="video/mp4">
+                </video>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 실제 고객 반응 -->
+      <div style="margin-top: 80px; padding-top: 64px; border-top: 1px solid rgba(0,0,0,0.06);">
+        <div style="max-width: 720px; margin: 0 auto; text-align: center;">
+          <div class="reveal"
+            style="display: inline-block; background: var(--accent); color: white; font-size: 14px; font-weight: 700; padding: 6px 18px; border-radius: 20px; margin-bottom: 16px;">
+            실제 고객 반응</div>
+          <h2 class="section-title reveal" style="font-size: 32px; margin-bottom: 48px;">리포트 하나로<br>고객 반응이 달라졌습니다</h2>
+          <div class="reveal"
+            style="display: flex; gap: 32px; align-items: flex-start; justify-content: center; flex-wrap: wrap;">
+            <div style="width:280px; text-align:center;">
+              <div
+                style="background:#1a1a1a; border-radius:44px; padding:6px; box-shadow:0 25px 60px rgba(0,0,0,0.12);">
+                <div style="border-radius:40px; overflow:hidden; background:white;">
+                  <img src="images/real_review.png" style="width:100%; display:block;" alt="실제 고객 후기">
+                </div>
+              </div>
+              <p style="font-size:15px; font-weight:600; color:var(--text); line-height:1.7; margin-top:20px;">"어플로 바로바로
+                사진 전후를 볼 수 있도록 실시간 체크가 가능한 점이 정말 맘에 들었습니다!"</p>
+              <p style="font-size:13px; color:var(--gray-3); margin-top:8px;">— 맘카페 실제 고객 후기</p>
+            </div>
+            <div style="width:280px; text-align:center;">
+              <div
+                style="background:#1a1a1a; border-radius:44px; padding:6px; box-shadow:0 25px 60px rgba(0,0,0,0.12);">
+                <div style="border-radius:40px; overflow:hidden; background:white;">
+                  <img src="images/%EA%B3%A0%EA%B0%9D%EB%A7%8C%EC%A1%B12.PNG" style="width:100%; display:block;"
+                    alt="고객 만족 후기 2">
+                </div>
+              </div>
+              <p style="font-size:15px; font-weight:600; color:var(--text); line-height:1.7; margin-top:20px;">"실시간으로
+                청소되가는 모습 청소 리포트로 사진+영상으로 제공해주셔서 맘 편하게 믿고 맡길 수 있었습니다"</p>
+              <p style="font-size:13px; color:var(--gray-3); margin-top:8px;">— 실제 고객 후기</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRANSITION HOOK -->
+  <div style="text-align: center; padding: 80px 24px;">
+    <div class="reveal" style="font-size: 16px; font-weight: 700; color: #0D9488; margin-bottom: 16px;">그런데 말이죠,</div>
+    <h2 class="section-title reveal" style="font-size: 36px;">리포트만이 아닙니다.</h2>
+    <p class="reveal" style="font-size: 18px; color: var(--gray-3); margin-top: 16px;">예약 연동 · 급여 정산 · 간편 결제까지,<br>청소업체 운영에 필요한 모든 것을 하나로.</p>
   </div>
 
   <!-- STATS -->
@@ -3618,103 +3724,6 @@
         </div>
       </div>
     </div>
-  </section>
-
-  <!-- VALUE 2: 고객 리포트 -->
-  <section style="background: var(--gray-5);">
-    <div class="section-inner">
-      <div class="value-section reverse">
-        <div class="value-text reveal">
-          <div class="section-tag tag-report">고객 리포트</div>
-          <h2 class="section-title"><span class="title-sub">사진 찍으면<br></span>전문 리포트가<br>자동으로 완성</h2>
-          <p class="section-desc">자동으로 생성되는 프리미엄 리포트 한 장이면 고객만족도가 높아집니다.<br>팀장이 사진만 찍으면 브랜드 리포트가 완성되고, 고객에게 바로 공유할 수
-            있어요.</p>
-          <div style="margin-top: 32px; display: flex; flex-direction: column; gap: 12px;">
-            <div style="display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--gray-2);">
-              <span style="color: var(--green); font-size: 18px;">✓</span> 사진 · 영상 업로드 시 실시간 반영
-            </div>
-            <div style="display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--gray-2);">
-              <span style="color: var(--green); font-size: 18px;">✓</span> 고객은 링크 하나로 실시간 확인
-            </div>
-            <div style="display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--gray-2);">
-              <span style="color: var(--green); font-size: 18px;">✓</span> 고객에게 카카오톡으로 링크 한 번만 공유
-            </div>
-            <div style="display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--gray-2);">
-              <span style="color: var(--green); font-size: 18px;">✓</span> A/S 발생 시 증빙 자료로 활용
-            </div>
-            <div style="display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--gray-2);">
-              <span style="color: var(--green); font-size: 18px;">✓</span> 브랜드에 맞게 리포트 디자인 커스터마이징 <span
-                class="enterprise-badge"
-                style="font-size:9px; background:var(--accent); color:white; padding:1px 6px; border-radius:8px; margin-left:2px; vertical-align:middle;">Enterprise</span>
-            </div>
-          </div>
-        </div>
-        <div class="value-visual reveal reveal-delay-1"
-          style="display:flex; justify-content:center; align-items:center; gap:32px;">
-          <div style="display:flex; flex-direction:column; align-items:center;">
-            <div style="font-size:15px; font-weight:800; color:#36B0A8; margin-bottom:14px;">사장님/팀장님 화면</div>
-            <div
-              style="background:#1a1a1a; border-radius:44px; padding:6px; box-shadow:0 25px 60px rgba(0,0,0,0.18); width:280px;">
-              <div style="border-radius:40px; overflow:hidden; background:white;">
-                <video id="reportCreateVideo" autoplay muted playsinline style="width:100%; display:block;">
-                  <source src="images/report_create.mp4" type="video/mp4">
-                </video>
-              </div>
-            </div>
-          </div>
-          <div style="font-size:28px; color:var(--accent); align-self:center; margin-top:24px;">→</div>
-          <div style="display:flex; flex-direction:column; align-items:center;">
-            <div style="font-size:15px; font-weight:800; color:var(--accent); margin-bottom:14px;">고객님 화면</div>
-            <div
-              style="background:#1a1a1a; border-radius:44px; padding:6px; box-shadow:0 25px 60px rgba(0,0,0,0.18); width:280px;">
-              <div style="border-radius:40px; overflow:hidden; background:white;">
-                <video id="reportCustomerVideo" muted playsinline poster="images/report_customer_poster.jpg"
-                  style="width:100%; display:block;">
-                  <source src="images/report_customer.mp4" type="video/mp4">
-                </video>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 실제 고객 반응 (고객 리포트 섹션 내부) -->
-      <div style="margin-top: 80px; padding-top: 64px; border-top: 1px solid rgba(0,0,0,0.06);">
-        <div style="max-width: 720px; margin: 0 auto; text-align: center;">
-          <div class="reveal"
-            style="display: inline-block; background: var(--accent); color: white; font-size: 14px; font-weight: 700; padding: 6px 18px; border-radius: 20px; margin-bottom: 16px;">
-            실제 고객 반응</div>
-          <h2 class="section-title reveal" style="font-size: 32px; margin-bottom: 48px;">리포트 하나로<br>고객 반응이 달라졌습니다</h2>
-          <div class="reveal"
-            style="display: flex; gap: 32px; align-items: flex-start; justify-content: center; flex-wrap: wrap;">
-            <!-- 후기 1 -->
-            <div style="width:280px; text-align:center;">
-              <div
-                style="background:#1a1a1a; border-radius:44px; padding:6px; box-shadow:0 25px 60px rgba(0,0,0,0.12);">
-                <div style="border-radius:40px; overflow:hidden; background:white;">
-                  <img src="images/real_review.png" style="width:100%; display:block;" alt="실제 고객 후기">
-                </div>
-              </div>
-              <p style="font-size:15px; font-weight:600; color:var(--text); line-height:1.7; margin-top:20px;">"어플로 바로바로
-                사진 전후를 볼 수 있도록 실시간 체크가 가능한 점이 정말 맘에 들었습니다!"</p>
-              <p style="font-size:13px; color:var(--gray-3); margin-top:8px;">— 맘카페 실제 고객 후기</p>
-            </div>
-            <!-- 후기 2 -->
-            <div style="width:280px; text-align:center;">
-              <div
-                style="background:#1a1a1a; border-radius:44px; padding:6px; box-shadow:0 25px 60px rgba(0,0,0,0.12);">
-                <div style="border-radius:40px; overflow:hidden; background:white;">
-                  <img src="images/%EA%B3%A0%EA%B0%9D%EB%A7%8C%EC%A1%B12.PNG" style="width:100%; display:block;"
-                    alt="고객 만족 후기 2">
-                </div>
-              </div>
-              <p style="font-size:15px; font-weight:600; color:var(--text); line-height:1.7; margin-top:20px;">"실시간으로
-                청소되가는 모습 청소 리포트로 사진+영상으로 제공해주셔서 맘 편하게 믿고 맡길 수 있었습니다"</p>
-              <p style="font-size:13px; color:var(--gray-3); margin-top:8px;">— 실제 고객 후기</p>
-            </div>
-          </div>
-        </div>
-      </div>
   </section>
 
   <!-- VALUE 3: 급여 정산 -->
@@ -4386,15 +4395,48 @@
         });
       })();
 
-      // ── 5-0B. Report Create → Customer video chain ──
+      // ── 5-0B. Report Create → Customer video chain (scroll trigger + blur transition) ──
       (() => {
         const create = document.getElementById('reportCreateVideo');
         const customer = document.getElementById('reportCustomerVideo');
         if (!create || !customer) return;
-        create.addEventListener('ended', () => {
-          customer.play();
+
+        let reportStarted = false;
+        const reportSection = create.closest('section');
+
+        // 스크롤 시 섹션 진입하면 사장님 영상 자동 시작
+        const reportObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && !reportStarted) {
+              reportStarted = true;
+              create.currentTime = 0;
+              create.play();
+            }
+          });
+        }, { threshold: 0.3 });
+        if (reportSection) reportObserver.observe(reportSection);
+
+        const arrow = document.getElementById('reportArrow');
+
+        // 사장님 영상 끝나기 1.5초 전에 화살표 표시
+        create.addEventListener('timeupdate', () => {
+          if (arrow && create.duration && create.currentTime >= create.duration - 1.5) {
+            arrow.style.opacity = '1';
+          }
         });
+
+        // 사장님 영상 끝 → 고객님 화면 활성화 + 재생
+        create.addEventListener('ended', () => {
+          customer.style.filter = 'brightness(1) saturate(1)';
+          customer.style.opacity = '1';
+          setTimeout(() => customer.play(), 300);
+        });
+
+        // 고객님 영상 끝 → 다시 고객님 비활성 + 화살표 숨김 + 사장님 재시작
         customer.addEventListener('ended', () => {
+          customer.style.filter = 'brightness(0.85) saturate(0.3)';
+          customer.style.opacity = '0.6';
+          if (arrow) arrow.style.opacity = '0';
           create.currentTime = 0;
           create.play();
         });
