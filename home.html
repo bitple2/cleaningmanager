@@ -3251,6 +3251,131 @@
         font-size: 20px;
       }
     }
+
+    /* ── REPORT SHOWCASE (히어로 내 리포트 섹션) ── */
+    .report-showcase {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 900px;
+      margin: 48px auto 0;
+      padding: 0 24px;
+    }
+    .report-phone-wrapper {
+      position: relative;
+      width: 240px;
+      margin: 32px 0;
+    }
+    .report-phone-frame {
+      width: 100%;
+      height: 480px;
+      border-radius: 32px;
+      overflow: hidden;
+      background: #000;
+      box-shadow:
+        0 8px 32px rgba(0,0,0,0.12),
+        0 2px 8px rgba(0,0,0,0.06),
+        0 0 0 1px rgba(255,255,255,0.1) inset;
+      position: relative;
+      transition: box-shadow 0.4s ease;
+    }
+    .report-phone-frame::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 34px;
+      background: linear-gradient(160deg, rgba(13,148,136,0.3), rgba(30,58,95,0.2), transparent 60%);
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    .report-phone-frame:hover::before {
+      opacity: 1;
+    }
+    .report-phone-frame:hover {
+      box-shadow:
+        0 12px 40px rgba(13,148,136,0.15),
+        0 4px 12px rgba(0,0,0,0.08),
+        0 0 0 1px rgba(255,255,255,0.1) inset;
+    }
+    .report-phone-frame img {
+      display: block;
+      width: 100%;
+      height: auto;
+      transition: transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transform: translateY(0);
+    }
+    .report-phone-frame:hover img {
+      transform: translateY(calc(-100% + 480px));
+    }
+    .report-phone-shadow {
+      position: absolute;
+      bottom: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 65%;
+      height: 16px;
+      background: radial-gradient(ellipse, rgba(0,0,0,0.10) 0%, transparent 70%);
+      filter: blur(8px);
+    }
+    .report-slogan {
+      font-size: 40px;
+      line-height: 1.5;
+      color: var(--gray-2);
+      font-weight: 500;
+      word-break: keep-all;
+    }
+    .report-slogan .highlight {
+      background: linear-gradient(135deg, var(--navy), #0D9488);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 800;
+    }
+    .report-slogan .sub-hook {
+      display: block;
+      margin-top: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--gray-3);
+    }
+    .report-feedback {
+      margin-top: 28px;
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .report-feedback-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--gray-3);
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+      width: 100%;
+      text-align: center;
+    }
+    .report-feedback q {
+      display: block;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--gray-2);
+      font-style: italic;
+      padding: 0;
+      quotes: "\201C" "\201D";
+    }
+    .report-feedback q::before {
+      content: open-quote;
+      color: #0D9488;
+      font-weight: 700;
+    }
+    .report-feedback q::after {
+      content: close-quote;
+      color: #0D9488;
+      font-weight: 700;
+    }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
@@ -3361,6 +3486,30 @@
     </div>
 
     <div class="hero-tagline"><span class="live-dot"></span>이미 100+건의 리포트가 생성되고, 100+명의 고객이 만족하고 있습니다</div>
+
+    <!-- REPORT SHOWCASE -->
+    <div class="report-showcase reveal">
+      <div class="report-slogan">
+        <span class="highlight">클리닝매니저</span>가 고객 만족도를 <span class="highlight">높여드립니다.</span><br>
+        <span class="highlight">사진만 올리세요.</span><br>
+        프리미엄 리포트는 <span class="highlight">저희가 만듭니다.</span>
+        <span class="sub-hook">단 <span class="highlight">5분</span>, 고객 만족도는 <span class="highlight">50%</span> 올라갑니다.</span>
+      </div>
+
+      <div class="report-phone-wrapper">
+        <div class="report-phone-frame">
+          <img src="images/고객 프리미엄 리포트.PNG" alt="클리닝매니저 고객 프리미엄 리포트 화면" loading="lazy">
+        </div>
+        <div class="report-phone-shadow"></div>
+      </div>
+
+      <div class="report-feedback">
+        <div class="report-feedback-title">💬 실제 고객님의 피드백</div>
+        <q>이렇게까지 해주는 업체 처음 봤어요</q>
+        <q>구역별로 한눈에 볼 수 있어서 너무 좋았어요</q>
+        <q>실시간으로 청소 리포트를 보니까 믿음이 가더라구요. 지인에게도 소개해줬어요</q>
+      </div>
+    </div>
   </div>
 
   <!-- STATS -->
