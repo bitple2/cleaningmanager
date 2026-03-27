@@ -738,7 +738,7 @@
     }
 
     .pain-section .section-tag {
-      color: #1E3A5F;
+      color: rgba(255,255,255,0.5);
     }
 
     .pain-section .section-title {
@@ -757,21 +757,32 @@
     }
 
     .pain-card {
-      background: rgba(255, 255, 255, 0.05);
+      background: #111;
       border-radius: 20px;
       padding: 28px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      border: none;
+      border-left: 3px solid transparent;
       transition: background 0.2s;
       display: flex;
       flex-direction: column;
     }
+    .pain-card:nth-child(1) { border-left-color: #0D9488; }
+    .pain-card:nth-child(2) { border-left-color: #BF953F; }
+    .pain-card:nth-child(3) { border-left-color: #1E3A5F; }
 
+    .pain-card .pain-title {
+      color: white;
+    }
+    .pain-card .pain-text {
+      color: rgba(255,255,255,0.6);
+    }
     .pain-card .pain-solution {
       margin-top: auto;
+      color: #0D9488;
     }
 
     .pain-card:hover {
-      background: rgba(255, 255, 255, 0.08);
+      background: #1a1a1a;
     }
 
     .pain-emoji {
@@ -2639,14 +2650,60 @@
         display: none;
       }
 
+      .pain-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        overflow-x: visible !important;
+        scroll-snap-type: none !important;
+        gap: 16px !important;
+        padding-bottom: 0 !important;
+      }
       .pain-card {
-        min-width: 70vw !important;
-        scroll-snap-align: start;
-        padding: 20px 16px;
+        min-width: 100% !important;
+        padding: 28px 24px;
         flex-shrink: 0;
         transform: none !important;
         transition: none !important;
         animation: none !important;
+        border-radius: 16px !important;
+      }
+      .pain-card:nth-child(1) {
+        background: #111 !important;
+        border: none !important;
+        border-left: 3px solid #0D9488 !important;
+      }
+      .pain-card:nth-child(2) {
+        background: #111 !important;
+        border: none !important;
+        border-left: 3px solid #BF953F !important;
+      }
+      .pain-card:nth-child(3) {
+        background: #111 !important;
+        border: none !important;
+        border-left: 3px solid #1E3A5F !important;
+      }
+      .pain-card .pain-title {
+        color: white !important;
+      }
+      .pain-card .pain-text {
+        color: rgba(255,255,255,0.6) !important;
+      }
+      .pain-card .pain-solution {
+        color: #0D9488 !important;
+      }
+      .pain-emoji {
+        font-size: 32px !important;
+      }
+      .pain-title {
+        font-size: 17px !important;
+        line-height: 1.5 !important;
+      }
+      .pain-text {
+        font-size: 14px !important;
+        line-height: 1.7 !important;
+      }
+      .pain-solution {
+        font-size: 14px !important;
       }
       .pain-card:hover {
         transform: none !important;
@@ -3756,6 +3813,37 @@
     </div>
   </div>
 
+  <!-- PAIN POINTS -->
+  <div style="padding: 80px 0;">
+    <div class="pain-section">
+      <div class="section-tag">혹시 이런 고민, 있으신가요?</div>
+      <h2 class="section-title" style="max-width:600px">청소 잘하는데<br>왜 성장이 안 될까?</h2>
+      <div class="pain-grid">
+        <div class="pain-card reveal">
+          <div class="pain-emoji">🤔</div>
+          <div class="pain-title">"청소 잘했는데<br>왜 소개가 안 올까?"</div>
+          <div class="pain-text">청소 품질은 자신 있는데,<br>고객이 기억을 못 해요.<br>증빙이 없으니 입소문도 안 나고요.</div>
+          <div class="pain-arrow">↓</div>
+          <div class="pain-solution">→ 프리미엄 청소 리포트로<br>"이 업체 다르다" 인식 만들기</div>
+        </div>
+        <div class="pain-card reveal reveal-delay-1">
+          <div class="pain-emoji">💰</div>
+          <div class="pain-title">"평단가 올리고 싶은데<br>근거가 없어요"</div>
+          <div class="pain-text">프리미엄 업체로 보이고 싶은데,<br>다른 업체랑 차별점을 못 보여줘요.<br>고객 입장에서 다 비슷해 보이니까요.</div>
+          <div class="pain-arrow">↓</div>
+          <div class="pain-solution">→ 프리미엄 리포트가 곧 브랜딩,<br>단가를 올릴 근거가 됩니다</div>
+        </div>
+        <div class="pain-card reveal reveal-delay-2">
+          <div class="pain-emoji">⏰</div>
+          <div class="pain-title">"관리할 시간에<br>영업을 더 하고 싶어요"</div>
+          <div class="pain-text">카톡, 엑셀, 전화에 시간을 뺏기고 있어요.<br>팀장이 늘수록 관리 시간만 늘어나요.</div>
+          <div class="pain-arrow">↓</div>
+          <div class="pain-solution">→ 일정·정산·리포트 자동화로<br>관리 시간을 영업 시간으로</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- VALUE: 고객 리포트 -->
   <section id="report" style="background: var(--gray-5);">
     <div class="section-inner">
@@ -3881,37 +3969,6 @@
     <div class="stat-item">
       <div class="stat-number">iOS · <em>Android</em></div>
       <div class="stat-label">두 플랫폼 모두 지원</div>
-    </div>
-  </div>
-
-  <!-- PAIN POINTS -->
-  <div style="padding: 80px 0;">
-    <div class="pain-section">
-      <div class="section-tag">이런 문제, 있으신가요?</div>
-      <h2 class="section-title" style="max-width:600px">사장님이 하루종일<br>카카오톡만 보고 계신 이유</h2>
-      <div class="pain-grid">
-        <div class="pain-card reveal">
-          <div class="pain-emoji">📱</div>
-          <div class="pain-title">"팀장한테 일정 전달하다가 하루가 끝나요"</div>
-          <div class="pain-text">예약 들어올 때마다 팀장들한테 개별로 연락. 변경되면 또 연락. 카카오톡이 업무 전부가 됐어요.</div>
-          <div class="pain-arrow">↓</div>
-          <div class="pain-solution">→ 예약 생성시 팀장계정에 자동 연동</div>
-        </div>
-        <div class="pain-card reveal reveal-delay-1">
-          <div class="pain-emoji">🧮</div>
-          <div class="pain-title">"월말에 급여 계산하면 반나절이 걸려요"</div>
-          <div class="pain-text">엑셀에 건수 세고, 수수료율 곱하고, 각자 다른 비율 다 외우고 있어야 해요. 실수도 잦고요.</div>
-          <div class="pain-arrow">↓</div>
-          <div class="pain-solution">→ 팀장별 수수료 자동 계산, 클릭 한 번에 정산</div>
-        </div>
-        <div class="pain-card reveal reveal-delay-2">
-          <div class="pain-emoji">📸</div>
-          <div class="pain-title">"팀장마다 고객 리포트 품질이 달라요"</div>
-          <div class="pain-text">사진 안 찍는 팀장, 대충 찍는 팀장. 고객 불만 생겨도 뭘 했는지 증빙이 없어요.</div>
-          <div class="pain-arrow">↓</div>
-          <div class="pain-solution">→ 앱으로 사진 촬영 → 브랜드 리포트 자동 생성</div>
-        </div>
-      </div>
     </div>
   </div>
 
