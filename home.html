@@ -96,6 +96,9 @@
       color: var(--black);
     }
 
+    .nav-hamburger { display: none; }
+    .mobile-menu { display: none; }
+
     .nav-cta {
       background: var(--navy);
       color: var(--white);
@@ -1060,6 +1063,53 @@
     .testimonial-role {
       font-size: 12px;
       color: var(--gray-3);
+    }
+
+    /* ── REVIEW SLIDER ────────────────────── */
+    .review-slider {
+      margin-top: 56px;
+      overflow: hidden;
+      position: relative;
+    }
+    .review-track {
+      display: flex;
+      gap: 24px;
+      transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      cursor: grab;
+    }
+    .review-card {
+      min-width: calc(33.333% - 16px);
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 32px;
+      border: 1px solid var(--gray-5);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+      transition: box-shadow 0.3s, transform 0.3s;
+    }
+    .review-card:hover {
+      box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+      transform: translateY(-4px);
+    }
+    .review-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 32px;
+    }
+    .review-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      border: none;
+      background: var(--gray-4);
+      cursor: pointer;
+      transition: all 0.3s;
+      padding: 0;
+    }
+    .review-dot.active {
+      background: var(--accent);
+      width: 24px;
+      border-radius: 4px;
     }
 
     /* ── CTA BOTTOM ──────────────────────── */
@@ -2190,6 +2240,69 @@
         display: none;
       }
 
+      /* 햄버거 메뉴 */
+      .nav-hamburger {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 5px;
+        width: 28px;
+        height: 28px;
+        cursor: pointer;
+        z-index: 201;
+      }
+      .nav-hamburger span {
+        display: block;
+        width: 20px;
+        height: 2px;
+        background: var(--black);
+        border-radius: 2px;
+        transition: all 0.3s ease;
+      }
+      .nav-hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+      .nav-hamburger.active span:nth-child(2) {
+        opacity: 0;
+      }
+      .nav-hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+      }
+
+      .mobile-menu {
+        display: none;
+        position: fixed;
+        top: 56px;
+        left: 0;
+        right: 0;
+        background: rgba(255,255,255,0.97);
+        backdrop-filter: blur(20px);
+        padding: 20px 24px;
+        flex-direction: column;
+        gap: 0;
+        z-index: 200;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        border-bottom-left-radius: 16px;
+        border-bottom-right-radius: 16px;
+      }
+      .mobile-menu.open {
+        display: flex;
+      }
+      .mobile-menu a {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--gray-2);
+        text-decoration: none;
+        padding: 14px 0;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+      }
+      .mobile-menu a:last-child {
+        border-bottom: none;
+      }
+      .mobile-menu a:hover {
+        color: var(--black);
+      }
+
       section {
         padding: 80px 24px;
       }
@@ -2402,6 +2515,16 @@
       .hero p {
         display: none !important;
       }
+      .hero .mobile-subtitle {
+        display: block !important;
+        font-size: 14px;
+        color: var(--gray-2);
+        margin-bottom: 16px;
+        line-height: 1.6;
+      }
+      .hero-badge {
+        display: none !important;
+      }
 
       .mobile-hero-desc {
         display: block !important;
@@ -2543,23 +2666,23 @@
       }
 
       .value-text .tag-reservation {
-        background: #E8F4FD;
-        color: #1E3A5F;
+        background: none !important;
+        color: #1E3A5F !important;
       }
 
       .value-text .tag-report {
-        background: #E6F7F5;
-        color: #0D9488;
+        background: none !important;
+        color: #888 !important;
       }
 
       .value-text .tag-payroll {
-        background: #F0EAFF;
-        color: #6B4CE6;
+        background: none !important;
+        color: #6B4CE6 !important;
       }
 
       .value-text .tag-payment {
-        background: #FFF3E6;
-        color: #E07800;
+        background: none !important;
+        color: #E07800 !important;
       }
 
       .enterprise-badge {
@@ -2723,6 +2846,37 @@
       .live-dot::after {
         width: 8px;
         height: 8px;
+      }
+
+      /* 고객 리포트 섹션 화살표 아래로 + 자세히 보기 간격 */
+      #reportArrow {
+        transform: rotate(90deg);
+        margin: 16px 0 !important;
+      }
+      .value-section .mobile-toggle {
+        margin: 24px 0 !important;
+      }
+
+      /* Review slider 모바일 */
+      .review-card {
+        min-width: calc(100% - 0px) !important;
+      }
+
+      /* Report showcase 모바일 */
+      .report-slogan {
+        font-size: 24px !important;
+      }
+      .report-slogan .sub-hook {
+        font-size: 13px !important;
+      }
+      .report-feedback-title {
+        font-size: 14px !important;
+      }
+      .report-feedback q {
+        font-size: 13px !important;
+      }
+      .report-feedback {
+        gap: 12px !important;
       }
 
       /* Compare section */
@@ -3407,8 +3561,22 @@
       <a href="#reviews">후기</a>
       <a href="#faq">FAQ</a>
     </div>
-    <a href="#" class="nav-cta" onclick="openForm(event)">무료로 시작하기</a>
+    <div style="display:flex; align-items:center; gap:12px;">
+      <a href="#" class="nav-cta" onclick="openForm(event)">무료로 시작하기</a>
+      <div class="nav-hamburger" onclick="toggleMobileMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
   </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#report" onclick="closeMobileMenu()">고객 리포트</a>
+    <a href="#features" onclick="closeMobileMenu()">기능</a>
+    <a href="#pricing" onclick="closeMobileMenu()">요금제</a>
+    <a href="#reviews" onclick="closeMobileMenu()">후기</a>
+    <a href="#faq" onclick="closeMobileMenu()">FAQ</a>
+  </div>
 
   <!-- HERO -->
   <div class="hero">
@@ -3427,6 +3595,7 @@
       </span>
     </h1>
     <p>클리닝매니저가 <strong style="color:var(--text)">고객 만족도</strong>를 높여드립니다.<br>사진만 올리세요. <strong style="color:var(--text)">프리미엄 청소 리포트는 저희가 만들어드립니다.</strong></p>
+    <p class="mobile-subtitle" style="display:none;">클리닝매니저가 사장님의 시간을 아껴드리고<br>고객 만족도를 높여드립니다.</p>
     <div class="hero-actions">
       <a href="#" class="btn-primary" onclick="openForm(event)">무료로 시작하기 →</a>
       <a href="https://open.kakao.com/o/scsRjRji" target="_blank" class="btn-secondary">문의하기</a>
@@ -3527,7 +3696,17 @@
     <div class="section-inner">
       <div class="value-section reverse">
         <div class="value-text reveal">
-          <div class="section-tag tag-report">고객 리포트</div>
+          <div class="section-tag tag-report" style="
+            font-size: 12px;
+            font-weight: 600;
+            color: #888;
+            letter-spacing: 0.08em;
+            margin-bottom: 24px;
+            background: #F0F0F0;
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid #D0D0D0;
+          ">고객 리포트</div>
           <h2 class="section-title" style="font-size: clamp(26px, 3.5vw, 42px);">평균 5분,<br>고객이 감동하는<br>리포트가 완성됩니다.</h2>
           <p class="section-desc">사진은 물론 영상까지 업로드할 수 있어요.<br>고객은 링크 하나로 원할 때마다 실시간 청소 현황을 확인합니다.</p>
           <div style="margin-top: 32px; display: flex; flex-direction: column; gap: 12px;">
@@ -3638,12 +3817,6 @@
     </div>
   </div>
 
-  <div class="mobile-hero-desc" style="display:none;">
-    사장님이 도입하면,<br>
-    <strong>팀장님은 일정이 편해지고</strong><br>
-    <strong>고객님은 리포트에 감동</strong>합니다.<br>
-  </div>
-
   <!-- PAIN POINTS -->
   <div style="padding: 80px 0;">
     <div class="pain-section">
@@ -3680,7 +3853,7 @@
     <div class="section-inner">
       <div class="value-section">
         <div class="value-text reveal-left">
-          <div class="section-tag tag-reservation">예약 연동</div>
+          <div class="section-tag tag-reservation" style="font-size:12px; font-weight:600; color:#888; letter-spacing:0.08em; margin-bottom:24px; background:#F0F0F0; padding:6px 14px; border-radius:20px; border:1px solid #D0D0D0;">예약 연동</div>
           <h2 class="section-title"><span class="title-sub">예약 들어오면<br></span>팀장이 알아서<br>움직입니다</h2>
           <p class="section-desc">예약이 접수되는 순간, 담당 팀장 앱에 자동으로 연동됩니다. 날짜·주소·서비스 내용까지 한번에 전달. 더 이상 카카오톡 안 보내도 됩니다.</p>
           <div style="margin-top: 32px; display: flex; flex-direction: column; gap: 12px;">
@@ -3731,7 +3904,7 @@
     <div class="section-inner">
       <div class="value-section">
         <div class="value-text reveal">
-          <div class="section-tag tag-payroll">급여 정산</div>
+          <div class="section-tag tag-payroll" style="font-size:12px; font-weight:600; color:#888; letter-spacing:0.08em; margin-bottom:24px; background:#F0F0F0; padding:6px 14px; border-radius:20px; border:1px solid #D0D0D0;">급여 정산</div>
           <h2 class="section-title"><span class="title-sub">월말 급여 계산,<br></span>이제 5분이면<br>끝납니다</h2>
           <p class="section-desc">일급·주급·월급·수수료제까지, 매출·옵션·예약금이 전부 반영되어 자동 정산됩니다. 팀장도 앱에서 수입을 바로 확인해요.</p>
           <div style="margin-top: 32px; display: flex; flex-direction: column; gap: 12px;">
@@ -3802,7 +3975,7 @@
     <div class="section-inner">
       <div class="value-section reverse">
         <div class="value-text reveal">
-          <div class="section-tag tag-payment" style="color: #1E3A5F;">간편 결제</div>
+          <div class="section-tag tag-payment" style="font-size:12px; font-weight:600; color:#888; letter-spacing:0.08em; margin-bottom:24px; background:#F0F0F0; padding:6px 14px; border-radius:20px; border:1px solid #D0D0D0;">간편 결제</div>
           <h2 class="section-title" style="color: white;"><span class="title-sub">현장에서<br></span>카드 결제까지<br>앱 하나로</h2>
           <p class="section-desc" style="color: rgba(255,255,255,0.5);">청소 완료 후 현장에서 바로 결제. Toss Payments 연동으로 카드·계좌이체
             모두 지원해요. 미수금 걱정 없이, 정산도 깔끔하게.</p>
@@ -4160,63 +4333,59 @@
     </div>
   </section>
 
-  <!-- TESTIMONIALS -->
+  <!-- 후기 -->
   <section id="reviews">
     <div class="section-inner">
       <div style="text-align: center;">
         <div class="section-tag reveal">사장님 후기 · 고객 후기</div>
         <h2 class="section-title reveal">"이런 업체 처음 봤어요"<br>실제 반응을 확인하세요</h2>
       </div>
-      <div class="testimonial-carousel reveal">
-        <div class="testimonial-track" id="testimonialTrack">
-          <!-- Slide 1 -->
-          <div class="testimonial-card">
-            <div>
-              <div class="testimonial-stars">★★★★★</div>
-              <div class="testimonial-text">
-                리포트 보내기 시작하고 나서 진짜 달라졌어요. 고객분이 <strong>"사진 전·후를 바로 볼 수 있어서 너무 좋다, 이렇게 꼼꼼한 업체 처음"</strong>이라고 맘카페에 후기를
-                올려주셨어요. 소개 문의가 눈에 띄게 늘었습니다.
-              </div>
-              <div class="testimonial-author">
-                <div class="testimonial-avatar" style="background: #1E3A5F;">정</div>
-                <div>
-                  <div class="testimonial-name">정○○ 사장님</div>
-                  <div class="testimonial-role">경기 파주 입주·이사청소 · 팀장 4명</div>
-                </div>
+      <div class="review-slider reveal" id="reviewSlider">
+        <div class="review-track" id="reviewTrack">
+          <div class="review-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <div class="testimonial-text">
+              리포트 보내기 시작하고 나서 진짜 달라졌어요. 고객분이 <strong>"사진 전·후를 바로 볼 수 있어서 너무 좋다, 이렇게 꼼꼼한 업체 처음"</strong>이라고 맘카페에 후기를 올려주셨어요. 소개 문의가 눈에 띄게 늘었습니다.
+            </div>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar" style="background: #1E3A5F;">정</div>
+              <div>
+                <div class="testimonial-name">정○○ 사장님</div>
+                <div class="testimonial-role">경기 파주 입주·이사청소 · 팀장 4명</div>
               </div>
             </div>
-            <div>
-              <div class="testimonial-stars">★★★★★</div>
-              <div class="testimonial-text">
-                예전엔 카카오톡으로 팀장들한테 일일이 연락하다 하루가 끝났는데, 이제 <strong>예약 잡으면 팀장 앱에 자동 알림이 가요.</strong> 저는 앱에서 진행 현황만 보면 됩니다. 하자
-                체크까지 사진으로 남으니 A/S 대응도 빨라졌어요.
-              </div>
-              <div class="testimonial-author">
-                <div class="testimonial-avatar" style="background: #00B96B;">김</div>
-                <div>
-                  <div class="testimonial-name">김○○ 사장님</div>
-                  <div class="testimonial-role">서울 강남권 입주청소 업체 · 팀장 7명</div>
-                </div>
+          </div>
+          <div class="review-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <div class="testimonial-text">
+              예전엔 카카오톡으로 팀장들한테 일일이 연락하다 하루가 끝났는데, 이제 <strong>예약 잡으면 팀장 앱에 자동 알림이 가요.</strong> 저는 앱에서 진행 현황만 보면 됩니다. 하자 체크까지 사진으로 남으니 A/S 대응도 빨라졌어요.
+            </div>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar" style="background: #00B96B;">김</div>
+              <div>
+                <div class="testimonial-name">김○○ 사장님</div>
+                <div class="testimonial-role">서울 강남권 입주청소 업체 · 팀장 7명</div>
               </div>
             </div>
-            <div>
-              <div class="testimonial-stars">★★★★★</div>
-              <div class="testimonial-text">
-                월말마다 엑셀로 급여 계산하다 실수 나서 팀장한테 미안했는데, 이제 <strong>자동으로 정산되니까 팀장들도 앱에서 수입을 바로 확인해요.</strong> 청소 끝나고 리포트까지
-                자동으로 가니까 고객 신뢰도가 확 올랐습니다.
-              </div>
-              <div class="testimonial-author">
-                <div class="testimonial-avatar" style="background: #FF6B35;">이</div>
-                <div>
-                  <div class="testimonial-name">이○○ 사장님</div>
-                  <div class="testimonial-role">인천 입주청소 · 팀장 5명</div>
-                </div>
+          </div>
+          <div class="review-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <div class="testimonial-text">
+              월말마다 엑셀로 급여 계산하다 실수 나서 팀장한테 미안했는데, 이제 <strong>자동으로 정산되니까 팀장들도 앱에서 수입을 바로 확인해요.</strong> 청소 끝나고 리포트까지 자동으로 가니까 고객 신뢰도가 확 올랐습니다.
+            </div>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar" style="background: #FF6B35;">이</div>
+              <div>
+                <div class="testimonial-name">이○○ 사장님</div>
+                <div class="testimonial-role">인천 입주청소 · 팀장 5명</div>
               </div>
             </div>
           </div>
         </div>
-        <div class="carousel-controls">
-          <button class="carousel-dot active" data-slide="0"></button>
+        <div class="review-dots" id="reviewDots">
+          <button class="review-dot active" data-index="0"></button>
+          <button class="review-dot" data-index="1"></button>
+          <button class="review-dot" data-index="2"></button>
         </div>
       </div>
     </div>
@@ -4620,6 +4789,72 @@
       });
 
     })();
+
+    // ── Review Slider ──
+    (() => {
+      const track = document.getElementById('reviewTrack');
+      const dots = document.querySelectorAll('.review-dot');
+      if (!track || !dots.length) return;
+
+      let current = 0;
+      const cards = track.querySelectorAll('.review-card');
+      const total = cards.length;
+
+      function getCardsPerView() {
+        return window.innerWidth <= 480 ? 1 : 3;
+      }
+
+      function slide(index) {
+        const perView = getCardsPerView();
+        const maxIndex = Math.max(0, total - perView);
+        current = Math.min(index, maxIndex);
+        const card = cards[0];
+        const gap = 24;
+        const cardWidth = card.offsetWidth + gap;
+        track.style.transform = `translateX(-${current * cardWidth}px)`;
+        dots.forEach((d, i) => d.classList.toggle('active', i === current));
+      }
+
+      dots.forEach(dot => {
+        dot.addEventListener('click', () => slide(parseInt(dot.dataset.index)));
+      });
+
+      // Touch swipe
+      let startX = 0;
+      let isDragging = false;
+      track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; isDragging = true; });
+      track.addEventListener('touchend', e => {
+        if (!isDragging) return;
+        isDragging = false;
+        const diff = startX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 50) {
+          diff > 0 ? slide(current + 1) : slide(current - 1);
+        }
+      });
+
+      // Auto slide (모바일에서만)
+      let autoSlide = setInterval(() => {
+        if (window.innerWidth <= 480) {
+          slide(current >= total - 1 ? 0 : current + 1);
+        }
+      }, 4000);
+
+      track.addEventListener('touchstart', () => clearInterval(autoSlide));
+    })();
+
+    // ── Mobile Menu ──
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      const hamburger = document.querySelector('.nav-hamburger');
+      menu.classList.toggle('open');
+      hamburger.classList.toggle('active');
+    }
+    function closeMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      const hamburger = document.querySelector('.nav-hamburger');
+      menu.classList.remove('open');
+      hamburger.classList.remove('active');
+    }
 
     // ── Form Modal ──
     function openForm(e) {
