@@ -5066,6 +5066,12 @@
       const video = document.getElementById(videoId);
       if (!video) return;
       const btn = wrap.querySelector('.video-play-btn');
+      // 고객님 비디오가 비활성(회색) 상태에서 클릭 시 → 활성화 후 재생
+      if (videoId === 'reportCustomerVideo' && video.style.opacity === '0.6') {
+        video.style.filter = 'brightness(1) saturate(1)';
+        video.style.opacity = '1';
+        video.currentTime = 0;
+      }
       if (video.paused) {
         video.play();
         if (btn) { btn.classList.add('playing'); setTimeout(() => btn.classList.add('fade'), 800); }
