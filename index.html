@@ -2362,7 +2362,7 @@
 
     .onboard-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 32px;
       margin-top: 48px;
     }
@@ -3831,7 +3831,7 @@
       <a href="#faq">FAQ</a>
     </div>
     <div style="display:flex; align-items:center; gap:12px;">
-      <a href="#" class="nav-cta" onclick="openForm(event)">무료로 시작하기</a>
+      <a href="#" class="nav-cta" onclick="openForm(event)">도입 문의하기</a>
       <div class="nav-hamburger" onclick="toggleMobileMenu()">
         <span></span>
         <span></span>
@@ -3866,7 +3866,7 @@
     <p>청소업체 편하게 관리하세요, <strong style="color:var(--text)">고객 감동은 저희가 만듭니다.</strong></p>
     <p class="mobile-subtitle" style="display:none;">청소업체 편하게 관리하세요,<br>고객 감동은 저희가 만듭니다.</p>
     <div class="hero-actions">
-      <a href="#" class="btn-primary" onclick="openForm(event)">무료로 시작하기 →</a>
+      <a href="#" class="btn-primary" onclick="openForm(event)">도입 문의하기 →</a>
       <a href="https://open.kakao.com/o/scsRjRji" target="_blank" class="btn-secondary">문의하기</a>
     </div>
     <div class="hero-carousel-wrapper">
@@ -4121,8 +4121,8 @@
       <div class="stat-label">놓친 예약</div>
     </div>
     <div class="stat-item">
-      <div class="stat-number"><em>14일</em></div>
-      <div class="stat-label">무료 체험 기간</div>
+      <div class="stat-number"><em>15건</em></div>
+      <div class="stat-label">리포트 무료 체험 제공</div>
     </div>
     <div class="stat-item">
       <div class="stat-number">iOS · <em>Android</em></div>
@@ -4445,25 +4445,30 @@
   <section class="onboard-section">
     <div class="section-inner">
       <div style="text-align:center;">
-        <div class="section-tag reveal">간편한 시작</div>
-        <h2 class="section-title reveal">5분이면 충분합니다</h2>
-        <p class="section-desc reveal" style="margin:0 auto;">복잡한 설치 없이, 가입하고 바로 시작하세요.</p>
+        <div class="section-tag reveal">도입 절차</div>
+        <h2 class="section-title reveal">확인된 사업체만<br>가입할 수 있습니다</h2>
+        <p class="section-desc reveal" style="margin:0 auto;">사업자등록증 확인 후 계정이 발급되며, 개인 이용은 불가합니다.</p>
       </div>
       <div class="onboard-grid">
         <div class="onboard-card reveal">
           <div class="onboard-step">1</div>
-          <div class="onboard-title">회원가입</div>
-          <div class="onboard-desc">카카오톡 오픈채팅으로 문의 후<br>간단한 정보 입력으로 가입 완료</div>
+          <div class="onboard-title">도입 문의 접수</div>
+          <div class="onboard-desc">홈페이지에서 도입 문의 폼<br>또는 오픈채팅으로 상담 요청</div>
         </div>
         <div class="onboard-card reveal reveal-delay-1">
           <div class="onboard-step">2</div>
-          <div class="onboard-title">팀장 등록</div>
-          <div class="onboard-desc">함께 일하는 팀장님이 앱 설치하면 <br>사장님 계정에 자동 등록</div>
+          <div class="onboard-title">사업자등록증 확인</div>
+          <div class="onboard-desc">사업자등록증 제출 후<br>상담을 통한 도입 조건 안내</div>
         </div>
         <div class="onboard-card reveal reveal-delay-2">
           <div class="onboard-step">3</div>
-          <div class="onboard-title">첫 예약 등록</div>
-          <div class="onboard-desc">고객 정보와 예약 내역을 입력하면<br>팀장 배정부터 리포트까지 자동 연결</div>
+          <div class="onboard-title">회사 가입코드 발급</div>
+          <div class="onboard-desc">운영팀 승인 완료 시<br>사장님 전용 가입코드 발급</div>
+        </div>
+        <div class="onboard-card reveal reveal-delay-3">
+          <div class="onboard-step">4</div>
+          <div class="onboard-title">앱 계정 생성</div>
+          <div class="onboard-desc">앱에서 가입코드 입력 후<br>사장님 계정 생성 · 팀장 초대</div>
         </div>
       </div>
     </div>
@@ -4506,12 +4511,11 @@
       <div class="faq-list">
         <div class="faq-item reveal">
           <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
-            무료 체험 중 결제 정보를 입력해야 하나요?
+            도입 절차가 어떻게 되나요?
             <span class="faq-toggle">+</span>
           </div>
           <div class="faq-answer">
-            <p>아니요. 14일 무료 체험 동안에는 결제 정보 입력 없이 모든 기능을 사용하실 수 있습니다. 체험 기간이 끝나면 자동으로 서비스가 중단되며, 원치 않는 과금은 절대 발생하지 않습니다.
-            </p>
+            <p>도입 문의 접수 → 상담 → 사업자등록증 확인 → 운영팀 승인 → 회사 가입코드 발급 순으로 진행됩니다. 사장님이 발급된 가입코드로 앱에서 계정을 만드신 뒤, 팀장 초대코드를 생성하여 팀장을 등록하실 수 있습니다. 도입 조건과 세부 안내는 상담 시 드립니다.</p>
           </div>
         </div>
         <div class="faq-item reveal reveal-delay-1">
@@ -4520,35 +4524,16 @@
             <span class="faq-toggle">+</span>
           </div>
           <div class="faq-answer">
-            <p>네. 사장님 계정에서 팀장 코드가 부여되며, 이 코드를 팀장에게 전달하면 됩니다. 팀장은 해당 코드로 팀장 전용 계정을 가입하고, 자신의 일정 확인, 리포트 작성, 급여 확인을 앱에서 바로
-              할 수 있습니다.</p>
+            <p>네. 사장님 계정에서 팀장 초대코드가 발급되며, 이 코드를 팀장에게 전달하면 됩니다. 팀장은 해당 코드로 팀장 전용 계정을 가입하고, 자신의 일정 확인, 리포트 작성, 급여 확인을 앱에서 바로 할 수 있습니다.</p>
           </div>
         </div>
-        <div class="faq-item reveal reveal-delay-1">
+        <div class="faq-item reveal reveal-delay-2">
           <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
             기존 고객 데이터를 옮길 수 있나요?
             <span class="faq-toggle">+</span>
           </div>
           <div class="faq-answer">
-            <p>네, 엑셀 파일로 관리하던 고객 데이터를 일괄 업로드할 수 있습니다. 온보딩 과정에서 도움이 필요하시면 카카오톡 오픈채팅으로 문의해주시면 직접 안내해드립니다.</p>
-          </div>
-        </div>
-        <div class="faq-item reveal reveal-delay-2">
-          <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
-            결제는 어떻게 하나요?
-            <span class="faq-toggle">+</span>
-          </div>
-          <div class="faq-answer">
-            <p>현재는 계좌이체 방식으로 운영하고 있습니다. 별도의 약정이나 위약금이 없어 부담 없이 시작하실 수 있고, 카카오톡 오픈채팅으로 문의하시면 안내드립니다.</p>
-          </div>
-        </div>
-        <div class="faq-item reveal reveal-delay-2">
-          <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
-            1인 업체도 사용할 수 있나요?
-            <span class="faq-toggle">+</span>
-          </div>
-          <div class="faq-answer">
-            <p>네. 팀장 없이 사장님 혼자 운영하시더라도 예약 관리, 고객 리포트, 카드 결제 기능을 모두 활용하실 수 있습니다. 추후 팀장을 채용하시면 바로 확장이 가능합니다.</p>
+            <p>네, 엑셀 파일로 관리하던 고객 데이터를 일괄 업로드할 수 있습니다. 온보딩 과정에서 도움이 필요하시면 도입 상담 시 함께 안내드립니다.</p>
           </div>
         </div>
       </div>
@@ -4561,7 +4546,7 @@
       <div style="text-align: center;">
         <div class="section-tag reveal">요금제</div>
         <h2 class="section-title reveal">팀 규모에 맞게<br>선택하세요</h2>
-        <p class="section-desc reveal" style="margin: 0 auto 0;">지금 바로 무료로 충분히 체험해보시고 결정하세요.</p>
+        <p class="section-desc reveal" style="margin: 0 auto 0;">사업자등록증 확인 후 계정이 발급되며, 개인 이용은 불가합니다.</p>
       </div>
       <div class="pricing-grid">
         <div class="pricing-card featured reveal reveal-delay-1">
@@ -4576,11 +4561,11 @@
           <div class="pricing-features">
             <div class="pricing-feature" style="align-items: flex-start;"><span class="pricing-feature-icon" style="padding-top: 2px;">✓</span><div>실시간 청소 리포트 무제한 생성<div style="font-size: 12.5px; opacity: 0.78; font-weight: 500; margin-top: 3px;">사진·영상 영구 저장</div></div></div>
             <div class="pricing-feature"><span class="pricing-feature-icon">✓</span> 클린로그 공개</div>
-            <div class="pricing-feature"><span class="pricing-feature-icon">✓</span> <strong>팀장 2명까지</strong></div>
+            <div class="pricing-feature"><span class="pricing-feature-icon">✓</span> <strong>소규모 팀 (팀장 2명까지)</strong></div>
             <div class="pricing-feature"><span class="pricing-feature-icon">✓</span> 예약관리 무제한</div>
             <div class="pricing-feature"><span class="pricing-feature-icon">✓</span> 급여 자동 정산</div>
           </div>
-          <a href="#" class="pricing-cta white" onclick="openForm(event)">무료로 시작하기</a>
+          <a href="#" class="pricing-cta white" onclick="openForm(event)">도입 문의하기</a>
         </div>
         <div class="pricing-card enterprise reveal reveal-delay-2">
           <div class="pricing-name">엔터프라이즈</div>
@@ -4598,7 +4583,7 @@
             <div class="pricing-feature"><span class="pricing-feature-icon">✓</span> 전담 온보딩 지원</div>
             <div class="pricing-feature"><span class="pricing-feature-icon">✓</span> 우선 고객 지원</div>
           </div>
-          <a href="#" class="pricing-cta outline" onclick="openForm(event)">무료로 시작하기</a>
+          <a href="#" class="pricing-cta outline" onclick="openForm(event)">도입 문의하기</a>
         </div>
       </div>
     </div>
@@ -4666,8 +4651,8 @@
   <div class="cta-section">
     <div class="section-tag">지금 바로 시작</div>
     <h2>프리미엄 청소업체로의<br>첫 걸음, 써보는게 가장 빠릅니다.</h2>
-    <p>신용카드 없이 14일 무료. 5분이면 도입 완료.<br>언제든 해지 가능.</p>
-    <a href="#" class="btn-white" onclick="openForm(event)">무료로 시작하기 →</a>
+    <p>사업자등록증 확인 후 계정이 발급됩니다.<br>도입 상담 후 리포트 15건까지 무료 체험을 제공합니다.</p>
+    <a href="#" class="btn-white" onclick="openForm(event)">도입 문의하기 →</a>
     <div style="display:flex; gap:12px; justify-content:center; margin-top:24px;">
       <a href="https://apps.apple.com/kr/app/%ED%81%B4%EB%A6%AC%EB%8B%9D%EB%A7%A4%EB%8B%88%EC%A0%80/id6760005698"
         target="_blank" style="display:inline-block; transition: transform 0.2s; opacity:0.85;"
@@ -4832,7 +4817,7 @@
             counterObs.unobserve(el);
           }
         });
-      }, { threshold: 0.5 });
+      }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
       counters.forEach(el => counterObs.observe(el));
 
       // ── 5-0. Boss → Leader video chain (scroll trigger) ──
@@ -5308,7 +5293,7 @@
       <div id="formContent">
         <div class="modal-badge">30초면 끝나요</div>
         <div class="modal-title">무료 도입 상담 신청</div>
-        <div class="modal-desc">아래 정보를 남겨주시면 빠르게 연락드리겠습니다.</div>
+        <div class="modal-desc">아래 정보를 남겨주시면 빠르게 연락드리겠습니다.<br><strong style="font-size:12.5px; color:#666;">※ 사업자등록증 확인 후 계정이 발급되며, 개인 이용은 불가합니다.</strong></div>
         <form id="contactForm">
           <div class="form-group">
             <label class="form-label">사장님 성함</label>
@@ -5326,7 +5311,6 @@
             <label class="form-label">팀장 수</label>
             <select name="teamSize" class="form-select">
               <option value="">선택해주세요</option>
-              <option value="없음 (1인 운영)">없음 (1인 운영)</option>
               <option value="1~3명">1~3명</option>
               <option value="4~10명">4~10명</option>
               <option value="10명 이상">10명 이상</option>
