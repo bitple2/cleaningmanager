@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>회원가입 — 클리닝매니저</title>
+  <meta name="description" content="청소업체 사장님을 위한 클리닝매니저 회원가입. 사업자 회원 전용 B2B 서비스입니다.">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #1E3A5F;
+      --navy-light: #2A4D7A;
+      --navy-tint: #EDF1F7;
+      --border: #E2E8F0;
+      --border-strong: #CBD5E1;
+      --text: #0F172A;
+      --text-2: #334155;
+      --muted: #64748B;
+      --muted-2: #94A3B8;
+      --surface: #F8FAFC;
+      --white: #FFFFFF;
+      --error: #DC2626;
+      --error-tint: #FEF2F2;
+      --success: #059669;
+      --radius: 14px;
+      --radius-sm: 10px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--surface);
+      color: var(--text);
+      min-height: 100vh;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .app {
+      max-width: 480px;
+      margin: 0 auto;
+      background: var(--white);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 헤더 */
+    .header {
+      display: flex;
+      align-items: center;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: var(--white);
+      z-index: 10;
+    }
+    .header-back {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: none;
+      color: var(--text);
+      cursor: pointer;
+      border-radius: 8px;
+      transition: background 0.15s;
+    }
+    .header-back:hover { background: var(--surface); }
+    .header-back:disabled { opacity: 0.3; cursor: not-allowed; }
+    .header-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      margin-left: 4px;
+    }
+    .header-step {
+      margin-left: auto;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    /* 진행 바 */
+    .progress {
+      height: 3px;
+      background: var(--border);
+      position: relative;
+    }
+    .progress-fill {
+      height: 100%;
+      background: var(--navy);
+      transition: width 0.3s ease;
+    }
+
+    /* 컨텐츠 */
+    .content {
+      flex: 1;
+      padding: 24px 20px 24px;
+      overflow-y: auto;
+    }
+
+    .step { display: none; }
+    .step.active { display: block; animation: fadeIn 0.25s ease; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* 안내 배너 (사업자 전용) */
+    .notice {
+      padding: 12px 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .notice-icon {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      color: var(--muted);
+      margin-top: 1px;
+    }
+    .notice-body { font-size: 12.5px; color: var(--text-2); line-height: 1.5; }
+    .notice-title { font-weight: 700; color: var(--text); margin-bottom: 3px; font-size: 13px; }
+
+    /* 헤딩 */
+    .heading {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.3;
+      margin-bottom: 6px;
+      white-space: pre-line;
+    }
+    .subheading {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    /* 역할 카드 */
+    .role-card {
+      display: flex;
+      align-items: center;
+      padding: 18px 16px;
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      cursor: pointer;
+      margin-bottom: 10px;
+      transition: all 0.15s;
+    }
+    .role-card:hover { border-color: var(--border-strong); }
+    .role-card.selected {
+      background: var(--navy);
+      border-color: var(--navy);
+      color: var(--white);
+    }
+    .role-card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-2);
+      flex-shrink: 0;
+    }
+    .role-card.selected .role-card-icon {
+      background: rgba(255,255,255,0.15);
+      color: var(--white);
+    }
+    .role-card-body { margin-left: 14px; flex: 1; min-width: 0; }
+    .role-card-title { font-size: 16px; font-weight: 700; margin-bottom: 2px; }
+    .role-card-desc {
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+    .role-card.selected .role-card-desc { color: rgba(255,255,255,0.75); }
+    .role-card-check {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border-strong);
+      flex-shrink: 0;
+    }
+    .role-card.selected .role-card-check {
+      background: var(--white);
+      border-color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--navy);
+    }
+
+    /* 인풋 */
+    .field { margin-bottom: 16px; }
+    .field-label {
+      display: block;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .input {
+      width: 100%;
+      padding: 13px 14px;
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 15px;
+      font-family: inherit;
+      color: var(--text);
+      transition: border-color 0.15s;
+      -webkit-appearance: none;
+    }
+    .input:focus {
+      outline: none;
+      border-color: var(--navy);
+    }
+    .input.error { border-color: var(--error); }
+    .input:disabled { background: var(--surface); color: var(--muted); }
+    .input.uppercase { text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+
+    /* 비밀번호 강도 바 */
+    .pw-strength {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .pw-strength.show { display: flex; }
+    .pw-bars { display: flex; gap: 3px; }
+    .pw-bars span {
+      width: 26px;
+      height: 3px;
+      background: var(--border);
+      border-radius: 2px;
+      transition: background 0.15s;
+    }
+    .pw-bars span.pw-weak { background: var(--error); }
+    .pw-bars span.pw-medium { background: #F59E0B; }
+    .pw-bars span.pw-strong { background: var(--success); }
+    .pw-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: -0.1px;
+    }
+    .pw-label.pw-weak { color: var(--error); }
+    .pw-label.pw-medium { color: #F59E0B; }
+    .pw-label.pw-strong { color: var(--success); }
+    .field-hint {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 6px;
+      line-height: 1.4;
+    }
+    .field-error {
+      font-size: 12px;
+      color: var(--error);
+      margin-top: 6px;
+    }
+
+    /* OTP 재발송 */
+    .otp-resend {
+      text-align: center;
+      margin-top: 16px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .otp-resend button {
+      background: none;
+      border: none;
+      color: var(--navy);
+      font-weight: 700;
+      cursor: pointer;
+      padding: 4px 8px;
+      font-size: 13px;
+    }
+    .otp-resend button:disabled { color: var(--muted-2); cursor: not-allowed; }
+
+    /* 약관 */
+    .terms-all {
+      padding: 14px 16px;
+      background: var(--surface);
+      border-radius: var(--radius-sm);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+    .terms-item {
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+    .terms-check {
+      width: 20px; height: 20px;
+      border-radius: 4px;
+      border: 1.5px solid var(--border-strong);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      flex-shrink: 0;
+      background: var(--white);
+      transition: all 0.1s;
+    }
+    .terms-check.checked {
+      background: var(--navy);
+      border-color: var(--navy);
+    }
+    .terms-label {
+      margin-left: 12px;
+      font-size: 14px;
+      color: var(--text);
+      flex: 1;
+    }
+    .terms-all .terms-label { font-weight: 700; }
+    .terms-required {
+      color: var(--navy);
+      font-weight: 600;
+      font-size: 12px;
+      margin-right: 4px;
+    }
+    .terms-view {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 12px;
+      cursor: pointer;
+      text-decoration: underline;
+      padding: 4px 8px;
+    }
+
+    /* 성공 화면 */
+    .success {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .success-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: var(--navy);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .success-title {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .success-body {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+    .success-info {
+      padding: 14px 16px;
+      background: var(--surface);
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      color: var(--text-2);
+      line-height: 1.5;
+      text-align: left;
+      margin-bottom: 24px;
+      width: 100%;
+      max-width: 320px;
+    }
+    .app-btn-row {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 12px;
+    }
+    .app-badge {
+      height: 42px;
+      transition: opacity 0.15s;
+    }
+    .app-badge:hover { opacity: 0.85; }
+
+    /* 하단 버튼 */
+    .footer {
+      padding: 16px 20px calc(20px + env(safe-area-inset-bottom));
+      border-top: 1px solid var(--border);
+      background: var(--white);
+      display: flex;
+      gap: 10px;
+    }
+    .btn {
+      flex: 1;
+      height: 52px;
+      border-radius: var(--radius);
+      font-size: 15.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+      border: none;
+      font-family: inherit;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .btn-primary {
+      background: var(--navy);
+      color: var(--white);
+    }
+    .btn-primary:hover { background: var(--navy-light); }
+    .btn-primary:disabled {
+      background: var(--border-strong);
+      cursor: not-allowed;
+    }
+
+    /* 모달 (약관 보기) */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      z-index: 100;
+    }
+    .modal.open { display: flex; }
+    .modal-panel {
+      background: var(--white);
+      width: 100%;
+      max-width: 480px;
+      max-height: 85vh;
+      border-radius: 20px 20px 0 0;
+      display: flex;
+      flex-direction: column;
+      animation: slideUp 0.25s ease;
+    }
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+    .modal-header {
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .modal-title { font-size: 16px; font-weight: 800; flex: 1; }
+    .modal-close {
+      background: none;
+      border: none;
+      color: var(--muted);
+      cursor: pointer;
+      padding: 4px;
+    }
+    .modal-body {
+      padding: 20px;
+      overflow-y: auto;
+      font-size: 13.5px;
+      line-height: 1.7;
+      color: var(--text-2);
+      white-space: pre-wrap;
+    }
+
+    /* 로딩 오버레이 */
+    .loading-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(255,255,255,0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+    }
+    .loading-overlay.active { display: flex; }
+    .spinner {
+      width: 32px;
+      height: 32px;
+      border: 3px solid var(--border);
+      border-top-color: var(--navy);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* 토스트 */
+    .toast {
+      position: fixed;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--text);
+      color: var(--white);
+      padding: 12px 20px;
+      border-radius: var(--radius-sm);
+      font-size: 13.5px;
+      font-weight: 500;
+      z-index: 300;
+      opacity: 0;
+      transition: opacity 0.2s;
+      max-width: 88vw;
+      text-align: center;
+    }
+    .toast.show { opacity: 1; }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <div class="header">
+      <button class="header-back" id="btn-back" aria-label="이전 단계">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </button>
+      <span class="header-title">회원가입</span>
+      <span class="header-step" id="step-indicator">1 / 6</span>
+    </div>
+
+    <div class="progress"><div class="progress-fill" id="progress-fill" style="width: 16.67%"></div></div>
+
+    <div class="content">
+      <!-- Step 0: 역할 선택 -->
+      <div class="step active" data-step="0">
+        <div class="notice">
+          <svg class="notice-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <div class="notice-body">
+            <div class="notice-title">청소업체(사업자) 전용 서비스</div>
+            사업자등록증 확인 후 발급되는 가입코드가 필요하며, 개인 이용은 불가합니다.
+          </div>
+        </div>
+        <h1 class="heading">어떤 역할로<br>이용하시나요?</h1>
+        <p class="subheading">역할에 맞는 기능이 제공됩니다</p>
+
+        <div class="role-card" data-role="owner" onclick="selectRole('owner')">
+          <div class="role-card-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h.01M9 12h.01M9 15h.01M9 18h.01M15 9h.01M15 12h.01M15 15h.01M15 18h.01"/></svg>
+          </div>
+          <div class="role-card-body">
+            <div class="role-card-title">사장님</div>
+            <div class="role-card-desc">회사 가입코드로 업체 대표로 이용</div>
+          </div>
+          <div class="role-card-check">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="display:none"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </div>
+        </div>
+
+        <div class="role-card" data-role="leader" onclick="selectRole('leader')">
+          <div class="role-card-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="role-card-body">
+            <div class="role-card-title">팀장</div>
+            <div class="role-card-desc">사장님이 발급한 초대코드로 소속 팀장(직원)으로 이용</div>
+          </div>
+          <div class="role-card-check">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="display:none"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 1: 회사 가입코드 (사장님만) -->
+      <div class="step" data-step="1">
+        <h1 class="heading">회사 가입 코드를<br>입력해주세요</h1>
+        <p class="subheading">사업자등록증 확인 후 발급된 회사 가입코드를 입력해주세요</p>
+
+        <div class="field">
+          <label class="field-label" for="company-code">회사 가입 코드</label>
+          <input id="company-code" class="input uppercase" type="text" placeholder="발급받은 코드 입력" maxlength="20" autocapitalize="characters" autocomplete="off">
+          <div class="field-error" id="company-code-error" style="display:none"></div>
+        </div>
+      </div>
+
+      <!-- Step 2: 이메일 + 비밀번호 -->
+      <div class="step" data-step="2">
+        <h1 class="heading">계정 정보를<br>입력해주세요</h1>
+        <p class="subheading">이메일로 6자리 인증코드를 보내드립니다</p>
+
+        <div class="field">
+          <label class="field-label" for="email">이메일</label>
+          <input id="email" class="input" type="email" placeholder="you@example.com" autocomplete="email" inputmode="email">
+          <div class="field-error" id="email-error" style="display:none"></div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="password">비밀번호</label>
+          <input id="password" class="input" type="password" placeholder="6자 이상" autocomplete="new-password">
+          <div class="pw-strength" id="pw-strength">
+            <div class="pw-bars">
+              <span></span><span></span><span></span><span></span>
+            </div>
+            <span class="pw-label" id="pw-label"></span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="password-confirm">비밀번호 확인</label>
+          <input id="password-confirm" class="input" type="password" placeholder="비밀번호 재입력" autocomplete="new-password">
+          <div class="field-error" id="password-error" style="display:none"></div>
+        </div>
+      </div>
+
+      <!-- Step 3: OTP 인증 -->
+      <div class="step" data-step="3">
+        <h1 class="heading">이메일로 받은<br>인증코드를 입력해주세요</h1>
+        <p class="subheading" id="otp-email-display">이메일이 안 왔다면 스팸함을 확인해주세요</p>
+
+        <div class="field">
+          <label class="field-label" for="otp">인증코드 (6자리)</label>
+          <input id="otp" class="input uppercase" type="text" placeholder="000000" maxlength="6" inputmode="numeric" autocomplete="one-time-code" style="letter-spacing:8px;text-align:center;font-size:20px">
+          <div class="field-error" id="otp-error" style="display:none"></div>
+        </div>
+
+        <div class="otp-resend">
+          <span id="resend-timer">코드가 오지 않았나요?</span>
+          <button id="btn-resend" onclick="resendOtp()">재발송</button>
+        </div>
+      </div>
+
+      <!-- Step 4: 프로필 정보 -->
+      <div class="step" data-step="4">
+        <h1 class="heading">프로필 정보를<br>입력해주세요</h1>
+        <p class="subheading">서비스 이용에 필요한 정보입니다</p>
+
+        <div class="field">
+          <label class="field-label" for="name">성함</label>
+          <input id="name" class="input" type="text" placeholder="홍길동" autocomplete="name">
+          <div class="field-error" id="name-error" style="display:none"></div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="phone">휴대폰 번호 <span style="color:var(--muted);font-weight:500">(선택)</span></label>
+          <input id="phone" class="input" type="tel" placeholder="010-1234-5678" autocomplete="tel" inputmode="tel" maxlength="13">
+          <div class="field-error" id="phone-error" style="display:none"></div>
+        </div>
+
+        <!-- 사장님 전용 -->
+        <div class="field" data-owner-only>
+          <label class="field-label" for="company-name">업체명</label>
+          <input id="company-name" class="input" type="text" placeholder="OO클린 / OO청소">
+          <div class="field-error" id="company-name-error" style="display:none"></div>
+        </div>
+
+        <!-- 팀장 전용 -->
+        <div class="field" data-leader-only style="display:none">
+          <label class="field-label" for="invite-code">초대 코드</label>
+          <input id="invite-code" class="input uppercase" type="text" placeholder="사장님/팀장에게 받은 6자리 코드" maxlength="6" autocapitalize="characters" autocomplete="off">
+          <div class="field-hint">사장님 또는 팀장에게 받은 6자리 코드</div>
+          <div class="field-error" id="invite-code-error" style="display:none"></div>
+        </div>
+      </div>
+
+      <!-- Step 5: 약관 동의 -->
+      <div class="step" data-step="5">
+        <h1 class="heading">약관에<br>동의해주세요</h1>
+        <p class="subheading">서비스 이용을 위해 필수 약관에 동의해주세요</p>
+
+        <div class="terms-all" onclick="toggleAll()">
+          <div class="terms-check" id="check-all"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="display:none"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+          <div class="terms-label">전체 동의</div>
+        </div>
+
+        <div class="terms-item" onclick="toggleTerm('terms')">
+          <div class="terms-check" id="check-terms"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="display:none"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+          <div class="terms-label"><span class="terms-required">[필수]</span>이용약관 동의</div>
+          <button class="terms-view" onclick="event.stopPropagation();openModal('terms')">보기</button>
+        </div>
+
+        <div class="terms-item" onclick="toggleTerm('privacy')">
+          <div class="terms-check" id="check-privacy"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="display:none"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+          <div class="terms-label"><span class="terms-required">[필수]</span>개인정보 처리방침 동의</div>
+          <button class="terms-view" onclick="event.stopPropagation();openModal('privacy')">보기</button>
+        </div>
+      </div>
+
+      <!-- 성공 -->
+      <div class="step" data-step="done">
+        <div class="success">
+          <div class="success-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </div>
+          <div class="success-title">가입이 완료되었어요</div>
+          <div class="success-body">이제 앱에서 같은 이메일과 비밀번호로<br>로그인하시면 됩니다.</div>
+          <div class="success-info">
+            <strong>다음 단계</strong><br>
+            1. 앱스토어/구글플레이에서 <strong>「클리닝매니저」</strong> 다운로드<br>
+            2. 앱 실행 후 <strong>로그인</strong> 화면에서 방금 가입한 이메일·비밀번호 입력<br>
+            3. 서비스 이용 시작
+          </div>
+          <div class="app-btn-row">
+            <a href="https://apps.apple.com/kr/app/%ED%81%B4%EB%A6%AC%EB%8B%9D%EB%A7%A4%EB%8B%88%EC%A0%80/id6760005698" target="_blank">
+              <img class="app-badge" src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="App Store">
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=com.jieunchun.cleaningmanager" target="_blank">
+              <img class="app-badge" src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Google Play">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer" id="footer">
+      <button class="btn btn-primary" id="btn-next" onclick="handleNext()">다음</button>
+    </div>
+  </div>
+
+  <!-- 약관 모달 -->
+  <div class="modal" id="terms-modal">
+    <div class="modal-panel">
+      <div class="modal-header">
+        <div class="modal-title" id="modal-title">이용약관</div>
+        <button class="modal-close" onclick="closeModal()">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <div class="modal-body" id="modal-body">불러오는 중...</div>
+    </div>
+  </div>
+
+  <!-- 로딩 -->
+  <div class="loading-overlay" id="loading"><div class="spinner"></div></div>
+  <div class="toast" id="toast"></div>
+
+  <!-- Supabase JS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    console.log('[signup] script starting');
+
+    // ─── Supabase 설정 (앱과 동일 프로젝트) ───
+    const SB_URL = 'https://iucicugxihxilcqtzrbk.supabase.co';
+    const SB_ANON = 'sb_publishable_-_GTb-cNnVnC1gcVHoKlWw_5FztAXMy';
+
+    // Supabase 초기화 · 실패해도 script 계속 실행 (버튼 최소 동작)
+    let sb = null;
+    try {
+      if (!window.supabase || !window.supabase.createClient) {
+        throw new Error('Supabase SDK 로드 실패 (CDN 접근 불가?)');
+      }
+      sb = window.supabase.createClient(SB_URL, SB_ANON, {
+        auth: { persistSession: false, autoRefreshToken: false }
+      });
+      console.log('[signup] Supabase 초기화 성공');
+    } catch (e) {
+      console.error('[signup] Supabase 초기화 실패:', e);
+      alert('네트워크 연결을 확인해주세요. (Supabase 서버 접근 실패)');
+    }
+
+    // ─── 상태 ───
+    const state = {
+      step: 0,
+      role: null,             // 'owner' | 'leader'
+      email: '',
+      password: '',
+      otpSent: false,
+      resendCooldown: 0,
+      terms: false,
+      privacy: false,
+      submitting: false,
+    };
+
+    const TOTAL_STEPS = 6;
+
+    // ─── DOM helpers ───
+    const $ = (id) => document.getElementById(id);
+    const setBtnText = (t) => { $('btn-next').textContent = t; };
+    const setLoading = (v) => { $('loading').classList.toggle('active', v); };
+    const showToast = (msg, ms = 2500) => {
+      const t = $('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      clearTimeout(showToast._h);
+      showToast._h = setTimeout(() => t.classList.remove('show'), ms);
+    };
+    const showFieldError = (id, msg) => {
+      const el = $(id + '-error');
+      if (el) { el.textContent = msg; el.style.display = 'block'; }
+      const input = $(id);
+      if (input) input.classList.add('error');
+    };
+    const clearFieldError = (id) => {
+      const el = $(id + '-error');
+      if (el) { el.textContent = ''; el.style.display = 'none'; }
+      const input = $(id);
+      if (input) input.classList.remove('error');
+    };
+
+    // ─── 초대 코드 생성 (앱과 동일: 32문자, 6자리, crypto.getRandomValues) ───
+    function generateInviteCode() {
+      const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+      const bytes = new Uint8Array(6);
+      crypto.getRandomValues(bytes);
+      let code = '';
+      for (let i = 0; i < 6; i++) code += chars[bytes[i] % chars.length];
+      return code;
+    }
+
+    // ─── Step 전환 ───
+    function showStep(step) {
+      state.step = step;
+      document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+
+      if (step === 'done') {
+        document.querySelector('[data-step="done"]').classList.add('active');
+        $('footer').style.display = 'none';
+        $('step-indicator').style.display = 'none';
+        $('progress-fill').style.width = '100%';
+        $('btn-back').disabled = true;
+        return;
+      }
+
+      // Step 1은 사장님만 (팀장이면 자동 skip)
+      let displayStep = step;
+      if (step === 1 && state.role === 'leader') return goNext();
+
+      document.querySelector(`[data-step="${step}"]`).classList.add('active');
+      $('step-indicator').textContent = `${step + 1} / ${TOTAL_STEPS}`;
+      $('progress-fill').style.width = ((step + 1) / TOTAL_STEPS * 100) + '%';
+
+      // Step 4: 역할별 필드 토글
+      if (step === 4) {
+        document.querySelectorAll('[data-owner-only]').forEach(el => {
+          el.style.display = state.role === 'owner' ? 'block' : 'none';
+        });
+        document.querySelectorAll('[data-leader-only]').forEach(el => {
+          el.style.display = state.role === 'leader' ? 'block' : 'none';
+        });
+      }
+
+      // 버튼 라벨
+      if (step === 5) setBtnText('가입 완료');
+      else if (step === 2 && state.otpSent) setBtnText('다음');
+      else if (step === 3) setBtnText('인증 확인');
+      else setBtnText('다음');
+
+      // Step 0에서도 뒤로가기 활성 (홈으로 이동)
+      $('btn-back').disabled = false;
+    }
+
+    function goNext() {
+      if (state.step === 0 && state.role === 'leader') {
+        showStep(2);  // Step 1 skip
+      } else {
+        showStep(state.step + 1);
+      }
+    }
+
+    function goBack() {
+      // Step 0에서 뒤로가기 → 홈페이지로 이동
+      if (state.step === 0) {
+        window.location.href = '/';
+        return;
+      }
+      // Step 3에서 OTP 발송 상태면 이메일 수정으로 (Step 2)
+      if (state.step === 3 && state.otpSent) {
+        state.otpSent = false;
+        showStep(2);
+        return;
+      }
+      // 팀장: Step 2 → Step 0 (Step 1 skip)
+      if (state.step === 2 && state.role === 'leader') {
+        showStep(0);
+        return;
+      }
+      showStep(state.step - 1);
+    }
+
+    // ─── Step 0: 역할 선택 ───
+    function selectRole(role) {
+      state.role = role;
+      document.querySelectorAll('.role-card').forEach(el => {
+        const selected = el.dataset.role === role;
+        el.classList.toggle('selected', selected);
+        const check = el.querySelector('.role-card-check svg');
+        if (check) check.style.display = selected ? 'block' : 'none';
+      });
+    }
+
+    // ─── Step 1: 회사 가입 코드 검증 (사장님만) ───
+    async function verifyCompanyCode() {
+      const code = $('company-code').value.trim().toUpperCase();
+      if (!code) {
+        showFieldError('company-code', '회사 가입 코드를 입력해주세요');
+        return false;
+      }
+      setLoading(true);
+      try {
+        // 앱은 from('company_invites').select() 사용 · RLS 개선 후에는 RPC로 전환 (Part C)
+        const { data, error } = await sb
+          .from('company_invites')
+          .select('code')
+          .eq('code', code)
+          .eq('used', false)
+          .maybeSingle();
+        if (error) throw error;
+        if (!data) {
+          showFieldError('company-code', '유효하지 않은 가입 코드입니다');
+          return false;
+        }
+        return true;
+      } catch (e) {
+        console.error('[verifyCompanyCode] 상세 에러:', e);
+        console.error('[verifyCompanyCode] 에러 메시지:', e.message);
+        console.error('[verifyCompanyCode] 에러 코드:', e.code, e.details, e.hint);
+        showFieldError('company-code', '오류: ' + (e.message || e.toString()));
+        return false;
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    // ─── Step 2: signUp → OTP 발송 ───
+    async function sendOtp() {
+      const email = $('email').value.trim().toLowerCase();
+      const password = $('password').value;
+      const confirm = $('password-confirm').value;
+      clearFieldError('email');
+      clearFieldError('password');
+
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showFieldError('email', '올바른 이메일 형식을 입력해주세요');
+        return false;
+      }
+      if (password.length < 6) {
+        showFieldError('password', '비밀번호는 6자 이상이어야 합니다');
+        return false;
+      }
+      if (password !== confirm) {
+        showFieldError('password', '비밀번호가 일치하지 않아요');
+        return false;
+      }
+
+      setLoading(true);
+      try {
+        const { data, error } = await sb.auth.signUp({ email, password });
+        if (error) {
+          const msg = error.message || '';
+          if (msg.toLowerCase().includes('already') || msg.includes('registered')) {
+            showFieldError('email', '이미 가입된 이메일입니다. 앱에서 로그인해주세요.');
+          } else if (msg.toLowerCase().includes('rate')) {
+            showFieldError('email', '너무 자주 시도했어요. 잠시 후 다시 시도해주세요.');
+          } else {
+            showFieldError('email', '가입 실패: ' + msg);
+          }
+          return false;
+        }
+        // Supabase는 이미 등록된 이메일에 대해 error 대신 빈 identities 배열 반환 (보안 정책)
+        if (data?.user && Array.isArray(data.user.identities) && data.user.identities.length === 0) {
+          showFieldError('email', '이미 가입된 이메일입니다. 앱에서 로그인해주세요.');
+          return false;
+        }
+        state.email = email;
+        state.password = password;
+        state.otpSent = true;
+        $('otp-email-display').textContent = email + '으로 인증코드를 보냈어요. 스팸함도 확인해주세요.';
+        startResendCooldown(60);
+        return true;
+      } catch (e) {
+        console.error('sendOtp', e);
+        showToast('가입 실패. 잠시 후 다시 시도해주세요.');
+        return false;
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    // ─── Step 3: verifyOtp ───
+    async function verifyOtpCode() {
+      const token = $('otp').value.trim();
+      clearFieldError('otp');
+      if (!/^\d{6}$/.test(token)) {
+        showFieldError('otp', '6자리 숫자 코드를 입력해주세요');
+        return false;
+      }
+      setLoading(true);
+      try {
+        const { data, error } = await sb.auth.verifyOtp({
+          email: state.email,
+          token,
+          type: 'signup',
+        });
+        if (error) {
+          const msg = (error.message || '').toLowerCase();
+          if (msg.includes('expired')) {
+            showFieldError('otp', '인증 시간이 만료됐어요. 재발송해주세요.');
+          } else if (msg.includes('invalid')) {
+            showFieldError('otp', '잘못된 인증코드입니다.');
+          } else {
+            showFieldError('otp', '인증 실패: ' + error.message);
+          }
+          return false;
+        }
+        if (!data.session || !data.user) {
+          showFieldError('otp', '인증 처리 중 오류가 발생했어요.');
+          return false;
+        }
+        return true;
+      } catch (e) {
+        console.error('verifyOtpCode', e);
+        showToast('인증 실패. 잠시 후 다시 시도해주세요.');
+        return false;
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    // ─── OTP 재발송 ───
+    async function resendOtp() {
+      if (state.resendCooldown > 0) return;
+      setLoading(true);
+      try {
+        const { error } = await sb.auth.resend({
+          type: 'signup',
+          email: state.email,
+        });
+        if (error) {
+          showToast('재발송 실패: ' + error.message);
+          return;
+        }
+        showToast('인증코드를 다시 보냈어요');
+        startResendCooldown(60);
+      } catch (e) {
+        showToast('재발송 실패');
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    function startResendCooldown(sec) {
+      state.resendCooldown = sec;
+      const btn = $('btn-resend');
+      const timer = $('resend-timer');
+      btn.disabled = true;
+      const tick = () => {
+        if (state.resendCooldown <= 0) {
+          btn.disabled = false;
+          timer.textContent = '코드가 오지 않았나요?';
+          return;
+        }
+        timer.textContent = `${state.resendCooldown}초 후 재발송 가능`;
+        state.resendCooldown--;
+        setTimeout(tick, 1000);
+      };
+      tick();
+    }
+
+    // ─── Step 4: 프로필 검증 ───
+    function validateProfile() {
+      const name = $('name').value.trim();
+      const phone = $('phone').value.trim();
+      clearFieldError('name');
+      clearFieldError('phone');
+      clearFieldError('company-name');
+      clearFieldError('invite-code');
+
+      if (name.length < 2) {
+        showFieldError('name', '이름은 2자 이상 입력해주세요');
+        return false;
+      }
+      if (phone && !/^01[016789][0-9]{7,8}$/.test(phone.replace(/-/g, ''))) {
+        showFieldError('phone', '올바른 휴대폰 번호 형식을 입력해주세요');
+        return false;
+      }
+      if (state.role === 'owner') {
+        const companyName = $('company-name').value.trim();
+        if (!companyName) {
+          showFieldError('company-name', '업체명을 입력해주세요');
+          return false;
+        }
+      }
+      if (state.role === 'leader') {
+        const code = $('invite-code').value.trim();
+        if (!code) {
+          showFieldError('invite-code', '초대 코드를 입력해주세요');
+          return false;
+        }
+      }
+      return true;
+    }
+
+    // ─── Step 5: handle_signup ───
+    async function completeSignup() {
+      if (!state.terms || !state.privacy) {
+        showToast('필수 약관에 모두 동의해주세요');
+        return;
+      }
+      setLoading(true);
+      try {
+        let companyId = null;
+        let leaderIdForMember = null;
+        let actualRole = state.role;
+
+        // 팀장 초대코드 검증
+        if (state.role === 'leader') {
+          const code = $('invite-code').value.trim().toUpperCase();
+          const { data: result, error: rpcErr } = await sb.rpc('verify_invite_code', { p_code: code });
+          if (rpcErr) throw rpcErr;
+          if (!result) {
+            showFieldError('invite-code', '유효하지 않은 초대 코드입니다');
+            setLoading(false);
+            showStep(4);
+            return;
+          }
+          const type = result.type;
+          companyId = result.company_id;
+          if (type === 'company') {
+            // 팀장 수 제한
+            const { data: company } = await sb.from('companies').select('max_leaders').eq('id', companyId).maybeSingle();
+            const maxLeaders = company?.max_leaders ?? 3;
+            const { data: leaders } = await sb.from('users').select('id').eq('company_id', companyId).eq('role', 'leader').eq('is_active', true);
+            if ((leaders?.length || 0) >= maxLeaders) {
+              showToast(`팀장 등록 가능 인원이 초과됐어요 (최대 ${maxLeaders}명)`);
+              setLoading(false);
+              showStep(4);
+              return;
+            }
+            actualRole = 'leader';
+          } else {
+            leaderIdForMember = result.leader_id;
+            actualRole = 'member';
+          }
+        }
+
+        // 인증 세션 확인
+        const { data: sess } = await sb.auth.getSession();
+        const authUser = sess?.session?.user;
+        if (!authUser) throw new Error('인증 세션이 만료됐어요. 처음부터 다시 시도해주세요.');
+
+        const inviteCode = generateInviteCode();
+        const phone = $('phone').value.trim();
+
+        const { error: signupErr } = await sb.rpc('handle_signup', {
+          p_auth_id: authUser.id,
+          p_name: $('name').value.trim(),
+          p_phone: phone,
+          p_role: actualRole,
+          p_company_name: state.role === 'owner' ? $('company-name').value.trim() : null,
+          p_invite_code: (actualRole === 'owner' || actualRole === 'leader') ? inviteCode : null,
+          p_company_id: companyId,
+          p_leader_id: leaderIdForMember,
+        });
+        if (signupErr) throw signupErr;
+
+        // 사장님: 회사 가입코드 used 처리
+        if (state.role === 'owner') {
+          const code = $('company-code').value.trim().toUpperCase();
+          await sb.from('company_invites').update({
+            used: true,
+            used_at: new Date().toISOString(),
+          }).eq('code', code);
+        }
+
+        // 세션 정리 (앱에서 새로 로그인)
+        await sb.auth.signOut();
+
+        showStep('done');
+      } catch (e) {
+        console.error('completeSignup', e);
+        showToast('가입 실패: ' + (e.message || '알 수 없는 오류'));
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    // ─── 「다음」 버튼 핸들러 ───
+    async function handleNext() {
+      switch (state.step) {
+        case 0:
+          if (!state.role) return showToast('역할을 선택해주세요');
+          if (state.role === 'leader') showStep(2);
+          else showStep(1);
+          break;
+        case 1:
+          if (await verifyCompanyCode()) showStep(2);
+          break;
+        case 2:
+          if (await sendOtp()) showStep(3);
+          break;
+        case 3:
+          if (await verifyOtpCode()) showStep(4);
+          break;
+        case 4:
+          if (validateProfile()) showStep(5);
+          break;
+        case 5:
+          await completeSignup();
+          break;
+      }
+    }
+
+    // ─── 약관 ───
+    function toggleAll() {
+      const next = !(state.terms && state.privacy);
+      state.terms = next;
+      state.privacy = next;
+      renderTerms();
+    }
+    function toggleTerm(key) {
+      state[key] = !state[key];
+      renderTerms();
+    }
+    function renderTerms() {
+      const all = state.terms && state.privacy;
+      const setCheck = (id, checked) => {
+        const el = $(id);
+        el.classList.toggle('checked', checked);
+        const svg = el.querySelector('svg');
+        if (svg) svg.style.display = checked ? 'block' : 'none';
+      };
+      setCheck('check-all', all);
+      setCheck('check-terms', state.terms);
+      setCheck('check-privacy', state.privacy);
+    }
+
+    // ─── 모달 (약관 보기) ───
+    const TERMS_URLS = {
+      terms: { title: '이용약관', url: '/terms.html' },
+      privacy: { title: '개인정보 처리방침', url: '/privacy.html' },
+    };
+    async function openModal(key) {
+      const cfg = TERMS_URLS[key];
+      $('modal-title').textContent = cfg.title;
+      $('modal-body').textContent = '불러오는 중...';
+      $('terms-modal').classList.add('open');
+      try {
+        const resp = await fetch(cfg.url);
+        if (!resp.ok) throw new Error();
+        const html = await resp.text();
+        // <body> 안의 텍스트만 추출 (간단 파싱)
+        const match = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
+        const body = match ? match[1] : html;
+        // HTML 태그 제거 → 순수 텍스트
+        const div = document.createElement('div');
+        div.innerHTML = body;
+        $('modal-body').textContent = div.textContent.trim();
+      } catch (e) {
+        $('modal-body').textContent = '약관 페이지를 불러올 수 없습니다. 잠시 후 다시 시도해주세요.\n\n' + cfg.url + '에서 직접 확인 가능합니다.';
+      }
+    }
+    function closeModal() { $('terms-modal').classList.remove('open'); }
+
+    // ─── 이벤트 바인딩 ───
+    $('btn-back').addEventListener('click', goBack);
+
+    // 인풋 실시간 검증 클리어
+    ['email', 'password', 'password-confirm', 'name', 'phone', 'company-name', 'invite-code', 'company-code', 'otp'].forEach(id => {
+      const el = $(id);
+      if (el) el.addEventListener('input', () => {
+        const errKey = id.replace('password-confirm', 'password');
+        clearFieldError(errKey);
+      });
+    });
+
+    // 비밀번호 강도 실시간 계산 (앱과 동일 로직)
+    function calcPwStrength(v) {
+      let s = 0;
+      if (v.length >= 6) s++;
+      if (v.length >= 8) s++;
+      if (/[A-Z]/.test(v) || /[!@#$%^&*]/.test(v)) s++;
+      if (/\d/.test(v) && /[a-zA-Z]/.test(v)) s++;
+      return s;
+    }
+    function renderPwStrength(v) {
+      const container = $('pw-strength');
+      const bars = container.querySelectorAll('.pw-bars span');
+      const label = $('pw-label');
+      if (!v) { container.classList.remove('show'); return; }
+      container.classList.add('show');
+      const s = calcPwStrength(v);
+      let cls = 'pw-weak', text = '약함';
+      if (s === 2) { cls = 'pw-medium'; text = '보통'; }
+      else if (s === 3) { cls = 'pw-strong'; text = '강함'; }
+      else if (s === 4) { cls = 'pw-strong'; text = '매우 강함'; }
+      bars.forEach((bar, i) => {
+        bar.classList.remove('pw-weak', 'pw-medium', 'pw-strong');
+        if (i < s) bar.classList.add(cls);
+      });
+      label.classList.remove('pw-weak', 'pw-medium', 'pw-strong');
+      label.classList.add(cls);
+      label.textContent = text;
+    }
+    $('password').addEventListener('input', (e) => renderPwStrength(e.target.value));
+
+    // 전화번호 포맷 (010-1234-5678)
+    $('phone').addEventListener('input', (e) => {
+      let v = e.target.value.replace(/\D/g, '').slice(0, 11);
+      if (v.length >= 7) v = v.slice(0, 3) + '-' + v.slice(3, 7) + '-' + v.slice(7);
+      else if (v.length >= 4) v = v.slice(0, 3) + '-' + v.slice(3);
+      e.target.value = v;
+    });
+
+    // OTP 숫자만
+    $('otp').addEventListener('input', (e) => {
+      e.target.value = e.target.value.replace(/\D/g, '').slice(0, 6);
+    });
+
+    // ─── 인라인 onclick 핸들러를 위해 window에 명시적 등록 ───
+    window.selectRole = selectRole;
+    window.handleNext = handleNext;
+    window.resendOtp = resendOtp;
+    window.toggleAll = toggleAll;
+    window.toggleTerm = toggleTerm;
+    window.openModal = openModal;
+    window.closeModal = closeModal;
+
+    // 초기 렌더
+    showStep(0);
+    console.log('[signup] 초기화 완료 · 버튼 활성화됨');
+  </script>
+</body>
+</html>
