@@ -206,6 +206,36 @@
       color: var(--navy);
     }
 
+    /* 공동사업자/관리자 · 작게 (사장님·팀장만큼 두드러지지 않게) */
+    .role-card.role-card-slim {
+      padding: 11px 14px;
+      margin-top: 6px;
+      border-color: var(--border);
+      opacity: 0.88;
+    }
+    .role-card.role-card-slim:hover { opacity: 1; }
+    .role-card.role-card-slim.selected { opacity: 1; }
+    .role-card.role-card-slim .role-card-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+    }
+    .role-card.role-card-slim .role-card-icon svg { width: 15px; height: 15px; }
+    .role-card.role-card-slim .role-card-body { margin-left: 11px; }
+    .role-card.role-card-slim .role-card-title { font-size: 13.5px; font-weight: 700; }
+    .role-card.role-card-slim .role-card-desc { font-size: 11.5px; }
+    .role-card.role-card-slim .role-card-check {
+      width: 18px;
+      height: 18px;
+    }
+    .role-card-divider {
+      text-align: center;
+      font-size: 11px;
+      color: var(--muted);
+      margin: 10px 0 2px;
+      letter-spacing: 0.5px;
+    }
+
     /* 인풋 */
     .field { margin-bottom: 16px; }
     .field-label {
@@ -576,6 +606,20 @@
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="display:none"><polyline points="20 6 9 17 4 12"></polyline></svg>
           </div>
         </div>
+
+        <!-- 공동사업자/관리자 (슬림 · 사장님·팀장만큼 두드러지지 않게) -->
+        <div class="role-card role-card-slim" data-role="co_owner" onclick="selectRole('co_owner')">
+          <div class="role-card-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+          </div>
+          <div class="role-card-body">
+            <div class="role-card-title">공동사업자 / 관리자</div>
+            <div class="role-card-desc">사장님에게 받은 공동사업자 코드로 이용</div>
+          </div>
+          <div class="role-card-check">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="display:none"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </div>
+        </div>
       </div>
 
       <!-- Step 1: 회사 가입코드 (사장님만) -->
@@ -666,6 +710,14 @@
           <input id="invite-code" class="input uppercase" type="text" placeholder="사장님/팀장에게 받은 6자리 코드" maxlength="6" autocapitalize="characters" autocomplete="off">
           <div class="field-hint">사장님 또는 팀장에게 받은 6자리 코드</div>
           <div class="field-error" id="invite-code-error" style="display:none"></div>
+        </div>
+
+        <!-- 공동사업자/관리자 전용 -->
+        <div class="field" data-co-owner-only style="display:none">
+          <label class="field-label" for="co-owner-code">공동사업자 초대 코드</label>
+          <input id="co-owner-code" class="input uppercase" type="text" placeholder="사장님에게 받은 6자리 코드" maxlength="6" autocapitalize="characters" autocomplete="off">
+          <div class="field-hint">사장님에게 받은 공동사업자/관리자 전용 코드</div>
+          <div class="field-error" id="co-owner-code-error" style="display:none"></div>
         </div>
       </div>
 
@@ -767,7 +819,7 @@
     // ─── 상태 ───
     const state = {
       step: 0,
-      role: null,             // 'owner' | 'leader'
+      role: null,             // 'owner' | 'leader' | 'co_owner'
       email: '',
       password: '',
       otpSent: false,
@@ -827,9 +879,9 @@
         return;
       }
 
-      // Step 1은 사장님만 (팀장이면 자동 skip)
+      // Step 1은 사장님만 (팀장·공동사업자는 자동 skip)
       let displayStep = step;
-      if (step === 1 && state.role === 'leader') return goNext();
+      if (step === 1 && (state.role === 'leader' || state.role === 'co_owner')) return goNext();
 
       document.querySelector(`[data-step="${step}"]`).classList.add('active');
       $('step-indicator').textContent = `${step + 1} / ${TOTAL_STEPS}`;
@@ -842,6 +894,9 @@
         });
         document.querySelectorAll('[data-leader-only]').forEach(el => {
           el.style.display = state.role === 'leader' ? 'block' : 'none';
+        });
+        document.querySelectorAll('[data-co-owner-only]').forEach(el => {
+          el.style.display = state.role === 'co_owner' ? 'block' : 'none';
         });
       }
 
@@ -856,7 +911,7 @@
     }
 
     function goNext() {
-      if (state.step === 0 && state.role === 'leader') {
+      if (state.step === 0 && (state.role === 'leader' || state.role === 'co_owner')) {
         showStep(2);  // Step 1 skip
       } else {
         showStep(state.step + 1);
@@ -875,8 +930,8 @@
         showStep(2);
         return;
       }
-      // 팀장: Step 2 → Step 0 (Step 1 skip)
-      if (state.step === 2 && state.role === 'leader') {
+      // 팀장·공동사업자: Step 2 → Step 0 (Step 1 skip)
+      if (state.step === 2 && (state.role === 'leader' || state.role === 'co_owner')) {
         showStep(0);
         return;
       }
@@ -1070,6 +1125,7 @@
       clearFieldError('phone');
       clearFieldError('company-name');
       clearFieldError('invite-code');
+      clearFieldError('co-owner-code');
 
       if (name.length < 2) {
         showFieldError('name', '이름은 2자 이상 입력해주세요');
@@ -1090,6 +1146,13 @@
         const code = $('invite-code').value.trim();
         if (!code) {
           showFieldError('invite-code', '초대 코드를 입력해주세요');
+          return false;
+        }
+      }
+      if (state.role === 'co_owner') {
+        const code = $('co-owner-code').value.trim();
+        if (!code) {
+          showFieldError('co-owner-code', '공동사업자 초대 코드를 입력해주세요');
           return false;
         }
       }
@@ -1139,6 +1202,26 @@
           }
         }
 
+        // 공동사업자 초대코드 검증 (팀장 로직과 완전 분리)
+        if (state.role === 'co_owner') {
+          const code = $('co-owner-code').value.trim().toUpperCase();
+          const { data: result, error: rpcErr } = await sb.rpc('verify_co_owner_code', { p_code: code });
+          if (rpcErr) throw rpcErr;
+          if (!result || result.ok === false) {
+            const errType = result?.error;
+            if (errType === 'limit_exceeded') {
+              showFieldError('co-owner-code', `공동사업자 등록 가능 인원이 초과됐어요 (최대 ${result.limit}명)`);
+            } else {
+              showFieldError('co-owner-code', '유효하지 않은 공동사업자 코드입니다');
+            }
+            setLoading(false);
+            showStep(4);
+            return;
+          }
+          companyId = result.company_id;
+          actualRole = 'co_owner';
+        }
+
         // 인증 세션 확인
         const { data: sess } = await sb.auth.getSession();
         const authUser = sess?.session?.user;
@@ -1185,7 +1268,7 @@
       switch (state.step) {
         case 0:
           if (!state.role) return showToast('역할을 선택해주세요');
-          if (state.role === 'leader') showStep(2);
+          if (state.role === 'leader' || state.role === 'co_owner') showStep(2);
           else showStep(1);
           break;
         case 1:
